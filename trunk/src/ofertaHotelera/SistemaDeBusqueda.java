@@ -1,6 +1,6 @@
 package ofertaHotelera;
 
-
+//
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -25,9 +25,6 @@ public class SistemaDeBusqueda {
 		this.usuarios = usuarios;
 	}
 
-	public List<Hotel> buscarHoteles(String unaCiudad, Calendar desde, Calendar hasta, int huespedes){
-		return getHoteles();
-	}
 	/**
 	 * @param args
 	 */
