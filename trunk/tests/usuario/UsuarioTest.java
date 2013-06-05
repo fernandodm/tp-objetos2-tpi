@@ -65,7 +65,7 @@ public class UsuarioTest extends TestCase {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-		Usuario luisputo;
+		Usuario luisputo;///
 	}
 
 }
