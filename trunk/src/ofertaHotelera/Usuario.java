@@ -2,7 +2,7 @@ package ofertaHotelera;
 
 import java.util.ArrayList;
 import java.util.List;
-
+//esteban se la lastra
 public class Usuario {
 	//
 	private SistemaDeBusqueda sistema;
