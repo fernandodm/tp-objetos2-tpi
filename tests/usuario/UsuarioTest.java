@@ -26,7 +26,6 @@ public class UsuarioTest extends TestCase {
 		when(reserva1.ciudadDelHotel()).thenReturn("Sidney");
 		when(reserva2.ciudadDelHotel()).thenReturn("Moscu");
 		when(reserva3.ciudadDelHotel()).thenReturn("Sidney");
-		
 		reservasUsuario.add(reserva1);
 		reservasUsuario.add(reserva2);
 		reservasUsuario.add(reserva3);
@@ -38,13 +37,8 @@ public class UsuarioTest extends TestCase {
 	
 	public void testTodasLasReservas(){
 		
-		/////FALLAAAA/////
-		
-		Usuario user = mock(Usuario.class);
-	
-		when(user.getReservas()).thenReturn(reservasUsuario);
-		List<Reserva> reservas = user.todasLasReservas();
-		Assert.assertEquals("NO HAY LAS RESERVAS ESPERADAS",reservas.size(), 3);
+		List<Reserva> reservas = usuario.todasLasReservas();
+		Assert.assertEquals("NO HAY LAS RESERVAS ESPERADAS",reservas.size(), 3 );
 	}
 	
 	public void testReservaPorCiudad(){

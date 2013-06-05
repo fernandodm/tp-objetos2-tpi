@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Usuario {
-	
+	//
 	private SistemaDeBusqueda sistema;
 	private List<Reserva> reservas = new ArrayList<Reserva>();
 	private String nombreUsuario;
