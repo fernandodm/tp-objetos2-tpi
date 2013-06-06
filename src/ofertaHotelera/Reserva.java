@@ -59,7 +59,6 @@ public class Reserva {
 		this.hotel = hotel;
 	}
 
-
 	public String ciudadDelHotel() {
 		
 		return hotel.getCiudad();
