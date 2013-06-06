@@ -65,19 +65,16 @@ public class Reserva {
 		return hotel.getCiudad();
 	}
 	
-	
+	public boolean estaReservadaDespuesDe(Calendar instance) {
+		
+		return getFechaDeIngreso().after(instance);
+	}
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-	}
-
-
-	public boolean estaReservadaDespuesDe(Calendar instance) {
-		
-		return getFechaDeIngreso().after(instance);
 	}
 
 }
