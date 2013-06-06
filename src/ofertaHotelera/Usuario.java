@@ -1,16 +1,33 @@
 package ofertaHotelera;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
+import excepciones.ExcepcionNoEstaOnline;
+
 public class Usuario {
-	//
+
 	private SistemaDeBusqueda sistema;
 	private List<Reserva> reservas = new ArrayList<Reserva>();
 	private String nombreUsuario;
 	private String contrasenha;
 	private String nombre;
 	private boolean online;
+	
+	public Usuario(){};
+	
+	public Usuario(SistemaDeBusqueda sistema, List<Reserva> reservas,
+			String nombreUsuario, String contrasenha, String nombre,
+			boolean online) {
+	
+		this.sistema = sistema;
+		this.reservas = reservas;
+		this.nombreUsuario = nombreUsuario;
+		this.contrasenha = contrasenha;
+		this.nombre = nombre;
+		this.online = online;
+	}
 	
 	public SistemaDeBusqueda getSistema() {
 		return sistema;
@@ -49,30 +66,68 @@ public class Usuario {
 		this.online = online;
 	}
 	
-	public List<Reserva> todasLasReservas(){
-		return getReservas();
+	public List<Reserva> todasLasReservas()throws ExcepcionNoEstaOnline{
+		
+		if(isOnline()){
+	
+			return getReservas();
+		
+		}else{
+			throw new ExcepcionNoEstaOnline();
+		}
 	}
 	
-	public List<Reserva> reservaPorCiudad(String unaCiudad){
+	public List<Reserva> reservaPorCiudad(String unaCiudad) throws ExcepcionNoEstaOnline{
 		
-		List<Reserva> misReservas = new ArrayList<Reserva>();
-		
-		for(Reserva each : getReservas()){
-			if(each.ciudadDelHotel().equals(unaCiudad)){
-				misReservas.add(each);
+		if(isOnline()){
+			List<Reserva> misReservas = new ArrayList<Reserva>();
+			for(Reserva each : getReservas()){
+				if(each.ciudadDelHotel().equals(unaCiudad)){
+					misReservas.add(each);
+				}
 			}
+			return misReservas;
+		}else{
+			throw new ExcepcionNoEstaOnline();
 		}
-		return misReservas;
 	}
-	public List<String> ciudadesConReservas() {
+	public List<String> ciudadesConReservas()throws ExcepcionNoEstaOnline{
 		
-		List<String> ciudades = new ArrayList<String>();
+		if(isOnline()){
+			List<String> ciudades = new ArrayList<String>();
+			
+			for(Reserva each: getReservas()){
+				ciudades.add(each.ciudadDelHotel());
+			}
 		
-		for(Reserva each: getReservas()){
-			ciudades.add(each.ciudadDelHotel());
+			return ciudades;
+		}else{
+			throw new ExcepcionNoEstaOnline();
 		}
-		
-		return ciudades;
 	}
 	
+	public List<Reserva> reservasFuturas() throws ExcepcionNoEstaOnline{
+		
+		if(isOnline()){
+			List<Reserva> futuras = new ArrayList<Reserva>();
+		
+			for(Reserva each: getReservas()){
+				if(each.estaReservadaDespuesDe(Calendar.getInstance())){
+					futuras.add(each);
+				}
+			}
+			return futuras;
+		}else{
+			throw new ExcepcionNoEstaOnline();
+		}
+	}
+	
+	//public void cancelarReserva
+	
+	public static void main(String[] args) {
+		Calendar c = Calendar.getInstance();
+		Calendar c1 = Calendar.getInstance();
+		c1.set(2013,05,05);
+		System.out.println(c.after(c1));
+	}
 }
