@@ -4,6 +4,7 @@ import static org.mockito.Mockito.*;
 
 import java.util.Calendar;
 
+import ofertaHotelera.Habitacion;
 import ofertaHotelera.Hotel;
 import ofertaHotelera.Reserva;
 import junit.framework.Assert;
@@ -12,10 +13,17 @@ import junit.framework.TestCase;
 public class ReservaTest extends TestCase {
 	private Reserva reserva;
 	private Calendar calendario;
+	private Habitacion habitacion;
+	private Hotel hotel;
 	
 	public void setUp(){
 		reserva = new Reserva();
+		habitacion = mock(Habitacion.class);
+		hotel = mock(Hotel.class);
 		calendario = Calendar.getInstance();
+		reserva.setFechaDeIngreso(calendario);
+		reserva.setHabitacion(habitacion);
+		reserva.setHotel(hotel);
 	}
 	
 	public void testCiudadDelHotel(){
@@ -41,6 +49,20 @@ public class ReservaTest extends TestCase {
 		calendario.set(2013,04,19);
 		reserva.setFechaDeIngreso(calendario);
 		Assert.assertFalse(reserva.estaReservadaDespuesDe(Calendar.getInstance()));
+		
+	}
+	
+	public void testEliminarHorarioDeLaHabitacion(){
+		
+		reserva.eliminarHorarioDeLaHabitacion();
+		verify(habitacion).eliminarHorario(any(Calendar.class), any(Calendar.class));
+		
+	}
+	
+	public void testEliminarReservaDelHotel(){
+		
+		reserva.eliminarReservaDelHotel();
+		verify(hotel).eliminarReserva(any(Reserva.class));
 		
 	}
 	
