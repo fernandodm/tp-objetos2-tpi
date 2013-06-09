@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import excepciones.ExcepcionNoEstaOnline;
+import excepciones.ExcepcionNoSeEncontroReserva;
 
 public class Usuario {
 
@@ -122,7 +123,31 @@ public class Usuario {
 		}
 	}
 	
-	//public void cancelarReserva
+	public void eliminarLaReserva(Reserva unaReserva) throws ExcepcionNoSeEncontroReserva{
+		
+		if(getReservas().contains(unaReserva)){
+			for(Reserva each : getReservas()){
+				if(each.equals(unaReserva)){
+					each.eliminarReservaDelHotel();
+					each.eliminarHorarioDeLaHabitacion();
+					getReservas().remove(unaReserva);
+					break;
+				}	
+			}
+		}else{	
+			throw new ExcepcionNoSeEncontroReserva();
+			}
+	}
+	
+	public void cancelarReserva(Reserva unaReserva) throws ExcepcionNoEstaOnline, ExcepcionNoSeEncontroReserva{
+		
+		if(isOnline()){
+			eliminarLaReserva(unaReserva);
+		}else{
+			throw new ExcepcionNoEstaOnline();
+		}
+	}	 
+	
 	
 	public static void main(String[] args) {
 		Calendar c = Calendar.getInstance();
