@@ -1,4 +1,4 @@
-package reserva;
+package testOfertaHotelera;
 
 import static org.mockito.Mockito.*;
 
