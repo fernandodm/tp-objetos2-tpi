@@ -20,10 +20,9 @@ public class HabitacionTest extends TestCase {
 	private Calendar fechaFin6;
 	
 	
-	////////////FALLAAA///////////
-	
-	
 	public void setUp(){
+		
+		habitacion = new Habitacion();
 		
 		List<Calendar> diasReserva1 = new ArrayList<Calendar>();
 		List<Calendar> diasReserva2 = new ArrayList<Calendar>();
@@ -40,8 +39,8 @@ public class HabitacionTest extends TestCase {
 		fechaInicio3.set(2013,01,10);		
 		fechaFin4 = Calendar.getInstance();
 		fechaFin4.set(2013,01,17);
-		diasReserva3.add(fechaInicio3);
-		diasReserva3.add(fechaFin4);
+		diasReserva2.add(fechaInicio3);
+		diasReserva2.add(fechaFin4);
 		
 		fechaInicio5 = Calendar.getInstance();
 		fechaInicio5.set(2013,01,20);
