@@ -7,6 +7,7 @@ import java.util.List;
 
 import excepciones.ExcepcionNoEstaOnline;
 import excepciones.ExcepcionNoSeEncontroReserva;
+import excepciones.ExcepcionTodaviaNoSeHospedoEnEsteHotelOSuReservaNoHaFinalizado;
 
 public class Usuario {
 
@@ -148,6 +149,23 @@ public class Usuario {
 			throw new ExcepcionNoEstaOnline();
 		}
 	}	 
+	
+	public void calificarHotel(Hotel h, String comentario, int puntaje) throws ExcepcionTodaviaNoSeHospedoEnEsteHotelOSuReservaNoHaFinalizado{
+		
+		boolean seHospedo = false;
+		for(Reserva each : getReservas()){
+			if(each.getHotel() == h && Calendar.getInstance().after(each.getFechaDeSalida())){
+				seHospedo = true;
+				break;
+			}
+		}
+		if(seHospedo){
+			h.agregarCalificacion(comentario, puntaje);
+		}else{
+			throw new ExcepcionTodaviaNoSeHospedoEnEsteHotelOSuReservaNoHaFinalizado();
+		}
+		
+	}
 	
 	
 	public static void main(String[] args) {
