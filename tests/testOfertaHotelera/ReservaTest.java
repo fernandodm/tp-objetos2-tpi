@@ -12,7 +12,8 @@ import junit.framework.TestCase;
 
 public class ReservaTest extends TestCase {
 	private Reserva reserva;
-	private Calendar calendario;
+	private Calendar fecha1;
+	private Calendar fecha2;
 	private Habitacion habitacion;
 	private Hotel hotel;
 	
@@ -20,8 +21,10 @@ public class ReservaTest extends TestCase {
 		reserva = new Reserva();
 		habitacion = mock(Habitacion.class);
 		hotel = mock(Hotel.class);
-		calendario = Calendar.getInstance();
-		reserva.setFechaDeIngreso(calendario);
+		fecha1 = Calendar.getInstance();
+		fecha2 = Calendar.getInstance();
+		fecha2.set(2013,06,10,0,0,0);
+		reserva.setFechaDeIngreso(fecha1);
 		reserva.setHabitacion(habitacion);
 		reserva.setHotel(hotel);
 	}
@@ -38,17 +41,15 @@ public class ReservaTest extends TestCase {
 	
 	public void testEstaReservadaDespuesDeConReservaFutura(){
 		
-		calendario.set(2013,07,11);
-		reserva.setFechaDeIngreso(calendario);
-		Assert.assertTrue(reserva.estaReservadaDespuesDe(Calendar.getInstance()));
+		fecha1.set(2013,07,11,0,0,0);
+		Assert.assertTrue(reserva.estaReservadaDespuesDe(fecha2));
 		
 	}
 	
 	public void testEstaReservadaDespuesDeConReservaPasada(){
 		
-		calendario.set(2013,04,19);
-		reserva.setFechaDeIngreso(calendario);
-		Assert.assertFalse(reserva.estaReservadaDespuesDe(Calendar.getInstance()));
+		fecha1.set(2013,04,19);
+		Assert.assertFalse(reserva.estaReservadaDespuesDe(fecha2));
 		
 	}
 	

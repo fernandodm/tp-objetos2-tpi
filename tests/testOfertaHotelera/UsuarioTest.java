@@ -131,8 +131,8 @@ public class UsuarioTest extends TestCase {
 		Reserva r2 = usuario.getReservas().get(1);
 		int cantReservas = usuario.getReservas().size();
 		Assert.assertEquals(cantReservas, 2);
-		Assert.assertEquals(r1, reserva2);
-		Assert.assertEquals(r2, reserva3);
+		Assert.assertTrue(r1 == reserva2);
+		Assert.assertTrue(r2 == reserva3);
 		
 	}
 

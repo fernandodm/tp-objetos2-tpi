@@ -2,6 +2,8 @@ package ofertaHotelera;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 public class Reserva {
@@ -103,8 +105,12 @@ public class Reserva {
 		List<Calendar> a = new ArrayList<Calendar>();
 		Calendar c = Calendar.getInstance();
 		Calendar c1 = Calendar.getInstance();
-		c.set(2000,10,3);
+		//c.set(2000,10,3);
 		c1.set(2000,10,3);
+		System.out.println();
+		GregorianCalendar g = new GregorianCalendar();
+		GregorianCalendar g1 = new GregorianCalendar(2011, 01, 11);
+		
 		a.add(c);
 		List<Calendar> b = new ArrayList<Calendar>();
 		b.add(c1);

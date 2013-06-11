@@ -2,6 +2,7 @@ package ofertaHotelera;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import excepciones.ExcepcionNoEstaOnline;
@@ -150,9 +151,22 @@ public class Usuario {
 	
 	
 	public static void main(String[] args) {
-		Calendar c = Calendar.getInstance();
-		Calendar c1 = Calendar.getInstance();
-		c1.set(2013,05,05);
-		System.out.println(c.after(c1));
+		Calendar fechau = Calendar.getInstance();
+		fechau.set(fechau.get(fechau.YEAR),fechau.get(fechau.MONTH), fechau.get(fechau.DATE),0,0,0);
+		Calendar fecha1 = Calendar.getInstance();
+		fecha1.set(fecha1.get(fecha1.YEAR),fecha1.get(fecha1.MONTH), fecha1.get(fecha1.DATE),0,0,0);
+		Calendar fecha2 = Calendar.getInstance();
+		fecha2.set(fecha2.get(fecha2.YEAR),fecha2.get(fecha1.MONTH), fecha2.get(fecha2.DATE) + 7,0,0,0);
+		Calendar fecha3 = Calendar.getInstance();
+		fecha3.set(fecha3.get(fecha3.YEAR),fecha3.get(fecha1.MONTH), fecha3.get(fecha3.DATE) - 3,0,0,0);
+		Calendar fecha4 = Calendar.getInstance();
+		fecha4.set(fecha4.get(fecha4.YEAR),fecha4.get(fecha1.MONTH), fecha4.get(fecha4.DATE) + 4,0,0,0);
+		Calendar fecha5 = Calendar.getInstance();
+		fecha5.set(fecha5.get(fecha5.YEAR),fecha5.get(fecha1.MONTH), fecha5.get(fecha5.DATE) - 7,0,0,0);
+		Calendar fecha6 = Calendar.getInstance();
+		fecha6.set(fecha6.get(fecha6.YEAR),fecha6.get(fecha1.MONTH), fecha6.get(fecha6.DATE),0,0,0);
+	
+		System.out.println(fecha1 == fecha3);
+		System.out.println(fechau.getTime());
 	}
 }
