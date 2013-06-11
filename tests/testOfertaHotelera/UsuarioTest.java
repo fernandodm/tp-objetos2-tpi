@@ -124,7 +124,7 @@ public class UsuarioTest extends TestCase {
 		Assert.assertEquals(futuras.size(), 2);
 	}
 	
-	public void testCancelarReserva() throws ExcepcionNoEstaOnline, ExcepcionNoSeEncontroReserva{
+	public void testCancelarReservaConUsuarioOnline() throws ExcepcionNoEstaOnline, ExcepcionNoSeEncontroReserva{
 		
 		usuario.cancelarReserva(reserva1);
 		Reserva r1 = usuario.getReservas().get(0);
@@ -133,7 +133,26 @@ public class UsuarioTest extends TestCase {
 		Assert.assertEquals(cantReservas, 2);
 		Assert.assertTrue(r1 == reserva2);
 		Assert.assertTrue(r2 == reserva3);
-		
+	}
+	
+	public void testCancelarReservaConUsuarioOffline() throws ExcepcionNoSeEncontroReserva{
+		Reserva reserva4 = mock(Reserva.class);
+		try{
+			usuario2.cancelarReserva(reserva4);
+			fail("NO SE LANZO LA EXCEPCION DE reservasFuturas()");
+		}catch(ExcepcionNoEstaOnline e){
+	
+		}
+	}
+	
+	public void testCancelarReservaConReservaNoEncontrada() throws ExcepcionNoEstaOnline{
+		Reserva reserva4 = mock(Reserva.class);
+		try{
+			usuario.cancelarReserva(reserva4);
+			fail("NO SE LANZO LA EXCEPCION DE reservasFuturas()");
+		}catch(ExcepcionNoSeEncontroReserva e){
+	
+		}
 	}
 
 	/**
