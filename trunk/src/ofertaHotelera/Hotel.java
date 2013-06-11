@@ -47,8 +47,7 @@ public class Hotel {
 				diaActual.get(diaActual.DATE),0,0,0);
 					
 		for(Reserva each: getReservas()){
-			///quitar el equals y crear una clase que compare x igualdad
-			if((diaActual.equals(each.getFechaDeIngreso()) || diaActual.after(each.getFechaDeIngreso()))
+			if((Comparador.sonIguales(diaActual, each.getFechaDeIngreso())) || diaActual.after(each.getFechaDeIngreso())
 					&& diaActual.before(each.getFechaDeSalida())){
 				
 				actuales.add(each);
@@ -57,6 +56,37 @@ public class Hotel {
 		}
 		return actuales;		
 	}
+	
+	public List<Reserva> reservasEnLosSiguientesNDias(int n){
+		
+		List<Reserva> lasReservas = new ArrayList<Reserva>();
+		List<Calendar> siguientesDias = GeneradorDeCalendar.generar(n);
+		
+		for(Reserva each: getReservas()){
+			if(Comparador.listaContieneFecha(siguientesDias, each.getFechaDeIngreso())){
+				lasReservas.add(each);
+			}
+		}
+		return lasReservas;
+	}
+	
+	public List<Reserva> reservasFuturas(){
+		
+		List<Reserva> reservasFuturas = new ArrayList<Reserva>();
+		
+		Calendar diaActual = Calendar.getInstance();
+		diaActual.set(diaActual.get(diaActual.YEAR),diaActual.get(diaActual.MONTH),
+				diaActual.get(diaActual.DATE),0,0,0);
+		
+		for(Reserva each: getReservas()){
+			Calendar ingreso = each.getFechaDeIngreso();
+			if(ingreso.after(diaActual)){
+				reservasFuturas.add(each);
+			}
+		}
+		return reservasFuturas;
+	}
+	
 	
 	/**
 	 * @param args
