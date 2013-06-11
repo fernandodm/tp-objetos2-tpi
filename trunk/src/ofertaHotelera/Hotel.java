@@ -2,7 +2,11 @@ package ofertaHotelera;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 public class Hotel {
 	private String nombre;
@@ -15,6 +19,7 @@ public class Hotel {
 	private String ciudad;
 	private List<FormaDePago> tarjetasAceptadas = new ArrayList<FormaDePago>();
 	private List<Reserva> reservas = new ArrayList<Reserva>();
+	private Map<String,Integer> calificaciones = new HashMap<String,Integer>();
 	
 	public List<Reserva> getReservas() {
 		return reservas;
@@ -30,6 +35,14 @@ public class Hotel {
 
 	public void setCiudad(String ciudad) {
 		this.ciudad = ciudad;
+	}
+	
+	public Map<String, Integer> getCalificaciones() {
+		return calificaciones;
+	}
+
+	public void setCalificaciones(Map<String, Integer> calificaciones) {
+		this.calificaciones = calificaciones;
 	}
 
 	public void eliminarReserva(Reserva unaReserva){
@@ -87,6 +100,17 @@ public class Hotel {
 		return reservasFuturas;
 	}
 	
+	public void agregarCalificacion(String comentario, Integer puntaje){
+		getCalificaciones().put(comentario, puntaje);
+	}
+	
+	public int calificacionPromedio(){
+		Integer promedio = 0;
+		for(Integer each : getCalificaciones().values()){
+			promedio = promedio + each;
+		}
+		return(promedio / getCalificaciones().size());
+	}
 	
 	/**
 	 * @param args
