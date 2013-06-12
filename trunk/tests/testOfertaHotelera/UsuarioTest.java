@@ -24,13 +24,16 @@ public class UsuarioTest extends TestCase {
 	private Reserva reserva2;
 	private Reserva reserva3;
 	private List<Reserva> reservasUsuario = new ArrayList<Reserva>();
+	private Hotel hotel1;
 	
 	public void setUp(){
 		
 		reserva1 = mock(Reserva.class);
 		reserva2 = mock(Reserva.class);
 		reserva3 = mock(Reserva.class);
+		hotel1 = mock(Hotel.class);
 		
+		when(reserva1.getHotel()).thenReturn(hotel1);
 		when(reserva1.ciudadDelHotel()).thenReturn("Sidney");
 		when(reserva2.ciudadDelHotel()).thenReturn("Moscu");
 		when(reserva3.ciudadDelHotel()).thenReturn("Sidney");
@@ -153,6 +156,14 @@ public class UsuarioTest extends TestCase {
 		}catch(ExcepcionNoSeEncontroReserva e){
 	
 		}
+	}
+	
+	public void testCalificarHotelAHotelEnElQueSeHospedo() throws ExcepcionNoEstaOnline{
+		
+		
+		
+		
+		
 	}
 
 	/**
