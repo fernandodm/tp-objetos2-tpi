@@ -101,7 +101,7 @@ public class Hotel {
 		}
 		return reservasFuturas;
 	}
-	
+
 	public void agregarCalificacion(String comentario, Integer puntaje, boolean seHospedo) throws ExcepcionTodaviaNoSeHospedoEnEsteHotelOSuReservaNoHaFinalizado{
 		if(seHospedo){
 			getCalificaciones().put(comentario, puntaje);

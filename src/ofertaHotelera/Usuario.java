@@ -155,7 +155,9 @@ public class Usuario {
 	public void calificarHotel(Hotel h, String comentario, int puntaje) throws ExcepcionTodaviaNoSeHospedoEnEsteHotelOSuReservaNoHaFinalizado, ExcepcionNoEstaOnline{
 		
 		boolean seHospedo = false;
+		
 		if(isOnline()){
+			
 		for(Reserva each : getReservas()){
 			
 			//para la fecha de hoy setearle la hora en 0
@@ -164,14 +166,11 @@ public class Usuario {
 				break;
 				}
 			}
-		}else{
-			throw new ExcepcionNoEstaOnline();
+
 		}
 		h.agregarCalificacion(comentario, puntaje, seHospedo);
-		
 	}
-	//
-	
+
 	public static void main(String[] args) {
 	
 	}
