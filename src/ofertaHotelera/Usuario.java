@@ -167,11 +167,7 @@ public class Usuario {
 		}else{
 			throw new ExcepcionNoEstaOnline();
 		}
-		if(seHospedo){
-			h.agregarCalificacion(comentario, puntaje);
-		}else{
-			throw new ExcepcionTodaviaNoSeHospedoEnEsteHotelOSuReservaNoHaFinalizado();
-		}
+		h.agregarCalificacion(comentario, puntaje, seHospedo);
 		
 	}
 	
