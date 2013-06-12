@@ -4,7 +4,9 @@ import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.xml.ws.Action;
 
@@ -160,7 +162,12 @@ public class UsuarioTest extends TestCase {
 	
 	public void testCalificarHotelAHotelEnElQueSeHospedo() throws ExcepcionNoEstaOnline{
 		
+		Map<String,Integer> calificaciones = new HashMap<String,Integer>();
+		when(hotel1.getCalificaciones()).thenReturn(calificaciones);
+		usuario.calificarHotel(hotel1, "Re zarpado", 9);
 		
+		
+		Assert.assertEquals(calificaciones.size(), 1);
 		
 		
 		
