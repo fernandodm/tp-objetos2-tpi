@@ -150,19 +150,23 @@ public class Usuario {
 		}
 	}	 
 	
-	public void calificarHotel(Hotel h, String comentario, int puntaje) throws ExcepcionTodaviaNoSeHospedoEnEsteHotelOSuReservaNoHaFinalizado{
+	
+	
+	public void calificarHotel(Hotel h, String comentario, int puntaje) throws ExcepcionTodaviaNoSeHospedoEnEsteHotelOSuReservaNoHaFinalizado, ExcepcionNoEstaOnline{
 		
 		boolean seHospedo = false;
-		//falta verificar si esta online
+		if(isOnline()){
 		for(Reserva each : getReservas()){
-			//cambiar el == por equals
+			
 			//para la fecha de hoy setearle la hora en 0
-			if(each.getHotel() == h && Calendar.getInstance().after(each.getFechaDeSalida())){
+			if(each.getHotel().equals(h) && Calendar.getInstance().after(each.getFechaDeSalida())){
 				seHospedo = true;
 				break;
+				}
 			}
+		}else{
+			throw new ExcepcionNoEstaOnline();
 		}
-		//podria ir en otro metodo?
 		if(seHospedo){
 			h.agregarCalificacion(comentario, puntaje);
 		}else{
