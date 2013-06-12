@@ -8,12 +8,15 @@ import java.util.List;
 
 import org.junit.Assert;
 
+import excepciones.ExcepcionTodaviaNoSeHospedoEnEsteHotelOSuReservaNoHaFinalizado;
+
 import ofertaHotelera.Hotel;
 import ofertaHotelera.Reserva;
 import junit.framework.TestCase;
 
 public class HotelTest extends TestCase{
 	private Hotel hotel;
+	private Map<String,Integer> calificaciones = new HashMap<String,Integer>();
 	private List<Reserva> reservas = new ArrayList<Reserva>();
 	private Reserva reserva1;
 	private Reserva reserva2;
@@ -58,6 +61,7 @@ public class HotelTest extends TestCase{
 		reservas.add(reserva3);
 		
 		hotel.setReservas(reservas);
+		hotel.setCalificaciones(calificaciones);
 		
 	}
 	
@@ -129,6 +133,15 @@ public class HotelTest extends TestCase{
 		Assert.assertEquals(futuras.size(), 2);
 		Assert.assertTrue(r1 == reserva4);
 		Assert.assertTrue(r2 == reserva5);
+	}
+	
+	public void testAgregarCalificacionDeUsuarioQueSeHospedo() throws ExcepcionTodaviaNoSeHospedoEnEsteHotelOSuReservaNoHaFinalizado{
+		
+		hotel.agregarCalificacion("Re pillo", 8, true);
+		Assert.assertEquals(hotel.getCalificaciones().size() == 1);
+		Assert.assertEquals(hotel.getCalificaciones().get("Re pillo") == 8);
+		
+		
 	}
 	
 }
