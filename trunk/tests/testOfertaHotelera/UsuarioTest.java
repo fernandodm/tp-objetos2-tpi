@@ -12,6 +12,7 @@ import javax.xml.ws.Action;
 
 import excepciones.ExcepcionNoEstaOnline;
 import excepciones.ExcepcionNoSeEncontroReserva;
+import excepciones.ExcepcionTodaviaNoSeHospedoEnEsteHotelOSuReservaNoHaFinalizado;
 
 import junit.framework.Assert;
 import junit.framework.TestCase;
@@ -27,8 +28,12 @@ public class UsuarioTest extends TestCase {
 	private Reserva reserva3;
 	private List<Reserva> reservasUsuario = new ArrayList<Reserva>();
 	private Hotel hotel1;
+	private Calendar fecha1;
 	
 	public void setUp(){
+		
+		fecha1 = Calendar.getInstance();
+		fecha1.set(fecha1.get(fecha1.YEAR),fecha1.get(fecha1.MONTH), fecha1.get(fecha1.DATE) - 3,0,0,0);
 		
 		reserva1 = mock(Reserva.class);
 		reserva2 = mock(Reserva.class);
@@ -36,6 +41,7 @@ public class UsuarioTest extends TestCase {
 		hotel1 = mock(Hotel.class);
 		
 		when(reserva1.getHotel()).thenReturn(hotel1);
+		when(reserva1.getFechaDeSalida()).thenReturn(fecha1);
 		when(reserva1.ciudadDelHotel()).thenReturn("Sidney");
 		when(reserva2.ciudadDelHotel()).thenReturn("Moscu");
 		when(reserva3.ciudadDelHotel()).thenReturn("Sidney");
@@ -160,17 +166,13 @@ public class UsuarioTest extends TestCase {
 		}
 	}
 	
-	public void testCalificarHotelAHotelEnElQueSeHospedo() throws ExcepcionNoEstaOnline{
+	public void testCalificarHotelAHotelEnElQueSeHospedo() throws ExcepcionNoEstaOnline, ExcepcionTodaviaNoSeHospedoEnEsteHotelOSuReservaNoHaFinalizado{
 		
 		Map<String,Integer> calificaciones = new HashMap<String,Integer>();
-		when(hotel1.getCalificaciones()).thenReturn(calificaciones);
 		usuario.calificarHotel(hotel1, "Re zarpado", 9);
+		when(hotel1.getCalificaciones()).thenReturn(calificaciones);
 		
-		
-		Assert.assertEquals(calificaciones.size(), 1);
-		
-		
-		
+		verify(hotel1).agregarCalificacion("Re zarpado", 9, true);
 	}
 
 	/**
