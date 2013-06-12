@@ -118,6 +118,9 @@ public class Hotel {
 		return(promedio / getCalificaciones().size());
 	}
 	
+	
+	
+	
 	/**
 	 * @param args
 	 */
