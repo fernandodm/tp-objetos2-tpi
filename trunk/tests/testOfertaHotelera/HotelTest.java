@@ -4,7 +4,9 @@ import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Assert;
 
@@ -138,8 +140,9 @@ public class HotelTest extends TestCase{
 	public void testAgregarCalificacionDeUsuarioQueSeHospedo() throws ExcepcionTodaviaNoSeHospedoEnEsteHotelOSuReservaNoHaFinalizado{
 		
 		hotel.agregarCalificacion("Re pillo", 8, true);
-		Assert.assertEquals(hotel.getCalificaciones().size() == 1);
-		Assert.assertEquals(hotel.getCalificaciones().get("Re pillo") == 8);
+		
+		Assert.assertEquals(hotel.getCalificaciones().size(), 1);
+		Assert.assertTrue((hotel.getCalificaciones()).get("Re pillo")== 8);
 		
 		
 	}
