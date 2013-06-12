@@ -166,7 +166,7 @@ public class UsuarioTest extends TestCase {
 		}
 	}
 	
-	public void testCalificarHotelAHotelEnElQueSeHospedo() throws ExcepcionNoEstaOnline, ExcepcionTodaviaNoSeHospedoEnEsteHotelOSuReservaNoHaFinalizado{
+	public void testCalificarHotelEstandoLogueado() throws ExcepcionNoEstaOnline{
 		
 		Map<String,Integer> calificaciones = new HashMap<String,Integer>();
 		usuario.calificarHotel(hotel1, "Re zarpado", 9);
@@ -175,6 +175,14 @@ public class UsuarioTest extends TestCase {
 		verify(hotel1).agregarCalificacion("Re zarpado", 9, true);
 	}
 
+	public void calificarHotelSinEstarLogueado() throws ExcepcionNoEstaOnline{
+		
+		try{
+			
+		}
+		
+	}
+	
 	/**
 	 * @param args
 	 */
