@@ -2,6 +2,9 @@ package ofertaHotelera;
 
 import java.util.Calendar;
 
+import excepciones.ExcepcionLaSubastaAunNoHaIniciado;
+import excepciones.ExcepcionLaSubastaYaHaFinalizado;
+
 public class Subasta {
 
 	private Usuario ganadorActual;
@@ -82,7 +85,7 @@ public class Subasta {
 		}
 	}
 	
-	public void agragarOferta(Usuario user, float oferta){
+	public void agragarOferta(Usuario user, float oferta) throws ExcepcionLaSubastaAunNoHaIniciado, ExcepcionLaSubastaYaHaFinalizado{
 		
 		getEstado().agregarApuesta(user,oferta);
 		

@@ -20,12 +20,10 @@ public class Usuario {
 	
 	public Usuario(){};
 	
-	public Usuario(SistemaDeBusqueda sistema, List<Reserva> reservas,
-			String nombreUsuario, String contrasenha, String nombre,
+	public Usuario(SistemaDeBusqueda sistema, String nombreUsuario, String contrasenha, String nombre,
 			boolean online) {
 	
 		this.sistema = sistema;
-		this.reservas = reservas;
 		this.nombreUsuario = nombreUsuario;
 		this.contrasenha = contrasenha;
 		this.nombre = nombre;
@@ -152,7 +150,7 @@ public class Usuario {
 	
 	
 	
-	public void calificarHotelEstandoLogueado(Hotel h, String comentario, int puntaje) throws ExcepcionTodaviaNoSeHospedoEnEsteHotelOSuReservaNoHaFinalizado, ExcepcionNoEstaOnline{
+	public void calificarHotel(Hotel h, String comentario, int puntaje) throws ExcepcionTodaviaNoSeHospedoEnEsteHotelOSuReservaNoHaFinalizado, ExcepcionNoEstaOnline{
 		
 		boolean seHospedo = false;
 		
@@ -170,11 +168,6 @@ public class Usuario {
 		}
 		h.agregarCalificacion(comentario, puntaje, seHospedo);
 	}
-	
-	
-
-
-	
 	
 	public static void main(String[] args) {
 	
