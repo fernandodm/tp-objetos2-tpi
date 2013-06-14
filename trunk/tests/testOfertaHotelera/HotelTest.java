@@ -152,22 +152,22 @@ public class HotelTest extends TestCase{
 		try{
 			hotel.agregarCalificacion("Re pillo", 8, false);
 			fail("EL USUARIO AUN NO SE HA HOSPEDADO EN ESTE HOTEL");
-		} catch {
-			ExcepcionTodaviaNoSeHospedoEnEsteHotelOSuReservaNoHaFinalizado e;
+		} catch (ExcepcionTodaviaNoSeHospedoEnEsteHotelOSuReservaNoHaFinalizado e){
+		
 		}
 		
 	}
 	
 
 	
-	public void testCalificacionPromedio(){
+	public void testCalificacionPromedio() throws ExcepcionTodaviaNoSeHospedoEnEsteHotelOSuReservaNoHaFinalizado{
 		
 		hotel.agregarCalificacion("Re pillo", 10, true);
 		hotel.agregarCalificacion("Va queriendo", 5, true);
 		hotel.agregarCalificacion("Una mierda", 3, true);
 		
 		Integer prom = hotel.calificacionPromedio();
-		Assert.assertEquals(prom, 6);
+		Assert.assertTrue(prom.equals(6));
 		
 	}
 	

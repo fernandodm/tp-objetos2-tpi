@@ -166,7 +166,7 @@ public class UsuarioTest extends TestCase {
 		}
 	}
 	
-	public void testCalificarHotelEstandoLogueado() throws ExcepcionNoEstaOnline{
+	public void testCalificarHotelEstandoLogueado() throws ExcepcionNoEstaOnline, ExcepcionTodaviaNoSeHospedoEnEsteHotelOSuReservaNoHaFinalizado{
 		
 		Map<String,Integer> calificaciones = new HashMap<String,Integer>();
 		usuario.calificarHotel(hotel1, "Re zarpado", 9);
@@ -177,9 +177,7 @@ public class UsuarioTest extends TestCase {
 
 	public void calificarHotelSinEstarLogueado() throws ExcepcionNoEstaOnline{
 		
-		try{
-			
-		}
+	
 		
 	}
 	
