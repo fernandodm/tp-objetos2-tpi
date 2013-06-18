@@ -177,7 +177,12 @@ public class UsuarioTest extends TestCase {
 
 	public void calificarHotelSinEstarLogueado() throws ExcepcionNoEstaOnline{
 		
+		try{
+			usuario2.calificarHotel(hotel1, "Bien ahi", 8);
+			fail("NO SE LANZÓ LA EXCEPCIÓN DE calificarHotel()");
+		}catch(ExcepcionNoEstaOnline e){
 	
+		}
 		
 	}
 	

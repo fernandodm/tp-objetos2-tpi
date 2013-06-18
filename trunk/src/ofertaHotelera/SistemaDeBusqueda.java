@@ -4,12 +4,14 @@ package ofertaHotelera;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Observable;
 
 import excepciones.ExcepcionElNombreDeUsuarioYaExiste;
+
 import excepciones.ExcepcionPasswordIncorrecto;
 import excepciones.ExcepcionUsuarioIncorrecto;
 
-public class SistemaDeBusqueda {
+public class SistemaDeBusqueda extends Observable{
 	private List<Hotel> hoteles = new ArrayList<Hotel>();
 	private List<Usuario> usuarios = new ArrayList<Usuario>();
 	
@@ -61,6 +63,8 @@ public class SistemaDeBusqueda {
 		
 	}
 	
+	
+	
 	public Usuario buscarUsuario(String nombreDeUsuario) throws ExcepcionUsuarioIncorrecto {
 	
 		for(Usuario each: getUsuarios()){
@@ -70,7 +74,21 @@ public class SistemaDeBusqueda {
 		}
 		throw new ExcepcionUsuarioIncorrecto();
 	}
+	
+	public void agregarSuscripto(Usuario user){
+		
+		this.addObserver(user);
+		
+	}
 
+	public void agregarHotel(Hotel h){
+		
+		getHoteles().add(h);
+		setChanged();
+		notifyObservers();
+		
+	}
+	
 	/**
 	 * @param args
 	 */
