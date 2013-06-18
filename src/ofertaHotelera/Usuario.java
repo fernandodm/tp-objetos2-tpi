@@ -5,8 +5,11 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import excepciones.ExcepcionLaSubastaAunNoHaIniciado;
+import excepciones.ExcepcionLaSubastaYaHaFinalizado;
 import excepciones.ExcepcionNoEstaOnline;
 import excepciones.ExcepcionNoSeEncontroReserva;
+import excepciones.ExcepcionOfertaInferior;
 import excepciones.ExcepcionTodaviaNoSeHospedoEnEsteHotelOSuReservaNoHaFinalizado;
 
 public class Usuario {
@@ -168,6 +171,11 @@ public class Usuario {
 		}
 		h.agregarCalificacion(comentario, puntaje, seHospedo);
 	}
+	
+	public void ofertarEnSubasta(Subasta sub, float unMonto) throws ExcepcionLaSubastaAunNoHaIniciado, ExcepcionLaSubastaYaHaFinalizado, ExcepcionOfertaInferior{
+		sub.agragarOferta(this, unMonto);
+	}
+	
 	
 	public static void main(String[] args) {
 	

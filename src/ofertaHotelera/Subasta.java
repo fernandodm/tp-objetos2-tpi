@@ -4,6 +4,7 @@ import java.util.Calendar;
 
 import excepciones.ExcepcionLaSubastaAunNoHaIniciado;
 import excepciones.ExcepcionLaSubastaYaHaFinalizado;
+import excepciones.ExcepcionOfertaInferior;
 
 public class Subasta {
 
@@ -12,6 +13,7 @@ public class Subasta {
 	private Calendar inicioSubasta;
 	private Calendar finSubasta;
 	private EstadoSubasta estado;
+	private Habitacion habitacion;
 	
 	public Usuario getGanadorActual() {
 		return ganadorActual;
@@ -71,6 +73,16 @@ public class Subasta {
 		this.estado = estado;
 	}
 
+	public Habitacion getHabitacion() {
+		return habitacion;
+	}
+
+
+
+	public void setHabitacion(Habitacion habitacion) {
+		this.habitacion = habitacion;
+	}
+
 
 
 	public Subasta(int valorInicial, Calendar ini, Calendar fin){
@@ -85,12 +97,23 @@ public class Subasta {
 		}
 	}
 	
-	public void agragarOferta(Usuario user, float oferta) throws ExcepcionLaSubastaAunNoHaIniciado, ExcepcionLaSubastaYaHaFinalizado{
+	
+	public void agragarOferta(Usuario user, float oferta) throws ExcepcionLaSubastaAunNoHaIniciado, ExcepcionLaSubastaYaHaFinalizado, ExcepcionOfertaInferior{
 		
 		getEstado().agregarApuesta(user,oferta);
 		
 		
 	}
+	
+	public boolean terminoLaSubasta(){
+		boolean termino = false;
+		if(Calendar.getInstance().after(getFinSubasta())){
+			setEstado(new Finalizada());
+			termino = true;
+		}
+		return termino;
+	}
+	
 	
 	
 }
