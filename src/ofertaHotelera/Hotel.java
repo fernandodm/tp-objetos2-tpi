@@ -19,10 +19,30 @@ public class Hotel {
 	private String checkIn;
 	private String checkOut;
 	private String ciudad;
+	private List<Habitacion> habitaciones = new ArrayList<Habitacion>();
 	private List<FormaDePago> tarjetasAceptadas = new ArrayList<FormaDePago>();
 	private List<Reserva> reservas = new ArrayList<Reserva>();
 	private Map<String,Integer> calificaciones = new HashMap<String,Integer>();
 	
+	
+	
+	
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public String getPais() {
+		return pais;
+	}
+
+	public void setPais(String pais) {
+		this.pais = pais;
+	}
+
 	public List<Reserva> getReservas() {
 		return reservas;
 	}
@@ -45,6 +65,14 @@ public class Hotel {
 
 	public void setCalificaciones(Map<String, Integer> calificaciones) {
 		this.calificaciones = calificaciones;
+	}
+	
+	public List<Habitacion> getHabitaciones() {
+		return habitaciones;
+	}
+
+	public void setHabitaciones(List<Habitacion> habitaciones) {
+		this.habitaciones = habitaciones;
 	}
 
 	public void eliminarReserva(Reserva unaReserva){
@@ -118,6 +146,12 @@ public class Hotel {
 		return(promedio / getCalificaciones().size());
 	}
 	
+	public boolean lePuedeInteresarAlUsuario(Usuario user){
+		
+		boolean lePuedeInteresar = false;
+		
+		return lePuedeInteresar;
+	}
 	
 	
 	

@@ -4,15 +4,18 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 import excepciones.ExcepcionLaSubastaAunNoHaIniciado;
 import excepciones.ExcepcionLaSubastaYaHaFinalizado;
 import excepciones.ExcepcionNoEstaOnline;
 import excepciones.ExcepcionNoSeEncontroReserva;
 import excepciones.ExcepcionOfertaInferior;
+import excepciones.ExcepcionSeDebeTenerAlMenosUnCriterioDePreferencia;
 import excepciones.ExcepcionTodaviaNoSeHospedoEnEsteHotelOSuReservaNoHaFinalizado;
 
-public class Usuario {
+public class Usuario implements Observer{
 
 	private SistemaDeBusqueda sistema;
 	private List<Reserva> reservas = new ArrayList<Reserva>();
@@ -20,6 +23,7 @@ public class Usuario {
 	private String contrasenha;
 	private String nombre;
 	private boolean online;
+	private Preferencia preferencia;
 	
 	public Usuario(){};
 	
@@ -70,6 +74,14 @@ public class Usuario {
 		this.online = online;
 	}
 	
+	public Preferencia getPreferencia() {
+		return preferencia;
+	}
+
+	public void setPreferencia(Preferencia preferencia) {
+		this.preferencia = preferencia;
+	}
+
 	public List<Reserva> todasLasReservas()throws ExcepcionNoEstaOnline{
 		
 		if(isOnline()){
@@ -176,8 +188,41 @@ public class Usuario {
 		sub.agragarOferta(this, unMonto);
 	}
 	
+	public void suscribirseAlAvisoDeOfertasHoteleras(SistemaDeBusqueda s) throws ExcepcionSeDebeTenerAlMenosUnCriterioDePreferencia{
+		
+		if(!(getPreferencia() == null)){
+			s.agregarSuscripto(this);
+		} else {
+			throw new ExcepcionSeDebeTenerAlMenosUnCriterioDePreferencia();
+		}
+	}
 	
-	public static void main(String[] args) {
+	public boolean puedeEstarInteresadoEnHotel(Hotel h){
+		
+		boolean lePuedeInteresar = false;
+		for(Habitacion each : h.getHabitaciones()){
+			if(getPreferencia().lePuedeInteresarHabitacion(each)){
+				lePuedeInteresar = true;
+				break;
+			}
+		}
+		
+		return lePuedeInteresar;
+	}
 	
+	
+	
+	@Override
+	public void update(Observable arg0, Object arg1) {
+		// TODO Auto-generated method stub
+		for(Habitacion each : ((Hotel) arg1).getHabitaciones()){
+			
+			if(this.getPreferencia().lePuedeInteresarHabitacion(each)){
+				//aca iria el método en el que el usuario recibe el mail con la informacion.
+				
+			}
+			
+		}
+		
 	}
 }
