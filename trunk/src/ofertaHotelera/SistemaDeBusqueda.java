@@ -84,6 +84,23 @@ public class SistemaDeBusqueda extends Observable{
 		
 	}
 
+
+	public void quitarHotel(Hotel h){
+		
+		//PRECONDICION: EL HOTEL ESTA EN LA LISTA DE HOTELES.
+		getHoteles().remove(h);
+		
+		
+	}
+	
+
+	
+	public void actualizarOfertaDelHotel(Hotel h){
+		quitarHotel(h);
+		agregarHotel(h);
+	}
+	
+
 	public void agregarHotel(Hotel h){
 		
 		getHoteles().add(h);
@@ -92,6 +109,7 @@ public class SistemaDeBusqueda extends Observable{
 		
 	}
 	
+
 	public List<Hotel> buscarHoteles(String ciudad, Calendar desde, Calendar hasta, int huespedes){
 		
 		List<Hotel> hoteles = hotelesDe(ciudad);
@@ -117,6 +135,7 @@ public class SistemaDeBusqueda extends Observable{
 		
 		return hoteles;
 	}
+
 
 	/**
 	 * @param args

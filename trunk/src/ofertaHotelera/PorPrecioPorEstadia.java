@@ -21,7 +21,20 @@ public class PorPrecioPorEstadia extends Preferencia {
 	@Override
 	public boolean lePuedeInteresarHabitacion(Habitacion h) {
 		// TODO Auto-generated method stub
-		return false;
+		boolean ok = false;
+		long fechaIni = getFechaInicialDeInteres().getTimeInMillis();
+		long fechaFin = getFechaFinalDeInteres().getTimeInMillis();
+		long diferencia = fechaIni - fechaFin;
+		long cantDias = diferencia / (24 * 60 * 60 * 1000);
+		long totalPrecioEstadia = h.getPrecioPorNoche() * cantDias;
+		
+		if(totalPrecioEstadia > getPrecioMinimo() && totalPrecioEstadia < getPrecioMaximo()){
+			ok = true;
+		
+		}
+		
+		
+		return ok;
 	}
 	
 	
