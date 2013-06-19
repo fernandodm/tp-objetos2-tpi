@@ -167,11 +167,11 @@ public class Hotel {
 		return lePuedeInteresar;
 	}
 	
-<<<<<<< .mine
+
 	public void actualizarInformacion(){
 		getSistemaEnElQueEstaCargado().actualizarOfertaDelHotel(this);
 	}
-=======
+
 	public boolean tieneHabitacionesCon(Calendar desde, Calendar hasta,
 			int huespedes) {
 		
@@ -183,7 +183,7 @@ public class Hotel {
 		
 		return false;
 	}
->>>>>>> .r43
+
 	
 	/**
 	 * @param args

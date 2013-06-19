@@ -105,16 +105,12 @@ public class Reserva {
 		List<Calendar> a = new ArrayList<Calendar>();
 		Calendar c = Calendar.getInstance();
 		Calendar c1 = Calendar.getInstance();
-		//c.set(2000,10,3);
-		c1.set(2000,10,3);
-		System.out.println();
-		GregorianCalendar g = new GregorianCalendar();
-		GregorianCalendar g1 = new GregorianCalendar(2011, 01, 11);
+		c.set(2000,10,3,0,0,0);
+		c1.set(2000,10,3,0,0,0);
+		System.out.println(c1.after(c));
+		System.out.println(c.before(c1));
 		
-		a.add(c);
-		List<Calendar> b = new ArrayList<Calendar>();
-		b.add(c1);
-		//a.remove(c1);
-		System.out.println(a.contains(c1));
+		System.out.println(c.getTime());
+		
 	}
 }
