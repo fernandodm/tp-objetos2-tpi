@@ -175,7 +175,7 @@ public class UsuarioTest extends TestCase {
 		verify(hotel1).agregarCalificacion("Re zarpado", 9, true);
 	}
 
-	public void calificarHotelSinEstarLogueado() throws ExcepcionNoEstaOnline{
+	public void calificarHotelSinEstarLogueado() throws ExcepcionTodaviaNoSeHospedoEnEsteHotelOSuReservaNoHaFinalizado{
 		
 		try{
 			usuario2.calificarHotel(hotel1, "Bien ahi", 8);

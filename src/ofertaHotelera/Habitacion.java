@@ -83,5 +83,20 @@ public class Habitacion {
 		
 		return lePuedeInteresar;
 	}
+
+	public boolean estaDisponible(Calendar desde, Calendar hasta) {
+		
+		for(List<Calendar> each: getDiasOcupados()){
+			Calendar fechaInicio = each.get(0);
+			Calendar fechaFin = each.get(1);
+			if((desde.after(fechaInicio) && desde.before(fechaFin)) ||
+					hasta.after(fechaInicio) && hasta.before(fechaFin)){
+				
+				return false;
+			}
+		}
+		
+		return true;
+	}
 	
 }

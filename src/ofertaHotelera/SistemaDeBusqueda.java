@@ -12,6 +12,9 @@ import excepciones.ExcepcionPasswordIncorrecto;
 import excepciones.ExcepcionUsuarioIncorrecto;
 
 public class SistemaDeBusqueda extends Observable{
+	
+	// RECORDAR HACER EL LOGOUT FER :P
+	
 	private List<Hotel> hoteles = new ArrayList<Hotel>();
 	private List<Usuario> usuarios = new ArrayList<Usuario>();
 	
@@ -89,6 +92,32 @@ public class SistemaDeBusqueda extends Observable{
 		
 	}
 	
+	public List<Hotel> buscarHoteles(String ciudad, Calendar desde, Calendar hasta, int huespedes){
+		
+		List<Hotel> hoteles = hotelesDe(ciudad);
+		List<Hotel> retornarHoteles = new ArrayList<Hotel>();
+		for(Hotel each: hoteles){
+			if(each.tieneHabitacionesCon(desde, hasta, huespedes)){
+				retornarHoteles.add(each);
+				System.out.println(each.getNombre());
+			}
+		}
+		return retornarHoteles;
+	}
+	
+	private List<Hotel> hotelesDe(String ciudad) {
+		
+		List<Hotel> hoteles = new ArrayList<Hotel>();
+		
+		for(Hotel each: getHoteles()){
+			if(each.getCiudad().equals(ciudad)){
+				hoteles.add(each);
+			}
+		}
+		
+		return hoteles;
+	}
+
 	/**
 	 * @param args
 	 */

@@ -25,8 +25,6 @@ public class Hotel {
 	private Map<String,Integer> calificaciones = new HashMap<String,Integer>();
 	
 	
-	
-	
 	public String getNombre() {
 		return nombre;
 	}
@@ -153,7 +151,17 @@ public class Hotel {
 		return lePuedeInteresar;
 	}
 	
-	
+	public boolean tieneHabitacionesCon(Calendar desde, Calendar hasta,
+			int huespedes) {
+		
+		for(Habitacion each: getHabitaciones()){
+			if(each.estaDisponible(desde, hasta) && (each.getCapacidadMaxima() == huespedes)){
+				return true;
+			}
+		}
+		
+		return false;
+	}
 	
 	/**
 	 * @param args
