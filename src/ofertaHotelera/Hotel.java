@@ -23,6 +23,7 @@ public class Hotel {
 	private List<FormaDePago> tarjetasAceptadas = new ArrayList<FormaDePago>();
 	private List<Reserva> reservas = new ArrayList<Reserva>();
 	private Map<String,Integer> calificaciones = new HashMap<String,Integer>();
+	private SistemaDeBusqueda sistemaEnElQueEstaCargado;
 	
 	
 	public String getNombre() {
@@ -69,9 +70,24 @@ public class Hotel {
 		return habitaciones;
 	}
 
+
+
+	
+
+	public SistemaDeBusqueda getSistemaEnElQueEstaCargado() {
+		return sistemaEnElQueEstaCargado;
+	}
+
+	public void setSistemaEnElQueEstaCargado(
+			SistemaDeBusqueda sistemaEnElQueEstaCargado) {
+		this.sistemaEnElQueEstaCargado = sistemaEnElQueEstaCargado;
+	}
+
+
 	public void setHabitaciones(List<Habitacion> habitaciones) {
 		this.habitaciones = habitaciones;
 	}
+
 
 	public void eliminarReserva(Reserva unaReserva){
 	
@@ -151,6 +167,11 @@ public class Hotel {
 		return lePuedeInteresar;
 	}
 	
+<<<<<<< .mine
+	public void actualizarInformacion(){
+		getSistemaEnElQueEstaCargado().actualizarOfertaDelHotel(this);
+	}
+=======
 	public boolean tieneHabitacionesCon(Calendar desde, Calendar hasta,
 			int huespedes) {
 		
@@ -162,6 +183,7 @@ public class Hotel {
 		
 		return false;
 	}
+>>>>>>> .r43
 	
 	/**
 	 * @param args

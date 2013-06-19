@@ -38,7 +38,9 @@ public abstract class Preferencia {
 	public boolean lasFechasEstanBien(Habitacion h){
 		
 		boolean ok = false;
-
+		if(h.estaDisponible(getFechaInicialDeInteres(), getFechaFinalDeInteres())){
+			ok = true;
+		}
 		
 		return ok;
 	}
