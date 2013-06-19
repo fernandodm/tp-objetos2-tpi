@@ -12,6 +12,7 @@ import org.junit.Assert;
 
 import excepciones.ExcepcionTodaviaNoSeHospedoEnEsteHotelOSuReservaNoHaFinalizado;
 
+import ofertaHotelera.Habitacion;
 import ofertaHotelera.Hotel;
 import ofertaHotelera.Reserva;
 import junit.framework.TestCase;
@@ -23,6 +24,9 @@ public class HotelTest extends TestCase{
 	private Reserva reserva1;
 	private Reserva reserva2;
 	private Reserva reserva3;
+	private Habitacion habitacion1;
+	private Habitacion habitacion2;
+	private Habitacion habitacion3;
 	private Calendar fecha1;
 	private Calendar fecha2;
 	private Calendar fecha3;
@@ -31,6 +35,8 @@ public class HotelTest extends TestCase{
 	private Calendar fecha6;
 	
 	public void setUp(){
+		
+		List<Habitacion> habitaciones = new ArrayList<Habitacion>();
 		
 		hotel = new Hotel();
 		
@@ -51,6 +57,18 @@ public class HotelTest extends TestCase{
 		reserva2 = mock(Reserva.class);
 		reserva3 = mock(Reserva.class);
 		
+		habitacion1 = mock(Habitacion.class);
+		habitacion2 = mock(Habitacion.class);
+		habitacion3 = mock(Habitacion.class);
+		
+		when(habitacion1.estaDisponible(fecha1, fecha2)).thenReturn(false);
+		when(habitacion2.estaDisponible(fecha1, fecha2)).thenReturn(true);
+		when(habitacion3.estaDisponible(fecha1, fecha2)).thenReturn(false);
+		
+		when(habitacion1.getCapacidadMaxima()).thenReturn(2);
+		when(habitacion2.getCapacidadMaxima()).thenReturn(3);
+		when(habitacion3.getCapacidadMaxima()).thenReturn(3);
+		
 		when(reserva1.getFechaDeIngreso()).thenReturn(fecha1);
 		when(reserva1.getFechaDeSalida()).thenReturn(fecha2);
 		when(reserva2.getFechaDeIngreso()).thenReturn(fecha3);
@@ -62,8 +80,13 @@ public class HotelTest extends TestCase{
 		reservas.add(reserva2);
 		reservas.add(reserva3);
 		
+		habitaciones.add(habitacion1);
+		habitaciones.add(habitacion2);
+		habitaciones.add(habitacion3);
+		
 		hotel.setReservas(reservas);
 		hotel.setCalificaciones(calificaciones);
+		hotel.setHabitaciones(habitaciones);
 		
 	}
 	
@@ -171,7 +194,16 @@ public class HotelTest extends TestCase{
 		
 	}
 	
+	public void testTieneHabitacionConTrue(){
+		// este test encuentra una habitacion, devuelve true 
+		boolean tieneHabitacion = hotel.tieneHabitacionesCon(fecha1, fecha2, 3);
+		Assert.assertTrue(tieneHabitacion);
+	}
 	
-	
+	public void testTieneHabitacionConFalse(){
+		// este test no encuentra una habitacion, devuelve false
+		boolean tieneHabitacion = hotel.tieneHabitacionesCon(fecha1, fecha2, 2);
+		Assert.assertFalse(tieneHabitacion);
+	}
 	
 }

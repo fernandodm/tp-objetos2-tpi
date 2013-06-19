@@ -29,23 +29,23 @@ public class HabitacionTest extends TestCase {
 		List<Calendar> diasReserva3 = new ArrayList<Calendar>();
 		
 		fechaInicio1 = Calendar.getInstance();
-		fechaInicio1.set(2013,01,1);
+		fechaInicio1.set(2013,01,1,0,0,0);
 		fechaFin2 = Calendar.getInstance();
-		fechaFin2.set(2013,01,7);
+		fechaFin2.set(2013,01,7,0,0,0);
 		diasReserva1.add(fechaInicio1);
 		diasReserva1.add(fechaFin2);
 		
 		fechaInicio3 = Calendar.getInstance();
-		fechaInicio3.set(2013,01,10);		
+		fechaInicio3.set(2013,01,10,0,0,0);		
 		fechaFin4 = Calendar.getInstance();
-		fechaFin4.set(2013,01,17);
+		fechaFin4.set(2013,01,17,0,0,0);
 		diasReserva2.add(fechaInicio3);
 		diasReserva2.add(fechaFin4);
 		
 		fechaInicio5 = Calendar.getInstance();
-		fechaInicio5.set(2013,01,20);
+		fechaInicio5.set(2013,01,20,0,0,0);
 		fechaFin6 = Calendar.getInstance();
-		fechaFin6.set(2013,01,27);
+		fechaFin6.set(2013,01,27,0,0,0);
 		diasReserva3.add(fechaInicio5);
 		diasReserva3.add(fechaFin6);
 		
@@ -61,5 +61,17 @@ public class HabitacionTest extends TestCase {
 		habitacion.eliminarHorario(fechaInicio3, fechaFin4);
 		Assert.assertEquals(habitacion.getDiasOcupados().size(), 2);
 		
+	}
+	
+	public void testEstaDisponibleFalse(){
+		
+		Calendar fechaInicio7 = Calendar.getInstance();
+		fechaInicio7.set(2013,01,7,0,0,0);
+		Calendar fechaFin8 = Calendar.getInstance();
+		fechaFin8.set(2013,01,9,0,0,0);
+		
+		boolean estaDisponible = habitacion.estaDisponible(fechaInicio7, fechaFin8);
+		
+		Assert.assertFalse(estaDisponible);
 	}
 }
