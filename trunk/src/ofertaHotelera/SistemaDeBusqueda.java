@@ -123,7 +123,7 @@ public class SistemaDeBusqueda extends Observable{
 		return retornarHoteles;
 	}
 	
-	private List<Hotel> hotelesDe(String ciudad) {
+	public List<Hotel> hotelesDe(String ciudad) {
 		
 		List<Hotel> hoteles = new ArrayList<Hotel>();
 		
