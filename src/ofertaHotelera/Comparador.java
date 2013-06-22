@@ -27,6 +27,13 @@ public class Comparador {
 		return false;
 	}
 	
+	public static boolean between(Calendar fecha1, Calendar fecha2, Calendar fecha3){
+		
+		return (fecha1.after(fecha2) && fecha1.before(fecha3)) 
+		|| sonIguales(fecha1,fecha2) || sonIguales(fecha1,fecha3);
+		
+	}
+	
 	/**
 	 * @param args
 	 */

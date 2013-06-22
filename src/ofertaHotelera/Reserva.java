@@ -107,7 +107,7 @@ public class Reserva {
 		Calendar c1 = Calendar.getInstance();
 		c.set(2000,10,3,0,0,0);
 		c1.set(2000,10,3,0,0,0);
-		System.out.println(c1.after(c));
+		System.out.println(c.after(c1));
 		System.out.println(c.before(c1));
 		
 		System.out.println(c.getTime());

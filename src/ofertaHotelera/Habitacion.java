@@ -89,8 +89,7 @@ public class Habitacion {
 		for(List<Calendar> each: getDiasOcupados()){
 			Calendar fechaInicio = each.get(0);
 			Calendar fechaFin = each.get(1);
-			if(((desde.after(fechaInicio) && desde.before(fechaFin)) || Comparador.sonIguales(fechaInicio, desde)) ||
-					(hasta.after(fechaInicio)  && hasta.before(fechaFin))){
+			if( Comparador.between(desde, fechaInicio, fechaFin) || Comparador.between(hasta, fechaInicio, fechaFin)){
 				
 				return false;
 			}
