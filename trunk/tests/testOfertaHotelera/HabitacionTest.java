@@ -65,13 +65,29 @@ public class HabitacionTest extends TestCase {
 	
 	public void testEstaDisponibleFalse(){
 		
+		//con fecha no disponible
+		
 		Calendar fechaInicio7 = Calendar.getInstance();
-		fechaInicio7.set(2013,01,7,0,0,0);
+		fechaInicio7.set(2013,01,17,0,0,0);
 		Calendar fechaFin8 = Calendar.getInstance();
 		fechaFin8.set(2013,01,9,0,0,0);
 		
 		boolean estaDisponible = habitacion.estaDisponible(fechaInicio7, fechaFin8);
 		
-		Assert.assertFalse(estaDisponible);
+		Assert.assertFalse("FALLA testEstaDisponibleFalse()",estaDisponible);
+	}
+	
+	public void testEstaDisponibleTrue(){
+		
+		//con fecha disponible
+		
+		Calendar fechaInicio7 = Calendar.getInstance();
+		fechaInicio7.set(2013,01,28,0,0,0);
+		Calendar fechaFin8 = Calendar.getInstance();
+		fechaFin8.set(2013,02,5,0,0,0);
+		
+		boolean estaDisponible = habitacion.estaDisponible(fechaInicio7, fechaFin8);
+		
+		Assert.assertTrue("FALLA testEstaDisponibleFalse()",estaDisponible);
 	}
 }
