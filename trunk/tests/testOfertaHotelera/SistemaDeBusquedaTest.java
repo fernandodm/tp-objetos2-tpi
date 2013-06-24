@@ -7,6 +7,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import excepciones.ExcepcionElNombreDeUsuarioYaExiste;
+import excepciones.ExcepcionHotelNoEncontrado;
 import excepciones.ExcepcionPasswordIncorrecto;
 import excepciones.ExcepcionUsuarioIncorrecto;
 
@@ -162,6 +163,40 @@ public class SistemaDeBusquedaTest extends TestCase {
 		Assert.assertEquals(hoteles.size(), 2);
 		Assert.assertTrue(h1 == hotel1);
 		Assert.assertTrue(h2 == hotel3);
+	}
+	
+	public void testBuscarHotelTrue() throws ExcepcionHotelNoEncontrado{
+		
+		//Con hotel encontrado
+		
+		when(hotel1.getNombre()).thenReturn("Luna");
+		when(hotel2.getNombre()).thenReturn("Sol");
+		
+		Hotel hotel = sistema.buscarHotel("Luna"); 
+		
+		Assert.assertTrue(hotel == hotel1);
+	}
+	
+	public void testBuscarHotelFalse(){
+		
+		//Con hotel no encontrado
+		
+		when(hotel1.getNombre()).thenReturn("Luna");
+		when(hotel2.getNombre()).thenReturn("Sol");
+		
+		try {
+			sistema.buscarHotel("Dallas");
+			fail("NO SE LANZO LA EXCEPCION DE buscarHotelFalse()");
+		} catch (ExcepcionHotelNoEncontrado e) {
+			
+		} 	
+	}
+	
+	public void testLogOut(){
+		
+		sistema.logOut(usuario1);
+		verify(usuario1).setOnline(false);
+		
 	}
 	
 	/**

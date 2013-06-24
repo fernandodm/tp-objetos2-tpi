@@ -6,8 +6,11 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Observable;
 
+import testOfertaHotelera.SistemaDeBusquedaTest;
+
 import excepciones.ExcepcionElNombreDeUsuarioYaExiste;
 
+import excepciones.ExcepcionHotelNoEncontrado;
 import excepciones.ExcepcionPasswordIncorrecto;
 import excepciones.ExcepcionUsuarioIncorrecto;
 
@@ -66,7 +69,11 @@ public class SistemaDeBusqueda extends Observable{
 		
 	}
 	
-	
+	public void logOut(Usuario unUsuario){
+		
+		unUsuario.setOnline(false);
+		
+	}
 	
 	public Usuario buscarUsuario(String nombreDeUsuario) throws ExcepcionUsuarioIncorrecto {
 	
@@ -123,6 +130,29 @@ public class SistemaDeBusqueda extends Observable{
 		return retornarHoteles;
 	}
 	
+	public void buscarHabitacion(String nombreHotel, Calendar desde, Calendar hasta, int huespedes) throws ExcepcionHotelNoEncontrado{
+		
+		Hotel hotel = buscarHotel(nombreHotel);
+		System.out.println("Habitaciones de " + nombreHotel);
+		for(Habitacion each: hotel.getHabitaciones()){
+			if(each.estaDisponible(desde, hasta) && each.getCapacidadMaxima() == huespedes){
+				System.out.println("-Numero: " + each.getNumero());
+				System.out.println("  -Precio: " + "$" + each.getPrecioPorNoche() + " por noche");
+				each.imprimirServicios();
+			}
+		}
+	}
+	
+	public Hotel buscarHotel(String nombreHotel) throws ExcepcionHotelNoEncontrado {
+		
+		for(Hotel each: getHoteles()){
+			if(each.getNombre().equals(nombreHotel)){
+				return each;
+			}
+		}
+		throw new ExcepcionHotelNoEncontrado();
+	}
+
 	public List<Hotel> hotelesDe(String ciudad) {
 		
 		List<Hotel> hoteles = new ArrayList<Hotel>();
@@ -137,12 +167,40 @@ public class SistemaDeBusqueda extends Observable{
 	}
 
 
+	//public void realizarReserva
+	
 	/**
 	 * @param args
+	 * @throws ExcepcionHotelNoEncontrado 
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws ExcepcionHotelNoEncontrado {
 		// TODO Auto-generated method stub
-
+		SistemaDeBusqueda sist = new SistemaDeBusqueda();
+		Hotel hot = new Hotel();
+		hot.setNombre("Dallas");
+		Habitacion h1 = new Habitacion();
+		Habitacion h2 = new Habitacion();
+		Servicio s1 = new Servicio("wifi", 78, "lala");
+		Servicio s2 = new Servicio("TV cable", 100, "dsfclala");
+		Servicio s3 = new Servicio("wifi", 90, "laldfda");
+		List<Servicio> list = new ArrayList<Servicio>();
+		list.add(s1);
+		list.add(s2);
+		h1.setServicios(list);
+		h1.setNumero(1);
+		h1.setPrecioPorNoche(133);
+		h1.setCapacidadMaxima(2);
+		List<Servicio> list1 = new ArrayList<Servicio>();
+		list1.add(s3);
+		h2.setServicios(list1);
+		h2.setNumero(2);
+		h2.setPrecioPorNoche(100);
+		h2.setCapacidadMaxima(3);
+		List<Habitacion> habitaciones = new ArrayList<Habitacion>();
+		habitaciones.add(h1);
+		habitaciones.add(h2);
+		hot.setHabitaciones(habitaciones);
+		sist.hoteles.add(hot);
+		sist.buscarHabitacion("Dallas", Calendar.getInstance(), Calendar.getInstance(), 2);
 	}
-
 }
