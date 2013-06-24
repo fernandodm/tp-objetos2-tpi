@@ -10,7 +10,25 @@ public class Habitacion {
 	private boolean camaTwin;
 	private List<List<Calendar>> diasOcupados = new ArrayList<List<Calendar>>();
 	private int precioPorNoche;
+	private int numero;
+	private List<Servicio> servicios = new ArrayList<Servicio>();
 	
+	public List<Servicio> getServicios() {
+		return servicios;
+	}
+
+	public void setServicios(List<Servicio> servicios) {
+		this.servicios = servicios;
+	}
+
+	public int getNumero() {
+		return numero;
+	}
+
+	public void setNumero(int numero) {
+		this.numero = numero;
+	}
+
 	public Habitacion(){
 	}
 	
@@ -96,6 +114,14 @@ public class Habitacion {
 		}
 		
 		return true;
+	}
+	
+	public void imprimirServicios(){
+		
+		System.out.println(" -Servicios:");
+		for(Servicio each: getServicios()){
+			System.out.println("   -" + each.getNombre() + " $" + each.getPrecio());
+		}
 	}
 	
 }
