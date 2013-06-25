@@ -1,6 +1,7 @@
 package ofertaHotelera;
 
 import java.util.*;
+import descuentos.Descuento;
 import ofertaHotelera.OperadorDeColecciones;
 
 public class Hotelero {
@@ -54,6 +55,10 @@ public class Hotelero {
 		hab.getPreciosPorFecha().put(dias, (Integer) precio);
 	}
 	
-	
+	public void agregarDescuento(Descuento descuento, List<Habitacion> habs){
+		for(Habitacion each : habs){
+			each.getDescuentos().add(descuento);
+		}
+	}
 	
 }
