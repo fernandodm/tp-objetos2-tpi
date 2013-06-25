@@ -1,10 +1,15 @@
 package testOfertaHotelera;
 
+import static org.mockito.Mockito.*;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
 import ofertaHotelera.Habitacion;
+import ofertaHotelera.PorPrecioPorEstadia;
+import ofertaHotelera.PorPrecioPorNoche;
+import ofertaHotelera.SoloImportaElLugar;
+import ofertaHotelera.Usuario;
 
 import junit.framework.Assert;
 import junit.framework.TestCase;
@@ -18,6 +23,11 @@ public class HabitacionTest extends TestCase {
 	private Calendar fechaFin4;
 	private Calendar fechaInicio5;
 	private Calendar fechaFin6;
+	private Usuario user;
+	private PorPrecioPorNoche preferencia1;
+	private PorPrecioPorEstadia preferencia2;
+	private SoloImportaElLugar preferencia3;
+
 	
 	
 	public void setUp(){
@@ -54,6 +64,49 @@ public class HabitacionTest extends TestCase {
 		diasReservados.add(diasReserva3);
 		
 		habitacion.setDiasOcupados(diasReservados);
+		habitacion.setPrecioPorNoche(120);
+
+		
+		user = mock(Usuario.class);
+		preferencia1 = mock(PorPrecioPorNoche.class);
+		preferencia2 = mock(PorPrecioPorEstadia.class);
+		preferencia3 = mock(SoloImportaElLugar.class);
+		
+	}
+	
+public void testLePuedeInteresarAlUsuarioPorElPrecioPorNoche(){
+		
+		when(preferencia1.getPrecioMinimo()).thenReturn(100);
+		when(preferencia1.getPrecioMaximo()).thenReturn(150);
+		when(user.getPreferencia()).thenReturn(preferencia1);
+		boolean b= habitacion.lePuedeInteresarAlUsuario(user);
+		Assert.assertTrue(b);
+		
+	}
+	
+	public void testLePuedeInteresarAlUsuarioPorLaUbicacion(){
+		
+		when(preferencia3.getPaisDelHotel()).thenReturn("España");
+		when(preferencia3.getCiudadDelHotel()).thenReturn("Madrid");
+		when(user.getPreferencia()).thenReturn(preferencia3);
+		Assert.assertTrue(habitacion.lePuedeInteresarAlUsuario(user));
+		
+	}
+	
+	public void testLePuedeInteresarAlUsuarioPorElPrecioPorEstadia(){
+		
+		
+		fechaInicio1 = Calendar.getInstance();
+		fechaInicio1.set(2013,01,1,0,0,0);
+		fechaFin2 = Calendar.getInstance();
+		fechaFin2.set(2013,10,1,0,0,0);
+		when(preferencia2.getPrecioMinimo()).thenReturn(1000);
+		when(preferencia2.getPrecioMaximo()).thenReturn(1500);
+		when(preferencia2.getFechaInicialDeInteres()).thenReturn(fechaInicio1);
+		when(preferencia2.getFechaFinalDeInteres()).thenReturn(fechaFin2);
+		boolean b= habitacion.lePuedeInteresarAlUsuario(user);
+		Assert.assertTrue(b);
+		
 	}
 	
 	public void testEliminarHorario(){
