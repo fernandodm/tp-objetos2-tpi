@@ -1,6 +1,13 @@
 package ofertaHotelera;
 
 public class Efectivo extends FormaDePago {
-	//89
+	
+	public Efectivo(int monto){
+		this.setMonto(monto);
+	}
+	
+	void documentarPago(){
+		
+	}
 
 }
