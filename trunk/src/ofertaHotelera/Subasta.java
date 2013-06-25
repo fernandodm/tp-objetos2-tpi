@@ -14,6 +14,7 @@ public class Subasta {
 	private Calendar finSubasta;
 	private EstadoSubasta estado;
 	private Habitacion habitacion;
+	private FormaDePago formaDePago;
 	
 	public Usuario getGanadorActual() {
 		return ganadorActual;
@@ -51,6 +52,18 @@ public class Subasta {
 	public void setHabitacion(Habitacion habitacion) {
 		this.habitacion = habitacion;
 	}
+
+	public FormaDePago getFormaDePago() {
+		return formaDePago;
+	}
+
+
+
+	public void setFormaDePago(FormaDePago formaDePago) {
+		this.formaDePago = formaDePago;
+	}
+
+
 
 	public Subasta(int valorInicial, Calendar ini, Calendar fin){
 		
