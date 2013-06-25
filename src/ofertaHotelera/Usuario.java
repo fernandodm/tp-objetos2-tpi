@@ -165,7 +165,7 @@ public class Usuario implements Observer{
 	
 	
 	
-	public void calificarHotel(Hotel h, String comentario, int puntaje) throws ExcepcionTodaviaNoSeHospedoEnEsteHotelOSuReservaNoHaFinalizado, ExcepcionNoEstaOnline{
+	public void calificarHotel(Hotel h, int puntaje, String comentario) throws ExcepcionTodaviaNoSeHospedoEnEsteHotelOSuReservaNoHaFinalizado, ExcepcionNoEstaOnline{
 		
 		boolean seHospedo = false;
 		
@@ -181,19 +181,31 @@ public class Usuario implements Observer{
 			}
 
 		}
-		h.agregarCalificacion(comentario, puntaje, seHospedo);
+		if(seHospedo){
+			Calificacion cal = new Calificacion(this,puntaje,comentario);
+			
+			h.agregarCalificacion(cal);
+		}else{
+			throw new ExcepcionTodaviaNoSeHospedoEnEsteHotelOSuReservaNoHaFinalizado();
+		}
+		
+		
 	}
 	
 	public void ofertarEnSubasta(Subasta sub, float unMonto) throws ExcepcionLaSubastaAunNoHaIniciado, ExcepcionLaSubastaYaHaFinalizado, ExcepcionOfertaInferior{
 		sub.agragarOferta(this, unMonto);
 	}
 	
-	public void suscribirseAlAvisoDeOfertasHoteleras(SistemaDeBusqueda s) throws ExcepcionSeDebeTenerAlMenosUnCriterioDePreferencia{
+	public void suscribirseAlAvisoDeOfertasHoteleras(SistemaDeBusqueda s) throws ExcepcionSeDebeTenerAlMenosUnCriterioDePreferencia,ExcepcionNoEstaOnline{
 		
-		if(!(getPreferencia() == null)){
-			s.agregarSuscripto(this);
-		} else {
-			throw new ExcepcionSeDebeTenerAlMenosUnCriterioDePreferencia();
+		if(isOnline()){
+			if(!(getPreferencia() == null)){
+				s.agregarSuscripto(this);
+			} else {
+				throw new ExcepcionSeDebeTenerAlMenosUnCriterioDePreferencia();
+			}
+		}else{
+			throw new ExcepcionNoEstaOnline();
 		}
 	}
 	
