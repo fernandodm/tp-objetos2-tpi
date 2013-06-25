@@ -22,7 +22,7 @@ public class Hotel {
 	private List<Habitacion> habitaciones = new ArrayList<Habitacion>();
 	private List<FormaDePago> tarjetasAceptadas = new ArrayList<FormaDePago>();
 	private List<Reserva> reservas = new ArrayList<Reserva>();
-	private Map<String,Integer> calificaciones = new HashMap<String,Integer>();
+	private List<Calificacion> calificaciones = new ArrayList<Calificacion>();
 	private SistemaDeBusqueda sistemaEnElQueEstaCargado;
 	
 	public String getNombre() {
@@ -73,9 +73,7 @@ public class Hotel {
 	public void setCiudad(String ciudad) {
 		this.ciudad = ciudad;
 	}
-	public List<Habitacion> getHabitaciones() {
-		return habitaciones;
-	}
+	
 	public void setHabitaciones(List<Habitacion> habitaciones) {
 		this.habitaciones = habitaciones;
 	}
@@ -91,12 +89,18 @@ public class Hotel {
 	public void setReservas(List<Reserva> reservas) {
 		this.reservas = reservas;
 	}
-	public Map<String, Integer> getCalificaciones() {
+	public List<Calificacion> getCalificaciones() {
 		return calificaciones;
 	}
-	public void setCalificaciones(Map<String, Integer> calificaciones) {
+	public void setCalificaciones(List<Calificacion> calificaciones) {
 		this.calificaciones = calificaciones;
 	}
+
+	public List<Habitacion> getHabitaciones() {
+		return habitaciones;
+	}
+
+
 	public SistemaDeBusqueda getSistemaEnElQueEstaCargado() {
 		return sistemaEnElQueEstaCargado;
 	}
@@ -178,18 +182,16 @@ public class Hotel {
 		return reservasFuturas;
 	}
 
-	public void agregarCalificacion(String comentario, Integer puntaje, boolean seHospedo) throws ExcepcionTodaviaNoSeHospedoEnEsteHotelOSuReservaNoHaFinalizado{
-		if(seHospedo){
-			getCalificaciones().put(comentario, puntaje);
-		}else{
-			throw new ExcepcionTodaviaNoSeHospedoEnEsteHotelOSuReservaNoHaFinalizado();
-		}
+	public void agregarCalificacion(Calificacion cal){
+		
+		getCalificaciones().add(cal);
+		
 	}
 	
 	public int calificacionPromedio(){
 		Integer promedio = 0;
-		for(Integer each : getCalificaciones().values()){
-			promedio = promedio + each;
+		for(Calificacion each : getCalificaciones()){
+			promedio = promedio + each.getPuntaje();
 		}
 		return(promedio / getCalificaciones().size());
 	}
@@ -197,6 +199,12 @@ public class Hotel {
 	public boolean lePuedeInteresarAlUsuario(Usuario user){
 		
 		boolean lePuedeInteresar = false;
+		for(Habitacion each : getHabitaciones()){
+			if(each.lePuedeInteresarAlUsuario(user)){
+				lePuedeInteresar = true;
+				break;
+			}
+		}
 		
 		return lePuedeInteresar;
 	}
