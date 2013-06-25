@@ -16,7 +16,6 @@ import excepciones.ExcepcionUsuarioIncorrecto;
 
 public class SistemaDeBusqueda extends Observable{
 	
-	// RECORDAR HACER EL LOGOUT FER :P
 	
 	private List<Hotel> hoteles = new ArrayList<Hotel>();
 	private List<Usuario> usuarios = new ArrayList<Usuario>();
