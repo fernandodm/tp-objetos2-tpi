@@ -25,70 +25,104 @@ public class Hotel {
 	private Map<String,Integer> calificaciones = new HashMap<String,Integer>();
 	private SistemaDeBusqueda sistemaEnElQueEstaCargado;
 	
-	
 	public String getNombre() {
 		return nombre;
 	}
-
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-
 	public String getPais() {
 		return pais;
 	}
-
 	public void setPais(String pais) {
 		this.pais = pais;
 	}
-
-	public List<Reserva> getReservas() {
-		return reservas;
+	public String getDireccion() {
+		return direccion;
 	}
-
-	public void setReservas(List<Reserva> reservas) {
-		this.reservas = reservas;
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
 	}
-
+	public int getTelefono() {
+		return telefono;
+	}
+	public void setTelefono(int telefono) {
+		this.telefono = telefono;
+	}
+	public int getCategoria() {
+		return categoria;
+	}
+	public void setCategoria(int categoria) {
+		this.categoria = categoria;
+	}
+	public String getCheckIn() {
+		return checkIn;
+	}
+	public void setCheckIn(String checkIn) {
+		this.checkIn = checkIn;
+	}
+	public String getCheckOut() {
+		return checkOut;
+	}
+	public void setCheckOut(String checkOut) {
+		this.checkOut = checkOut;
+	}
 	public String getCiudad() {
 		return ciudad;
 	}
-
 	public void setCiudad(String ciudad) {
 		this.ciudad = ciudad;
 	}
-	
-	public Map<String, Integer> getCalificaciones() {
-		return calificaciones;
-	}
-
-	public void setCalificaciones(Map<String, Integer> calificaciones) {
-		this.calificaciones = calificaciones;
-	}
-	
 	public List<Habitacion> getHabitaciones() {
 		return habitaciones;
 	}
-
-
-
-	
-
+	public void setHabitaciones(List<Habitacion> habitaciones) {
+		this.habitaciones = habitaciones;
+	}
+	public List<FormaDePago> getTarjetasAceptadas() {
+		return tarjetasAceptadas;
+	}
+	public void setTarjetasAceptadas(List<FormaDePago> tarjetasAceptadas) {
+		this.tarjetasAceptadas = tarjetasAceptadas;
+	}
+	public List<Reserva> getReservas() {
+		return reservas;
+	}
+	public void setReservas(List<Reserva> reservas) {
+		this.reservas = reservas;
+	}
+	public Map<String, Integer> getCalificaciones() {
+		return calificaciones;
+	}
+	public void setCalificaciones(Map<String, Integer> calificaciones) {
+		this.calificaciones = calificaciones;
+	}
 	public SistemaDeBusqueda getSistemaEnElQueEstaCargado() {
 		return sistemaEnElQueEstaCargado;
 	}
-
 	public void setSistemaEnElQueEstaCargado(
 			SistemaDeBusqueda sistemaEnElQueEstaCargado) {
 		this.sistemaEnElQueEstaCargado = sistemaEnElQueEstaCargado;
 	}
-
-
-	public void setHabitaciones(List<Habitacion> habitaciones) {
-		this.habitaciones = habitaciones;
+	
+	public Hotel(){
+		
 	}
 
-
+	public Hotel(String nombre, String pais, String direccion, int tel, int categoria, String checkIn,
+			String checkOut, String ciudad, SistemaDeBusqueda sistema){
+		this.setNombre(nombre);
+		this.setPais(pais);
+		this.setDireccion(direccion);
+		this.setTelefono(tel);
+		this.setCategoria(categoria);
+		this.setCheckIn(checkIn);
+		this.setCheckOut(checkOut);
+		this.setCiudad(ciudad);
+		this.setSistemaEnElQueEstaCargado(sistema);
+		
+	}
+	
 	public void eliminarReserva(Reserva unaReserva){
 	
 	 	getReservas().remove(unaReserva);

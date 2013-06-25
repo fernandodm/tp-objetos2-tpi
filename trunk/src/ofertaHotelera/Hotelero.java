@@ -50,4 +50,10 @@ public class Hotelero {
 		return res;
 	}
 
+	public void ponerPrecioHabRangoDias(List<Calendar> dias, int precio, Habitacion hab){
+		hab.getPreciosPorFecha().put(dias, (Integer) precio);
+	}
+	
+	
+	
 }
