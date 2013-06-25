@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
+import descuentos.Descuento;
 
 
 
@@ -12,13 +13,20 @@ public class Habitacion {
 	private Hotel hotel;
 	private int capacidadMaxima;
 	private boolean camaTwin;
-	private List<List<Calendar>> diasOcupados = new ArrayList<List<Calendar>>();
-	private Map<List<Calendar>,Integer> preciosPorFecha = new HashMap<List<Calendar>,Integer>();  
 	private int precioPorNoche; //Esto deberia funcionar como un precio por default, 
 	//si lo dejamos. No lo saque xq se cagaban otras clases.
 	private int numero;
+	private List<Descuento> descuentos = new ArrayList<Descuento>();
+	private List<List<Calendar>> diasOcupados = new ArrayList<List<Calendar>>();
+	private Map<List<Calendar>,Integer> preciosPorFecha = new HashMap<List<Calendar>,Integer>();  
 	private List<Servicio> servicios = new ArrayList<Servicio>();
 
+	public List<Descuento> getDescuentos() {
+		return descuentos;
+	}
+	public void setDescuentos(List<Descuento> descuentos) {
+		this.descuentos = descuentos;
+	}
 	public List<Servicio> getServicios() {
 		return servicios;
 	}
