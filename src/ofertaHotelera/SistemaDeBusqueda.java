@@ -6,7 +6,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Observable;
 
-import testOfertaHotelera.SistemaDeBusquedaTest;
+//TODO import testOfertaHotelera.SistemaDeBusquedaTest;
 
 import excepciones.ExcepcionElNombreDeUsuarioYaExiste;
 
