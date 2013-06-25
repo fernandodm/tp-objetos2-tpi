@@ -8,7 +8,9 @@ import java.util.List;
 
 import excepciones.ExcepcionElNombreDeUsuarioYaExiste;
 import excepciones.ExcepcionHotelNoEncontrado;
+import excepciones.ExcepcionNoEstaOnline;
 import excepciones.ExcepcionPasswordIncorrecto;
+import excepciones.ExcepcionSeDebeTenerAlMenosUnCriterioDePreferencia;
 import excepciones.ExcepcionUsuarioIncorrecto;
 
 import ofertaHotelera.Habitacion;
@@ -198,6 +200,8 @@ public class SistemaDeBusquedaTest extends TestCase {
 		verify(usuario1).setOnline(false);
 		
 	}
+	
+
 	
 	/**
 	 * @param args

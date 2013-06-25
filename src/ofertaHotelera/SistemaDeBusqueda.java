@@ -194,7 +194,7 @@ public class SistemaDeBusqueda extends Observable{
 		h2.setServicios(list1);
 		h2.setNumero(2);
 		h2.setPrecioPorNoche(100);
-		h2.setCapacidadMaxima(3);
+		h2.setCapacidadMaxima(2);
 		List<Habitacion> habitaciones = new ArrayList<Habitacion>();
 		habitaciones.add(h1);
 		habitaciones.add(h2);

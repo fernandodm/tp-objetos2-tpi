@@ -12,14 +12,20 @@ import org.junit.Assert;
 
 import excepciones.ExcepcionTodaviaNoSeHospedoEnEsteHotelOSuReservaNoHaFinalizado;
 
+import ofertaHotelera.Calificacion;
 import ofertaHotelera.Habitacion;
 import ofertaHotelera.Hotel;
 import ofertaHotelera.Reserva;
+import ofertaHotelera.SistemaDeBusqueda;
+import ofertaHotelera.SoloImportaElLugar;
+import ofertaHotelera.Usuario;
 import junit.framework.TestCase;
 
 public class HotelTest extends TestCase{
 	private Hotel hotel;
-	private Map<String,Integer> calificaciones = new HashMap<String,Integer>();
+	private List<Calificacion> calificaciones = new ArrayList<Calificacion>();
+	private Calificacion calificacion;
+	private Calificacion calificacion2;
 	private List<Reserva> reservas = new ArrayList<Reserva>();
 	private Reserva reserva1;
 	private Reserva reserva2;
@@ -33,6 +39,9 @@ public class HotelTest extends TestCase{
 	private Calendar fecha4;
 	private Calendar fecha5;
 	private Calendar fecha6;
+	private Usuario usuario;
+	private SoloImportaElLugar preferenciaPorLugar;
+	private SistemaDeBusqueda sistema;
 	
 	public void setUp(){
 		
@@ -84,9 +93,27 @@ public class HotelTest extends TestCase{
 		habitaciones.add(habitacion2);
 		habitaciones.add(habitacion3);
 		
+		sistema = mock(SistemaDeBusqueda.class);
+		
 		hotel.setReservas(reservas);
 		hotel.setCalificaciones(calificaciones);
 		hotel.setHabitaciones(habitaciones);
+		hotel.setSistemaEnElQueEstaCargado(sistema);
+		
+		calificacion = mock(Calificacion.class);
+		when(calificacion.getPuntaje()).thenReturn(8);
+		when(calificacion.getComentario()).thenReturn("Muy bien");
+		
+		calificacion2 = mock(Calificacion.class);
+		when(calificacion2.getPuntaje()).thenReturn(6);
+		when(calificacion2.getComentario()).thenReturn("Podria mejorar");
+		
+		preferenciaPorLugar = mock(SoloImportaElLugar.class);
+		when(preferenciaPorLugar.getPaisDelHotel()).thenReturn("China");
+		when(preferenciaPorLugar.getCiudadDelHotel()).thenReturn("Beijing");
+		
+		usuario = mock(Usuario.class);
+		when(usuario.getPreferencia()).thenReturn(preferenciaPorLugar);
 		
 	}
 	
@@ -159,41 +186,7 @@ public class HotelTest extends TestCase{
 		Assert.assertTrue(r1 == reserva4);
 		Assert.assertTrue(r2 == reserva5);
 	}
-	
-	public void testAgregarCalificacionDeUsuarioQueSeHospedo() throws ExcepcionTodaviaNoSeHospedoEnEsteHotelOSuReservaNoHaFinalizado{
 		
-		hotel.agregarCalificacion("Re pillo", 8, true);
-		
-
-
-		Assert.assertEquals(hotel.getCalificaciones().size(), 1);
-		Assert.assertTrue((hotel.getCalificaciones()).get("Re pillo")== 8);
-		}
-	
-	public void testAgregarCalificacionDeUsuarioQueNoSeHospedo() throws ExcepcionTodaviaNoSeHospedoEnEsteHotelOSuReservaNoHaFinalizado{
-		
-		try{
-			hotel.agregarCalificacion("Re pillo", 8, false);
-			fail("EL USUARIO AUN NO SE HA HOSPEDADO EN ESTE HOTEL");
-		} catch (ExcepcionTodaviaNoSeHospedoEnEsteHotelOSuReservaNoHaFinalizado e){
-		
-		}
-		
-	}
-	
-
-	
-	public void testCalificacionPromedio() throws ExcepcionTodaviaNoSeHospedoEnEsteHotelOSuReservaNoHaFinalizado{
-		
-		hotel.agregarCalificacion("Re pillo", 10, true);
-		hotel.agregarCalificacion("Va queriendo", 5, true);
-		hotel.agregarCalificacion("Una mierda", 3, true);
-		
-		Integer prom = hotel.calificacionPromedio();
-		Assert.assertTrue(prom.equals(6));
-		
-	}
-	
 	public void testTieneHabitacionConTrue(){
 		// este test encuentra una habitacion, devuelve true 
 		boolean tieneHabitacion = hotel.tieneHabitacionesCon(fecha1, fecha2, 3);
@@ -204,6 +197,54 @@ public class HotelTest extends TestCase{
 		// este test no encuentra una habitacion, devuelve false
 		boolean tieneHabitacion = hotel.tieneHabitacionesCon(fecha1, fecha2, 2);
 		Assert.assertFalse(tieneHabitacion);
+	}
+	
+	public void testAgregarCalificacion() throws ExcepcionTodaviaNoSeHospedoEnEsteHotelOSuReservaNoHaFinalizado{
+		
+		
+		
+		hotel.agregarCalificacion(calificacion);
+		
+
+
+		Assert.assertEquals(hotel.getCalificaciones().size(), 1);
+		Assert.assertTrue((hotel.getCalificaciones()).get(0)== calificacion);
+		}
+	
+
+
+	
+	public void testCalificacionPromedio() throws ExcepcionTodaviaNoSeHospedoEnEsteHotelOSuReservaNoHaFinalizado{
+		
+		hotel.agregarCalificacion(calificacion);
+		hotel.agregarCalificacion(calificacion2);
+
+		
+		Integer prom = hotel.calificacionPromedio();
+		Assert.assertTrue(prom.equals(7));
+		
+	}
+	
+	public void lePuedeInteresarAlUsuarioPorUbicacion(){
+		
+		hotel.setPais("China");
+		hotel.setCiudad("Beijing");
+		Assert.assertTrue(hotel.lePuedeInteresarAlUsuario(usuario));
+		
+	}
+	
+	public void noLePuedeInteresarAlUsuarioPorUbicacion(){
+		
+		
+		hotel.setPais("China");
+		hotel.setCiudad("Chinchon");
+		Assert.assertFalse(hotel.lePuedeInteresarAlUsuario(usuario));
+		
+	}
+	
+	public void testActualizarInformacion(){
+		hotel.actualizarInformacion();
+		verify(sistema).actualizarOfertaDelHotel(hotel);
 	}
 	
 }
