@@ -19,6 +19,7 @@ public class SistemaDeBusqueda extends Observable{
 	
 	private List<Hotel> hoteles = new ArrayList<Hotel>();
 	private List<Usuario> usuarios = new ArrayList<Usuario>();
+	private List<Subasta> subastas = new ArrayList<Subasta>();
 	
 	public List<Hotel> getHoteles() {
 		return hoteles;
@@ -36,6 +37,16 @@ public class SistemaDeBusqueda extends Observable{
 		this.usuarios = usuarios;
 	}
 	
+	
+	
+	public List<Subasta> getSubastas() {
+		return subastas;
+	}
+
+	public void setSubastas(List<Subasta> subastas) {
+		this.subastas = subastas;
+	}
+
 	public boolean existeNombreDeUsuario(String nombre){
 		
 		for(Usuario each: getUsuarios()){
@@ -165,6 +176,9 @@ public class SistemaDeBusqueda extends Observable{
 		return hoteles;
 	}
 
+	public void agregarSubasta(Subasta sub){
+		getSubastas().add(sub);
+	}
 
 	//public void realizarReserva
 	

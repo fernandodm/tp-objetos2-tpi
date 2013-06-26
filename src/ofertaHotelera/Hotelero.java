@@ -78,4 +78,11 @@ public class Hotelero {
 		}
 	}
 	
+	public void subastarHabitacion(Habitacion h, Calendar fechaIni, Calendar fechaFin, int valorInicial, SistemaDeBusqueda sistem){
+		
+		Subasta subasta = new Subasta(h,valorInicial,fechaIni,fechaFin);
+		sistem.agregarSubasta(subasta);
+		
+	}
+	
 }
