@@ -41,7 +41,7 @@ public class Periodo {
 			|| seSuperPone(desde2,hasta2);
 	}
 
-	private boolean seSuperPone(Calendar desde2, Calendar hasta2) {
+	public boolean seSuperPone(Calendar desde2, Calendar hasta2) {
 		
 		String fechaInicio = "" + desde2.get(desde2.YEAR) + desde2.get(desde2.MONTH) + desde2.get(desde2.DATE);
 		String fechaFin = "" + hasta2.get(hasta2.YEAR) + hasta2.get(hasta2.MONTH) + hasta2.get(hasta2.DATE);

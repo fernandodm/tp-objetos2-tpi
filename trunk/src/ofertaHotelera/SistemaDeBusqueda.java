@@ -147,7 +147,7 @@ public class SistemaDeBusqueda extends Observable{
 		for(Habitacion each: hotel.getHabitaciones()){
 			if(each.estaDisponible(desde, hasta) && each.getCapacidadMaxima() == huespedes){
 				System.out.println("-Numero: " + each.getNumero());
-				System.out.println("  -Precio: " + "$" + each.getPrecioPorNoche() + " por noche");
+				//System.out.println("  -Precio: " + "$" + each.getPrecioPorNoche() + " por noche");
 				each.imprimirServicios();
 			}
 		}
@@ -201,13 +201,13 @@ public class SistemaDeBusqueda extends Observable{
 		list.add(s2);
 		h1.setServicios(list);
 		h1.setNumero(1);
-		h1.setPrecioPorNoche(133);
+	//	h1.setPrecioPorNoche(133);
 		h1.setCapacidadMaxima(2);
 		List<Servicio> list1 = new ArrayList<Servicio>();
 		list1.add(s3);
 		h2.setServicios(list1);
 		h2.setNumero(2);
-		h2.setPrecioPorNoche(100);
+	//	h2.setPrecioPorNoche(100);
 		h2.setCapacidadMaxima(2);
 		List<Habitacion> habitaciones = new ArrayList<Habitacion>();
 		habitaciones.add(h1);
