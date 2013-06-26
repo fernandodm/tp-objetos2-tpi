@@ -142,12 +142,14 @@ public class Hotel {
 				diaActual.get(diaActual.DATE),0,0,0);
 					
 		for(Reserva each: getReservas()){
-			if((Comparador.sonIguales(diaActual, each.getFechaDeIngreso())) || diaActual.after(each.getFechaDeIngreso())
-					&& diaActual.before(each.getFechaDeSalida())){
+			Calendar desde = each.getPeriodo().getDesde();
+			Calendar hasta = each.getPeriodo().getHasta();
+			if((diaActual.after(desde) && diaActual.before(hasta)) 
+					|| Comparador.sonIguales(diaActual, desde) 
+					|| Comparador.sonIguales(diaActual, hasta)){
 				
 				actuales.add(each);
 			}
-			
 		}
 		return actuales;		
 	}
@@ -158,7 +160,7 @@ public class Hotel {
 		List<Calendar> siguientesDias = GeneradorDeCalendar.generar(n);
 		
 		for(Reserva each: getReservas()){
-			if(Comparador.listaContieneFecha(siguientesDias, each.getFechaDeIngreso())){
+			if(Comparador.listaContieneFecha(siguientesDias, each.getPeriodo().getDesde())){
 				lasReservas.add(each);
 			}
 		}
@@ -174,7 +176,7 @@ public class Hotel {
 				diaActual.get(diaActual.DATE),0,0,0);
 		
 		for(Reserva each: getReservas()){
-			Calendar ingreso = each.getFechaDeIngreso();
+			Calendar ingreso = each.getPeriodo().getDesde();
 			if(ingreso.after(diaActual)){
 				reservasFuturas.add(each);
 			}
