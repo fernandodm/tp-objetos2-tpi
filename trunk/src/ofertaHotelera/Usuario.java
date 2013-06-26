@@ -22,21 +22,29 @@ public class Usuario implements Observer{
 	private String nombreUsuario;
 	private String contrasenha;
 	private String nombre;
+	private String mail;
 	private boolean online;
 	private Preferencia preferencia;
 	
 	public Usuario(){};
 	
 	public Usuario(SistemaDeBusqueda sistema, String nombreUsuario, String contrasenha, String nombre,
-			boolean online) {
+			boolean online, String mail) {
 	
 		this.sistema = sistema;
 		this.nombreUsuario = nombreUsuario;
 		this.contrasenha = contrasenha;
 		this.nombre = nombre;
 		this.online = online;
+		this.mail= mail;
 	}
 	
+	public String getMail() {
+		return mail;
+	}
+	public void setMail(String mail) {
+		this.mail = mail;
+	}
 	public SistemaDeBusqueda getSistema() {
 		return sistema;
 	}

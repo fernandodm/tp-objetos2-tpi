@@ -24,7 +24,7 @@ public class HoteleroTest extends TestCase {
 	private List<Calendar> dias = new ArrayList<Calendar>();
 
 	public void setUp(){
-		hotelero = new Hotelero("Steve", new ArrayList<Hotel>());
+		hotelero = new Hotelero("Steve", new ArrayList<Hotel>(), "loquillo@gmail.com");
 		hotel = mock(Hotel.class);
 		habitacion1 = new Habitacion(hotel, 5, true, 100, 1);
 		habitacion2 = new Habitacion(hotel, 4, false, 200, 2);

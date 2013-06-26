@@ -9,7 +9,14 @@ public class Hotelero {
 	
 	private String nombre;
 	private List<Hotel> misHoteles;
-
+	private String mail;
+	
+	public String getMail() {
+		return mail;
+	}
+	public void setMail(String mail) {
+		this.mail = mail;
+	}
 	public String getNombre() {
 		return nombre;
 	}
@@ -23,9 +30,10 @@ public class Hotelero {
 		this.misHoteles = misHoteles;
 	}
 	
-	public Hotelero(String unNombre, List<Hotel> hoteles){
+	public Hotelero(String unNombre, List<Hotel> hoteles, String mail){
 		this.setNombre(unNombre);
 		this.setMisHoteles(hoteles);
+		this.setMail(mail);
 	}
 	
 	public List<Reserva> obtenerReservasActuales(){
