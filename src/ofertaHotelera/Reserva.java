@@ -10,20 +10,25 @@ public class Reserva {
 	private Usuario usuario;
 	private Hotel hotel;
 	private Habitacion habitacion;
-	private Calendar fechaDeIngreso;
-	private Calendar fechaDeSalida;
+	private Periodo periodo;
 	
 	public Reserva(){
 	}
 	
-	public Reserva(Usuario usuario, Hotel hotel, Habitacion habitacion,
-			Calendar fechaDeIngreso, Calendar fechaDeSalida) {
+	public Reserva(Usuario usuario, Hotel hotel, Habitacion habitacion,Periodo periodo) {
 		
 		this.usuario = usuario;
 		this.hotel = hotel;
 		this.habitacion = habitacion;
-		this.fechaDeIngreso = fechaDeIngreso;
-		this.fechaDeSalida = fechaDeSalida;
+		this.periodo = periodo;
+	}
+	
+	public Periodo getPeriodo() {
+		return periodo;
+	}
+
+	public void setPeriodo(Periodo periodo) {
+		this.periodo = periodo;
 	}
 	
 	public Habitacion getHabitacion() {
@@ -34,27 +39,6 @@ public class Reserva {
 	public void setHabitacion(Habitacion habitacion) {
 		this.habitacion = habitacion;
 	}
-
-
-	public Calendar getFechaDeIngreso() {
-		return fechaDeIngreso;
-	}
-
-
-	public void setFechaDeIngreso(Calendar fechaDeIngreso) {
-		this.fechaDeIngreso = fechaDeIngreso;
-	}
-
-
-	public Calendar getFechaDeSalida() {
-		return fechaDeSalida;
-	}
-
-
-	public void setFechaDeSalida(Calendar fechaDeSalida) {
-		this.fechaDeSalida = fechaDeSalida;
-	}
-
 
 	public Usuario getUsuario() {
 		return usuario;
@@ -82,7 +66,7 @@ public class Reserva {
 	
 	public boolean estaReservadaDespuesDe(Calendar instance) {
 		
-		return getFechaDeIngreso().after(instance);
+		return getPeriodo().getDesde().after(instance);
 	}
 	
 	public void eliminarReservaDelHotel(){
@@ -93,7 +77,7 @@ public class Reserva {
 
 	public void eliminarHorarioDeLaHabitacion() {
 		
-		getHabitacion().eliminarHorario(getFechaDeIngreso(),getFechaDeSalida());
+		getHabitacion().eliminarHorario(getPeriodo());
 		
 	}
 

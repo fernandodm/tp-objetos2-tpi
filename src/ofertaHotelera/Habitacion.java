@@ -13,14 +13,18 @@ public class Habitacion {
 	private Hotel hotel;
 	private int capacidadMaxima;
 	private boolean camaTwin;
-	private int precioPorNoche; //Esto deberia funcionar como un precio por default, 
-	//si lo dejamos. No lo saque xq se cagaban otras clases.
 	private int numero;
 	private List<Descuento> descuentos = new ArrayList<Descuento>();
-	private List<List<Calendar>> diasOcupados = new ArrayList<List<Calendar>>();
+	private List<Periodo> diasOcupados = new ArrayList<Periodo>();
 	private Map<List<Calendar>,Integer> preciosPorFecha = new HashMap<List<Calendar>,Integer>();  
 	private List<Servicio> servicios = new ArrayList<Servicio>();
 
+	public List<Periodo> getDiasOcupados() {
+		return diasOcupados;
+	}
+	public void setDiasOcupados(List<Periodo> diasOcupados) {
+		this.diasOcupados = diasOcupados;
+	}
 	public List<Descuento> getDescuentos() {
 		return descuentos;
 	}
@@ -57,46 +61,29 @@ public class Habitacion {
 	public void setHotel(Hotel hotel) {
 		this.hotel = hotel;
 	}
-	public List<List<Calendar>> getDiasOcupados() {
-		return diasOcupados;
-	}
-	public void setDiasOcupados(List<List<Calendar>> diasOcupados) {
-		this.diasOcupados = diasOcupados;
-	}
 	public Map<List<Calendar>, Integer> getPreciosPorFecha() {
 		return preciosPorFecha;
 	}
 	public void setPreciosPorFecha(Map<List<Calendar>, Integer> preciosPorFecha) {
 		this.preciosPorFecha = preciosPorFecha;
 	}
-	public int getPrecioPorNoche() {
-		return precioPorNoche;
-	}
-	public void setPrecioPorNoche(int precioPorNoche) {
-		this.precioPorNoche = precioPorNoche;
-	}
 	
 	public Habitacion(){
 		
 	}
 
-	public Habitacion(Hotel hotel, int capMax, boolean twin, int precio, int nro){
+	public Habitacion(Hotel hotel, int capMax, boolean twin, int nro){
 		this.setHotel(hotel);
 		this.setCapacidadMaxima(capMax);
 		this.setCamaTwin(twin);
-		this.setPrecioPorNoche(precio);
 		this.setNumero(nro);
 	}
 	
-	public void eliminarHorario(Calendar fechaDeIngreso, Calendar fechaDeSalida) {
+	public void eliminarHorario(Periodo unPeriodo) {
 		
-		List<Calendar> diasReservados = new ArrayList<Calendar>();
-		diasReservados.add(fechaDeIngreso);
-		diasReservados.add(fechaDeSalida);
-		
-		for(int i = 0; i < getDiasOcupados().size(); i++){
-			if(getDiasOcupados().get(i).equals(diasReservados)){
-				getDiasOcupados().remove(i);
+		for(Periodo each: getDiasOcupados()){
+			if(each.equals(unPeriodo)){
+				getDiasOcupados().remove(each);
 				break;
 			}
 		}
@@ -105,16 +92,14 @@ public class Habitacion {
 	
 	public boolean lePuedeInteresarAlUsuario(Usuario user){
 		
-
 		return (user.getPreferencia().lePuedeInteresarHabitacion(this));
 	}
 
 	public boolean estaDisponible(Calendar desde, Calendar hasta) {
 		
-		for(List<Calendar> each: getDiasOcupados()){
-			Calendar fechaInicio = each.get(0);
-			Calendar fechaFin = each.get(1);
-			if( Comparador.between(desde, fechaInicio, fechaFin) || Comparador.between(hasta, fechaInicio, fechaFin)){
+		for(Periodo each: getDiasOcupados()){
+		
+			if( each.estaEntre(desde ,hasta)){
 				
 				return false;
 			}

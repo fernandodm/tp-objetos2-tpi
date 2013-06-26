@@ -75,7 +75,7 @@ public class SistemaDeBusquedaTest extends TestCase {
 	
 	public void testRegistrarUsuario() throws ExcepcionElNombreDeUsuarioYaExiste{
 		
-		sistema.registrarUsuario("DonRamon", "1234", "ramon");
+		sistema.registrarUsuario("DonRamon", "1234", "ramon", "donRamon@gmail.com");
 		int cantidadUsers = sistema.getUsuarios().size();
 		Usuario user = sistema.getUsuarios().get(2);
 		
@@ -87,7 +87,7 @@ public class SistemaDeBusquedaTest extends TestCase {
 	public void testRegistrarUsuarioConNombreExistente() throws ExcepcionElNombreDeUsuarioYaExiste{
 		
 		try{
-			sistema.registrarUsuario("steve22", "1223", "esteban quito");
+			sistema.registrarUsuario("steve22", "1223", "esteban quito", "steve@gay.com");
 			fail("NO SE LANZO LA EXCEPCION DE REGISTRAR USUARIO");
 		}catch(ExcepcionElNombreDeUsuarioYaExiste e){
 			
