@@ -46,12 +46,12 @@ public class SistemaDeBusqueda extends Observable{
 		return false;
 	}
 
-	public void registrarUsuario(String nombreUsuario, String pass, String nombre) throws ExcepcionElNombreDeUsuarioYaExiste{
+	public void registrarUsuario(String nombreUsuario, String pass, String nombre, String mail) throws ExcepcionElNombreDeUsuarioYaExiste{
 		
 		if(existeNombreDeUsuario(nombreUsuario)){
 			throw new ExcepcionElNombreDeUsuarioYaExiste();
 		}else{
-			Usuario user = new Usuario(this,nombreUsuario, pass, nombre, false);
+			Usuario user = new Usuario(this,nombreUsuario, pass, nombre, false, mail);
 			usuarios.add(user);
 			//podria enviar un mail al usuario
 		}
