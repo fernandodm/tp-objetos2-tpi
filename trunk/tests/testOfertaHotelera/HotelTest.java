@@ -208,6 +208,9 @@ public class HotelTest extends TestCase{
 
 
 		Assert.assertEquals(hotel.getCalificaciones().size(), 1);
+
+		Assert.assertTrue((hotel.getCalificaciones()).get(0)== calificacion);
+
 		Assert.assertTrue((hotel.getCalificaciones()).get(0)== calificacion);
 		}
 	
@@ -215,14 +218,15 @@ public class HotelTest extends TestCase{
 
 	
 	public void testCalificacionPromedio() throws ExcepcionTodaviaNoSeHospedoEnEsteHotelOSuReservaNoHaFinalizado{
-		
+
+
 		hotel.agregarCalificacion(calificacion);
 		hotel.agregarCalificacion(calificacion2);
+
 
 		
 		Integer prom = hotel.calificacionPromedio();
 		Assert.assertTrue(prom.equals(7));
-		
 	}
 	
 	public void lePuedeInteresarAlUsuarioPorUbicacion(){
@@ -232,19 +236,41 @@ public class HotelTest extends TestCase{
 		Assert.assertTrue(hotel.lePuedeInteresarAlUsuario(usuario));
 		
 	}
+
 	
 	public void noLePuedeInteresarAlUsuarioPorUbicacion(){
 		
+
+		hotel.agregarCalificacion(calificacion);
+		hotel.agregarCalificacion(calificacion2);
+
+
 		
+
+		Integer prom = hotel.calificacionPromedio();
+		Assert.assertTrue(prom.equals(7));
+
 		hotel.setPais("China");
 		hotel.setCiudad("Chinchon");
 		Assert.assertFalse(hotel.lePuedeInteresarAlUsuario(usuario));
+
 		
 	}
 	
+
+
+		
+
 	public void testActualizarInformacion(){
 		hotel.actualizarInformacion();
 		verify(sistema).actualizarOfertaDelHotel(hotel);
+
 	}
+	
+
+
+	
+
+
 	
 }
