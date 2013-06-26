@@ -10,7 +10,7 @@ public class SoloImportaElLugar extends Preferencia {
 		if(h.getHotel().getPais() == getPaisDelHotel() && getCiudadDelHotel() == null && lasFechasEstanBien(h)){
 			b = true;
 		} 
-		if(h.getHotel().getPais() == getPaisDelHotel() && h.getHotel().getPais() == getCiudadDelHotel() && lasFechasEstanBien(h)){
+		if(h.getHotel().getPais() == getPaisDelHotel() && h.getHotel().getCiudad() == getCiudadDelHotel() && lasFechasEstanBien(h)){
 			b = true;
 		}
 		

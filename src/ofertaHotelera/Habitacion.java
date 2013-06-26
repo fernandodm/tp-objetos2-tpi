@@ -105,13 +105,8 @@ public class Habitacion {
 	
 	public boolean lePuedeInteresarAlUsuario(Usuario user){
 		
-		boolean lePuedeInteresar = false;
-		
-		if(user.getPreferencia().lePuedeInteresarHabitacion(this)){
-			lePuedeInteresar = true;
-		}
-		
-		return lePuedeInteresar;
+
+		return (user.getPreferencia().lePuedeInteresarHabitacion(this));
 	}
 
 	public boolean estaDisponible(Calendar desde, Calendar hasta) {

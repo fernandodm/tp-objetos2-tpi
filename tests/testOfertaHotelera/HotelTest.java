@@ -70,6 +70,9 @@ public class HotelTest extends TestCase{
 		habitacion2 = mock(Habitacion.class);
 		habitacion3 = mock(Habitacion.class);
 		
+		
+		
+		
 		when(habitacion1.estaDisponible(fecha1, fecha2)).thenReturn(false);
 		when(habitacion2.estaDisponible(fecha1, fecha2)).thenReturn(true);
 		when(habitacion3.estaDisponible(fecha1, fecha2)).thenReturn(false);
@@ -113,7 +116,7 @@ public class HotelTest extends TestCase{
 		when(preferenciaPorLugar.getCiudadDelHotel()).thenReturn("Beijing");
 		
 		usuario = mock(Usuario.class);
-		when(usuario.getPreferencia()).thenReturn(preferenciaPorLugar);
+		
 		
 	}
 	
@@ -229,16 +232,25 @@ public class HotelTest extends TestCase{
 		Assert.assertTrue(prom.equals(7));
 	}
 	
-	public void lePuedeInteresarAlUsuarioPorUbicacion(){
+	public void testLePuedeInteresarAlUsuarioPorUbicacion(){
+		
+		when(habitacion1.estaDisponible(fecha1, fecha2)).thenReturn(true);
+		when(habitacion1.getHotel()).thenReturn(hotel);
+		when(preferenciaPorLugar.getFechaInicialDeInteres()).thenReturn(fecha1);
+		when(preferenciaPorLugar.getFechaFinalDeInteres()).thenReturn(fecha2);
+		when(preferenciaPorLugar.getPaisDelHotel()).thenReturn("China");
+		when(preferenciaPorLugar.getCiudadDelHotel()).thenReturn("Beijing");
+		when(usuario.getPreferencia()).thenReturn(preferenciaPorLugar);
 		
 		hotel.setPais("China");
 		hotel.setCiudad("Beijing");
+		
 		Assert.assertTrue(hotel.lePuedeInteresarAlUsuario(usuario));
 		
 	}
 
 	
-	public void noLePuedeInteresarAlUsuarioPorUbicacion(){
+	public void testNoLePuedeInteresarAlUsuarioPorUbicacion(){
 		
 
 		hotel.agregarCalificacion(calificacion);

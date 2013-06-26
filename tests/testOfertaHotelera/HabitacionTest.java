@@ -6,6 +6,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import ofertaHotelera.Habitacion;
+import ofertaHotelera.Hotel;
 import ofertaHotelera.PorPrecioPorEstadia;
 import ofertaHotelera.PorPrecioPorNoche;
 import ofertaHotelera.SoloImportaElLugar;
@@ -27,6 +28,7 @@ public class HabitacionTest extends TestCase {
 	private PorPrecioPorNoche preferencia1;
 	private PorPrecioPorEstadia preferencia2;
 	private SoloImportaElLugar preferencia3;
+	private Hotel hotel;
 
 	
 	
@@ -72,6 +74,9 @@ public class HabitacionTest extends TestCase {
 		preferencia2 = mock(PorPrecioPorEstadia.class);
 		preferencia3 = mock(SoloImportaElLugar.class);
 		
+		hotel = mock(Hotel.class);
+		
+		
 	}
 	
 public void testLePuedeInteresarAlUsuarioPorElPrecioPorNoche(){
@@ -85,11 +90,16 @@ public void testLePuedeInteresarAlUsuarioPorElPrecioPorNoche(){
 	}
 	
 	public void testLePuedeInteresarAlUsuarioPorLaUbicacion(){
-		
+
+		when(hotel.getPais()).thenReturn("España");
+		when(hotel.getCiudad()).thenReturn("Madrid");
+		habitacion.setHotel(hotel);
 		when(preferencia3.getPaisDelHotel()).thenReturn("España");
 		when(preferencia3.getCiudadDelHotel()).thenReturn("Madrid");
+		when(preferencia3.lasFechasEstanBien(habitacion)).thenReturn(true);
 		when(user.getPreferencia()).thenReturn(preferencia3);
-		Assert.assertTrue(habitacion.lePuedeInteresarAlUsuario(user));
+		boolean b = habitacion.lePuedeInteresarAlUsuario(user);
+		Assert.assertTrue(b);
 		
 	}
 	
