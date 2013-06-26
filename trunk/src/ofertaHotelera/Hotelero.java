@@ -1,6 +1,7 @@
 package ofertaHotelera;
 
 import java.util.*;
+import ofertaHotelera.Comparador;
 import descuentos.Descuento;
 import ofertaHotelera.OperadorDeColecciones;
 
@@ -51,8 +52,16 @@ public class Hotelero {
 		return res;
 	}
 
-	public void ponerPrecioHabRangoDias(List<Calendar> dias, int precio, Habitacion hab){
-		hab.getPreciosPorFecha().put(dias, (Integer) precio);
+	public void ponerPrecioHabRangoDias(List<Calendar> dias, Integer precio, Habitacion hab){
+		List<List<Calendar>> diasConPrecio = OperadorDeColecciones.mapAList(hab.getPreciosPorFecha());
+		boolean superponeDias= Comparador.algunDiaIncluidoEnColeccion(dias, diasConPrecio);
+		if(! superponeDias){
+			hab.getPreciosPorFecha().put(dias, precio);
+		}
+		else{
+			//TODO deberiamos arrojar una excepcion que diga que uno de los dias 
+			// ya tenia un precio fijado. 
+		}
 	}
 	
 	public void agregarDescuento(Descuento descuento, List<Habitacion> habs){

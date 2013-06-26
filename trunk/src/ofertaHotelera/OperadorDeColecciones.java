@@ -9,5 +9,15 @@ public class OperadorDeColecciones {
 			res1.add(each);
 		}
 	}
+	
+	public static List<List<Calendar>> mapAList(Map<List<Calendar>, Integer> map){
+		List<List<Calendar>> res= new ArrayList<List<Calendar>>();
+    	Iterator it = map.entrySet().iterator();
+    	while (it.hasNext()) {
+    		Map.Entry e = (Map.Entry)it.next();
+    		res.add((List<Calendar>) e.getKey());
+    	}
+		return res;
+	}
 
 }
