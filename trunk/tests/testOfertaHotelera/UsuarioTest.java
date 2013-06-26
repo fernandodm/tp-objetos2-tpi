@@ -232,7 +232,7 @@ public class UsuarioTest extends TestCase {
 		}catch(ExcepcionNoEstaOnline e){
 			
 		}
-		
+
 	}
 	
 	public void testOfertarEnSubastaFuturaEstandoLogueado() throws ExcepcionLaSubastaAunNoHaIniciado, ExcepcionLaSubastaYaHaFinalizado, ExcepcionOfertaInferior, ExcepcionNoEstaOnline{
@@ -260,16 +260,19 @@ public class UsuarioTest extends TestCase {
 	}
 	
 
-	public void testOfertarEnSubastaFinalizadaEstandoLogueado() throws ExcepcionLaSubastaAunNoHaIniciado, ExcepcionOfertaInferior, ExcepcionNoEstaOnline {
+	public void testOfertarEnSubastaFinalizadaEstandoLogueado() throws ExcepcionLaSubastaAunNoHaIniciado, ExcepcionOfertaInferior, ExcepcionNoEstaOnline{
 		
 		when(subasta.getEstado()).thenReturn(subastaFinalizada);
-		when(subasta.terminoLaSubasta()).thenReturn(true);
+		
 		try{
-			usuario.ofertarEnSubasta(subasta, 100);
-			fail("NO SE LANZO LA EXCEPCION DE reservasFuturas()");
+			usuario.ofertarEnSubasta(subasta,100);
+			verify(subasta).agragarOferta(usuario, 100);
+			fail("NO SE LANZO LA EXCEPCION DE ofertarEnSubasta()");
 		} catch(ExcepcionLaSubastaYaHaFinalizado e){
 			
 		}
+		
+	
 	}
 	
 	public void testOfertarEnSubastaFinalizadaSinEstarLogueado() throws ExcepcionLaSubastaAunNoHaIniciado, ExcepcionLaSubastaYaHaFinalizado, ExcepcionOfertaInferior {

@@ -188,6 +188,8 @@ public class Usuario implements Observer{
 				}
 			}
 
+		} else {
+			throw new ExcepcionNoEstaOnline();
 		}
 		if(seHospedo){
 			Calificacion cal = new Calificacion(this,puntaje,comentario);
