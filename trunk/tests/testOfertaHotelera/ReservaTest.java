@@ -6,6 +6,7 @@ import java.util.Calendar;
 
 import ofertaHotelera.Habitacion;
 import ofertaHotelera.Hotel;
+import ofertaHotelera.Periodo;
 import ofertaHotelera.Reserva;
 import junit.framework.Assert;
 import junit.framework.TestCase;
@@ -16,15 +17,22 @@ public class ReservaTest extends TestCase {
 	private Calendar fecha2;
 	private Habitacion habitacion;
 	private Hotel hotel;
+	private Periodo periodo1;
 	
 	public void setUp(){
 		reserva = new Reserva();
+		
 		habitacion = mock(Habitacion.class);
+		periodo1 = mock(Periodo.class);
 		hotel = mock(Hotel.class);
+		
 		fecha1 = Calendar.getInstance();
 		fecha2 = Calendar.getInstance();
 		fecha2.set(2013,06,10,0,0,0);
-		reserva.setFechaDeIngreso(fecha1);
+		
+		when(periodo1.getDesde()).thenReturn(fecha1);
+		
+		reserva.setPeriodo(periodo1);
 		reserva.setHabitacion(habitacion);
 		reserva.setHotel(hotel);
 	}
@@ -56,14 +64,14 @@ public class ReservaTest extends TestCase {
 	public void testEliminarHorarioDeLaHabitacion(){
 		
 		reserva.eliminarHorarioDeLaHabitacion();
-		verify(habitacion).eliminarHorario(any(Calendar.class), any(Calendar.class));
+		verify(habitacion).eliminarHorario(periodo1);
 		
 	}
 	
 	public void testEliminarReservaDelHotel(){
 		
 		reserva.eliminarReservaDelHotel();
-		verify(hotel).eliminarReserva(any(Reserva.class));
+		verify(hotel).eliminarReserva(reserva);
 		
 	}
 	

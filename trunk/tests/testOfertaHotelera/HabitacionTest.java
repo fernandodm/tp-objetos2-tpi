@@ -7,6 +7,7 @@ import java.util.List;
 
 import ofertaHotelera.Habitacion;
 import ofertaHotelera.Hotel;
+import ofertaHotelera.Periodo;
 import ofertaHotelera.PorPrecioPorEstadia;
 import ofertaHotelera.PorPrecioPorNoche;
 import ofertaHotelera.SoloImportaElLugar;
@@ -17,13 +18,16 @@ import junit.framework.TestCase;
 
 public class HabitacionTest extends TestCase {
 	private Habitacion habitacion;
-	private List<List<Calendar>> diasReservados = new ArrayList<List<Calendar>>();
+	private List<Periodo> diasReservados = new ArrayList<Periodo>();
 	private Calendar fechaInicio1;
 	private Calendar fechaFin2;
 	private Calendar fechaInicio3;
 	private Calendar fechaFin4;
 	private Calendar fechaInicio5;
 	private Calendar fechaFin6;
+	private Periodo periodo1;
+	private Periodo periodo2;
+	private Periodo periodo3;
 	private Usuario user;
 	private PorPrecioPorNoche preferencia1;
 	private PorPrecioPorEstadia preferencia2;
@@ -35,38 +39,38 @@ public class HabitacionTest extends TestCase {
 	public void setUp(){
 		
 		habitacion = new Habitacion();
-		
-		List<Calendar> diasReserva1 = new ArrayList<Calendar>();
-		List<Calendar> diasReserva2 = new ArrayList<Calendar>();
-		List<Calendar> diasReserva3 = new ArrayList<Calendar>();
+			
+		periodo1 = mock(Periodo.class);
+		periodo2 = mock(Periodo.class);
+		periodo3 = mock(Periodo.class);
 		
 		fechaInicio1 = Calendar.getInstance();
 		fechaInicio1.set(2013,01,1,0,0,0);
 		fechaFin2 = Calendar.getInstance();
 		fechaFin2.set(2013,01,7,0,0,0);
-		diasReserva1.add(fechaInicio1);
-		diasReserva1.add(fechaFin2);
+		when(periodo1.getDesde()).thenReturn(fechaInicio1);
+		when(periodo1.getHasta()).thenReturn(fechaFin2);
 		
 		fechaInicio3 = Calendar.getInstance();
 		fechaInicio3.set(2013,01,10,0,0,0);		
 		fechaFin4 = Calendar.getInstance();
 		fechaFin4.set(2013,01,17,0,0,0);
-		diasReserva2.add(fechaInicio3);
-		diasReserva2.add(fechaFin4);
+		when(periodo2.getDesde()).thenReturn(fechaInicio3);
+		when(periodo2.getHasta()).thenReturn(fechaFin4);
 		
 		fechaInicio5 = Calendar.getInstance();
 		fechaInicio5.set(2013,01,20,0,0,0);
 		fechaFin6 = Calendar.getInstance();
 		fechaFin6.set(2013,01,27,0,0,0);
-		diasReserva3.add(fechaInicio5);
-		diasReserva3.add(fechaFin6);
+		when(periodo3.getDesde()).thenReturn(fechaInicio5);
+		when(periodo3.getHasta()).thenReturn(fechaFin6);
 		
-		diasReservados.add(diasReserva1);
-		diasReservados.add(diasReserva2);
-		diasReservados.add(diasReserva3);
+		diasReservados.add(periodo1);
+		diasReservados.add(periodo2);
+		diasReservados.add(periodo3);
 		
 		habitacion.setDiasOcupados(diasReservados);
-		habitacion.setPrecioPorNoche(120);
+		//habitacion.setPrecioPorNoche(120);
 
 		
 		user = mock(Usuario.class);
@@ -79,7 +83,7 @@ public class HabitacionTest extends TestCase {
 		
 	}
 	
-public void testLePuedeInteresarAlUsuarioPorElPrecioPorNoche(){
+	public void testLePuedeInteresarAlUsuarioPorElPrecioPorNoche(){
 		
 		habitacion.lePuedeInteresarAlUsuario(user);
 		
@@ -119,7 +123,7 @@ public void testLePuedeInteresarAlUsuarioPorElPrecioPorNoche(){
 	
 	public void testEliminarHorario(){
 		
-		habitacion.eliminarHorario(fechaInicio3, fechaFin4);
+		habitacion.eliminarHorario(periodo2);
 		Assert.assertEquals(habitacion.getDiasOcupados().size(), 2);
 		
 	}
@@ -133,6 +137,10 @@ public void testLePuedeInteresarAlUsuarioPorElPrecioPorNoche(){
 		Calendar fechaFin8 = Calendar.getInstance();
 		fechaFin8.set(2013,01,9,0,0,0);
 		
+		when(periodo1.estaEntre(fechaInicio7, fechaFin8)).thenReturn(false);	
+		when(periodo2.estaEntre(fechaInicio7, fechaFin8)).thenReturn(false);
+		when(periodo3.estaEntre(fechaInicio7, fechaFin8)).thenReturn(true);
+				
 		boolean estaDisponible = habitacion.estaDisponible(fechaInicio7, fechaFin8);
 		
 		Assert.assertFalse("FALLA testEstaDisponibleFalse()",estaDisponible);
