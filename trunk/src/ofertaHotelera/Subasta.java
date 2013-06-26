@@ -65,8 +65,9 @@ public class Subasta {
 
 
 
-	public Subasta(int valorInicial, Calendar ini, Calendar fin){
+	public Subasta(Habitacion h, int valorInicial, Calendar ini, Calendar fin){
 		
+		setHabitacion(h);
 		setValor(valorInicial);
 		setInicioSubasta(ini);
 		setFinSubasta(fin);
