@@ -59,7 +59,7 @@ public class Hotelero {
 		}
 		return res;
 	}
-
+	
 	public void ponerPrecioHabRangoDias(List<Calendar> dias, Integer precio, Habitacion hab){
 		List<List<Calendar>> diasConPrecio = OperadorDeColecciones.mapAList(hab.getPreciosPorFecha());
 		boolean superponeDias= Comparador.algunDiaIncluidoEnColeccion(dias, diasConPrecio);

@@ -202,26 +202,17 @@ public class UsuarioTest extends TestCase {
 	
 	public void testCalificarHotelEstandoLogueado() throws ExcepcionNoEstaOnline, ExcepcionTodaviaNoSeHospedoEnEsteHotelOSuReservaNoHaFinalizado{
 		
-
-		
 		List<Calificacion> calificaciones = new ArrayList<Calificacion>();
-
-		
 
 		usuario.calificarHotel(hotel1, 9, "Bien ahi");
 
 		when(hotel1.getCalificaciones()).thenReturn(calificaciones);
 
-
-
-		
 		verify(hotel1).equals(hotel1);
-
-
 
 	}
 
-	public void testCalificarHotelSinEstarLogueado() throws ExcepcionTodaviaNoSeHospedoEnEsteHotelOSuReservaNoHaFinalizado  {
+	public void testCalificarHotelSinEstarLogueado() throws ExcepcionTodaviaNoSeHospedoEnEsteHotelOSuReservaNoHaFinalizado, ExcepcionNoEstaOnline  {
 		
 		try{
 
@@ -240,6 +231,7 @@ public class UsuarioTest extends TestCase {
 		when(subasta.getEstado()).thenReturn(subastaFutura);
 		try{
 			usuario.ofertarEnSubasta(subasta, 100);
+			fail();
 		} catch(ExcepcionLaSubastaAunNoHaIniciado e){
 			
 		}
@@ -260,18 +252,10 @@ public class UsuarioTest extends TestCase {
 	}
 	
 
-	public void testOfertarEnSubastaFinalizadaEstandoLogueado() throws ExcepcionLaSubastaAunNoHaIniciado, ExcepcionOfertaInferior, ExcepcionNoEstaOnline{
+	public void testOfertarEnSubastaFinalizadaEstandoLogueado() throws ExcepcionLaSubastaAunNoHaIniciado, ExcepcionOfertaInferior, ExcepcionNoEstaOnline, ExcepcionLaSubastaYaHaFinalizado{
 		
-		when(subasta.getEstado()).thenReturn(subastaFinalizada);
-		
-		try{
-			usuario.ofertarEnSubasta(subasta,100);
-			verify(subasta).agragarOferta(usuario, 100);
-			fail("NO SE LANZO LA EXCEPCION DE ofertarEnSubasta()");
-		} catch(ExcepcionLaSubastaYaHaFinalizado e){
-			
-		}
-		
+		usuario.ofertarEnSubasta(subasta,100);
+		verify(subasta).agragarOferta(usuario, 100);
 	
 	}
 	
@@ -366,139 +350,6 @@ public class UsuarioTest extends TestCase {
 		}
 	}
 	
-	
-
-	public void ofertarEnSubastaFuturaEstandoLogueado() throws ExcepcionLaSubastaAunNoHaIniciado, ExcepcionLaSubastaYaHaFinalizado, ExcepcionOfertaInferior, ExcepcionNoEstaOnline{
-		
-		when(subasta.getEstado()).thenReturn(subastaFutura);
-		try{
-			usuario.ofertarEnSubasta(subasta, 100);
-		} catch(ExcepcionLaSubastaAunNoHaIniciado e){
-			
-		}
-	}
-		
-	public void ofertarEnSubastaFuturaSinEstarLogueado() throws ExcepcionLaSubastaAunNoHaIniciado, ExcepcionLaSubastaYaHaFinalizado, ExcepcionOfertaInferior, ExcepcionNoEstaOnline{
-		
-		
-
-		when(subasta.getEstado()).thenReturn(subastaFutura);
-		try{
-			usuario.ofertarEnSubasta(subasta,120);
-			fail("NO SE LANZÓ LA EXCEPCIÓN DE ofertarEnSubasta()");
-		}catch(ExcepcionNoEstaOnline e){
-	
-		}
-		
-	}
-	
-	public void ofertarEnSubastaFinalizadaEstandoLogueado() throws ExcepcionLaSubastaAunNoHaIniciado, ExcepcionLaSubastaYaHaFinalizado, ExcepcionOfertaInferior, ExcepcionNoEstaOnline{
-		
-		when(subasta.getEstado()).thenReturn(subastaFinalizada);
-		try{
-			usuario.ofertarEnSubasta(subasta, 100);
-		} catch(ExcepcionLaSubastaYaHaFinalizado e){
-			
-		}
-	}
-	
-	public void ofertarEnSubastaFinalizadaSinEstarLogueado() throws ExcepcionLaSubastaAunNoHaIniciado, ExcepcionLaSubastaYaHaFinalizado, ExcepcionOfertaInferior{
-		
-		
-
-		when(subasta.getEstado()).thenReturn(subastaFinalizada);
-		try{
-			usuario.ofertarEnSubasta(subasta,120);
-			fail("NO SE LANZÓ LA EXCEPCIÓN DE ofertarEnSubasta()");
-		}catch(ExcepcionNoEstaOnline e){
-	
-		}
-		
-	}
-	
-	
-	public void ofertarEnSubastaEnCursoEstandoLogueadoConOfertaInferior() throws ExcepcionLaSubastaAunNoHaIniciado, ExcepcionLaSubastaYaHaFinalizado, ExcepcionOfertaInferior, ExcepcionNoEstaOnline{
-		
-		when(subasta.getEstado()).thenReturn(subastaEnCurso);
-		when(subasta.getValor()).thenReturn((float) 200);
-		try{
-			usuario.ofertarEnSubasta(subasta, 100);
-		} catch(ExcepcionOfertaInferior e){
-			
-		}
-	}
-	
-	public void ofertarEnSubastaEnCursoEstandoLogueadoConOfertaSuperior() throws ExcepcionLaSubastaAunNoHaIniciado, ExcepcionLaSubastaYaHaFinalizado, ExcepcionOfertaInferior, ExcepcionNoEstaOnline{
-		
-		when(subasta.getEstado()).thenReturn(subastaEnCurso);
-		when(subasta.getValor()).thenReturn((float) 200);
-		usuario.ofertarEnSubasta(subasta, 250);
-		verify(subasta).agragarOferta(usuario, 250);
-	}
-	
-	public void ofertarEnSubastaEnCursoSinEstarLogueadoConOfertaInferior() throws ExcepcionLaSubastaAunNoHaIniciado, ExcepcionLaSubastaYaHaFinalizado, ExcepcionOfertaInferior{
-		
-		
-
-		when(subasta.getEstado()).thenReturn(subastaEnCurso);
-		try{
-			usuario.ofertarEnSubasta(subasta,120);
-			fail("NO SE LANZÓ LA EXCEPCIÓN DE ofertarEnSubasta()");
-		}catch(ExcepcionNoEstaOnline e){
-	
-		}
-		
-	}
-	
-	public void ofertarEnSubastaEnCursoSinEstarLogueadoConOfertaSuperior() throws ExcepcionLaSubastaAunNoHaIniciado, ExcepcionLaSubastaYaHaFinalizado, ExcepcionOfertaInferior{
-		
-		
-
-		when(subasta.getEstado()).thenReturn(subastaEnCurso);
-		try{
-			usuario.ofertarEnSubasta(subasta,300);
-			fail("NO SE LANZÓ LA EXCEPCIÓN DE ofertarEnSubasta()");
-		}catch(ExcepcionNoEstaOnline e){
-	
-		}
-		
-	}
-	
-	public void suscribirseAlAvisoDeOfertasHotelerasSinEstarLogueado() throws ExcepcionSeDebeTenerAlMenosUnCriterioDePreferencia,ExcepcionNoEstaOnline{
-		
-		try{
-			usuario.suscribirseAlAvisoDeOfertasHoteleras(sistema);
-			fail("NO SE LANZÓ LA EXCEPCIÓN DE suscribirseAlAvisoDeOfertasHoteleras()");
-		} catch (ExcepcionNoEstaOnline e) {
-			
-		}
-		
-	}
-	
-	public void suscribirseAlAvisoDeOfertasHotelerasEstandoLogueadoConPreferencia() throws ExcepcionSeDebeTenerAlMenosUnCriterioDePreferencia,ExcepcionNoEstaOnline{
-		
-		when(usuario.getPreferencia()).thenReturn(preferenciaPorLugar);
-		usuario.suscribirseAlAvisoDeOfertasHoteleras(sistema);
-		verify(sistema).agregarSuscripto(usuario);
-		
-	}
-	
-	public void suscribirseAlAvisoDeOfertasHotelerasEstandoLogueadoSinPreferencia() throws ExcepcionSeDebeTenerAlMenosUnCriterioDePreferencia,ExcepcionNoEstaOnline{
-		
-		when(usuario.getPreferencia()).thenReturn(null);
-		try{
-			usuario.suscribirseAlAvisoDeOfertasHoteleras(sistema);
-			fail("NO SE LANZÓ LA EXsCEPCIÓN DE suscribirseAlAvisoDeOfertasHoteleras()");
-		} catch (ExcepcionSeDebeTenerAlMenosUnCriterioDePreferencia e) {
-			
-		}
-	}
-	
-	
-		/**
->>>>>>> .r61
-	 * @param args
-	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 

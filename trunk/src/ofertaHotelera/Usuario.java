@@ -170,9 +170,7 @@ public class Usuario implements Observer{
 			throw new ExcepcionNoEstaOnline();
 		}
 	}	 
-	
-	
-	
+		
 	public void calificarHotel(Hotel h, int puntaje, String comentario) throws ExcepcionTodaviaNoSeHospedoEnEsteHotelOSuReservaNoHaFinalizado, ExcepcionNoEstaOnline{
 		
 		boolean seHospedo = false;
@@ -182,7 +180,7 @@ public class Usuario implements Observer{
 		for(Reserva each : getReservas()){
 			
 			//para la fecha de hoy setearle la hora en 0
-			if(each.getHotel().equals(h) && Calendar.getInstance().after(each.getFechaDeSalida())){
+			if(each.getHotel().equals(h) && Calendar.getInstance().after(each.getPeriodo().getHasta())){
 				seHospedo = true;
 				break;
 				}
@@ -235,7 +233,6 @@ public class Usuario implements Observer{
 		
 		return lePuedeInteresar;
 	}
-	
 	
 	
 	@Override

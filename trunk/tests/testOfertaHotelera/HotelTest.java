@@ -234,17 +234,8 @@ public class HotelTest extends TestCase{
 	
 	public void testLePuedeInteresarAlUsuarioPorUbicacion(){
 		
-		when(habitacion1.estaDisponible(fecha1, fecha2)).thenReturn(true);
-		when(habitacion1.getHotel()).thenReturn(hotel);
-		when(preferenciaPorLugar.getFechaInicialDeInteres()).thenReturn(fecha1);
-		when(preferenciaPorLugar.getFechaFinalDeInteres()).thenReturn(fecha2);
-		when(preferenciaPorLugar.getPaisDelHotel()).thenReturn("China");
-		when(preferenciaPorLugar.getCiudadDelHotel()).thenReturn("Beijing");
-		when(usuario.getPreferencia()).thenReturn(preferenciaPorLugar);
-		
-		hotel.setPais("China");
-		hotel.setCiudad("Beijing");
-		
+		when(habitacion2.lePuedeInteresarAlUsuario(usuario)).thenReturn(true);
+				
 		Assert.assertTrue(hotel.lePuedeInteresarAlUsuario(usuario));
 		
 	}

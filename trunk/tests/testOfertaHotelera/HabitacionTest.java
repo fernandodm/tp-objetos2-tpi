@@ -81,12 +81,10 @@ public class HabitacionTest extends TestCase {
 	
 public void testLePuedeInteresarAlUsuarioPorElPrecioPorNoche(){
 		
-		when(preferencia1.getPrecioMinimo()).thenReturn(100);
-		when(preferencia1.getPrecioMaximo()).thenReturn(150);
-		when(user.getPreferencia()).thenReturn(preferencia1);
-		boolean b= habitacion.lePuedeInteresarAlUsuario(user);
-		Assert.assertTrue(b);
+		habitacion.lePuedeInteresarAlUsuario(user);
 		
+		//verify(user).getPreferencia();
+		//verify(preferencia).le
 	}
 	
 	public void testLePuedeInteresarAlUsuarioPorLaUbicacion(){
