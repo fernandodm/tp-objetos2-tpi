@@ -25,6 +25,7 @@ import ofertaHotelera.EnCurso;
 import ofertaHotelera.EstadoSubasta;
 import ofertaHotelera.Finalizada;
 import ofertaHotelera.Hotel;
+import ofertaHotelera.Periodo;
 import ofertaHotelera.PorPrecioPorEstadia;
 import ofertaHotelera.PorPrecioPorNoche;
 import ofertaHotelera.SistemaDeBusqueda;
@@ -52,6 +53,7 @@ public class UsuarioTest extends TestCase {
 	private PorPrecioPorEstadia preferenciaPorPrecioEstadia;
 	private PorPrecioPorNoche preferenciaPorPrecioPorNoche;
 	private SistemaDeBusqueda sistema;
+	private Periodo periodo1;
 	
 	public void setUp(){
 		
@@ -62,9 +64,12 @@ public class UsuarioTest extends TestCase {
 		reserva2 = mock(Reserva.class);
 		reserva3 = mock(Reserva.class);
 		hotel1 = mock(Hotel.class);
+		periodo1 = mock(Periodo.class);
+		
+		when(periodo1.getHasta()).thenReturn(fecha1);
 		
 		when(reserva1.getHotel()).thenReturn(hotel1);
-		when(reserva1.getFechaDeSalida()).thenReturn(fecha1);
+		when(reserva1.getPeriodo()).thenReturn(periodo1);
 		when(reserva1.ciudadDelHotel()).thenReturn("Sidney");
 		when(reserva2.ciudadDelHotel()).thenReturn("Moscu");
 		when(reserva3.ciudadDelHotel()).thenReturn("Sidney");
