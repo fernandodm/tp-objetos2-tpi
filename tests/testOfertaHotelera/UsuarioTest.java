@@ -75,11 +75,22 @@ public class UsuarioTest extends TestCase {
 		
 		usuario2 = new Usuario();
 		usuario2.setOnline(false);
+		usuario2.setReservas(reservasUsuario);
 		
 		usuario = new Usuario();	
 		usuario.setOnline(true);
 		usuario.setReservas(reservasUsuario);
 		
+		subasta = mock(Subasta.class);
+		subastaFinalizada = mock(Finalizada.class);
+		subastaFutura = mock(SubastaFutura.class);
+		subastaEnCurso = mock(EnCurso.class);
+		
+		sistema = mock(SistemaDeBusqueda.class);
+		
+		preferenciaPorLugar = mock(SoloImportaElLugar.class);
+		preferenciaPorPrecioPorNoche = mock(PorPrecioPorNoche.class);
+		preferenciaPorPrecioEstadia = mock(PorPrecioPorEstadia.class);
 	}
 	
 	public void testTodasLasReservasConUsuarioOffLine(){
@@ -191,26 +202,175 @@ public class UsuarioTest extends TestCase {
 	
 	public void testCalificarHotelEstandoLogueado() throws ExcepcionNoEstaOnline, ExcepcionTodaviaNoSeHospedoEnEsteHotelOSuReservaNoHaFinalizado{
 		
+
 		
 		List<Calificacion> calificaciones = new ArrayList<Calificacion>();
-		usuario.calificarHotel(hotel1, 9, "Bien ahi");
-		when(hotel1.getCalificaciones()).thenReturn(calificaciones);
-		Calificacion cal = new Calificacion(usuario, 9, "Bien ahi");
+
 		
+
+		usuario.calificarHotel(hotel1, 9, "Bien ahi");
+
+		when(hotel1.getCalificaciones()).thenReturn(calificaciones);
+
+
+		usuario.calificarHotel(hotel1, 9, "Bien ahi");
+
+		Calificacion cal = new Calificacion(usuario, 9, "Bien ahi");
+
+		
+		verify(hotel1).equals(hotel1);
+
 		verify(hotel1).agregarCalificacion(cal);
+
 	}
 
-	public void calificarHotelSinEstarLogueado() throws ExcepcionTodaviaNoSeHospedoEnEsteHotelOSuReservaNoHaFinalizado{
+	public void testCalificarHotelSinEstarLogueado() throws ExcepcionTodaviaNoSeHospedoEnEsteHotelOSuReservaNoHaFinalizado  {
 		
 		try{
+
+			usuario2.calificarHotel(hotel1, 8,"Muy bien");
+			fail("NO SE LANZO LA EXCEPCION DE reservasFuturas()");
+
 			usuario2.calificarHotel(hotel1, 8,"Muy bien");
 			fail("NO SE LANZÓ LA EXCEPCIÓN DE calificarHotel()");
+
+		}catch(ExcepcionNoEstaOnline e){
+			
+		}
+		
+	}
+	
+	public void testOfertarEnSubastaFuturaEstandoLogueado() throws ExcepcionLaSubastaAunNoHaIniciado, ExcepcionLaSubastaYaHaFinalizado, ExcepcionOfertaInferior, ExcepcionNoEstaOnline{
+		
+		when(subasta.getEstado()).thenReturn(subastaFutura);
+		try{
+			usuario.ofertarEnSubasta(subasta, 100);
+		} catch(ExcepcionLaSubastaAunNoHaIniciado e){
+			
+		}
+	}
+		
+	public void testOfertarEnSubastaFuturaSinEstarLogueado() throws ExcepcionLaSubastaAunNoHaIniciado, ExcepcionLaSubastaYaHaFinalizado, ExcepcionOfertaInferior {
+		
+		
+
+		when(subasta.getEstado()).thenReturn(subastaFutura);
+		try{
+			usuario2.ofertarEnSubasta(subasta,120);
+			fail("NO SE LANZO LA EXCEPCION DE reservasFuturas()");
 		}catch(ExcepcionNoEstaOnline e){
 	
 		}
 		
 	}
 	
+
+	public void testOfertarEnSubastaFinalizadaEstandoLogueado() throws ExcepcionLaSubastaAunNoHaIniciado, ExcepcionOfertaInferior, ExcepcionNoEstaOnline {
+		
+		when(subasta.getEstado()).thenReturn(subastaFinalizada);
+		when(subasta.terminoLaSubasta()).thenReturn(true);
+		try{
+			usuario.ofertarEnSubasta(subasta, 100);
+			fail("NO SE LANZO LA EXCEPCION DE reservasFuturas()");
+		} catch(ExcepcionLaSubastaYaHaFinalizado e){
+			
+		}
+	}
+	
+	public void testOfertarEnSubastaFinalizadaSinEstarLogueado() throws ExcepcionLaSubastaAunNoHaIniciado, ExcepcionLaSubastaYaHaFinalizado, ExcepcionOfertaInferior {
+		
+		
+
+		when(subasta.getEstado()).thenReturn(subastaFinalizada);
+		try{
+			usuario2.ofertarEnSubasta(subasta,120);
+			fail("NO SE LANZO LA EXCEPCION DE reservasFuturas()");
+		}catch(ExcepcionNoEstaOnline e){
+	
+		}
+		
+	}
+	
+	
+	public void testOfertarEnSubastaEnCursoEstandoLogueadoConOfertaInferior() throws ExcepcionLaSubastaAunNoHaIniciado, ExcepcionLaSubastaYaHaFinalizado, ExcepcionOfertaInferior, ExcepcionNoEstaOnline{
+		
+		when(subasta.getEstado()).thenReturn(subastaEnCurso);
+		when(subasta.getValor()).thenReturn((float) 200);
+		try{
+			usuario.ofertarEnSubasta(subasta, 100);
+		} catch(ExcepcionOfertaInferior e){
+			
+		}
+	}
+	
+	public void testOfertarEnSubastaEnCursoEstandoLogueadoConOfertaSuperior() throws ExcepcionLaSubastaAunNoHaIniciado, ExcepcionLaSubastaYaHaFinalizado, ExcepcionOfertaInferior, ExcepcionNoEstaOnline{
+		
+		when(subasta.getEstado()).thenReturn(subastaEnCurso);
+		when(subasta.getValor()).thenReturn((float) 200);
+		usuario.ofertarEnSubasta(subasta, 250);
+		verify(subasta).agragarOferta(usuario, 250);
+	}
+	
+	public void testOfertarEnSubastaEnCursoSinEstarLogueadoConOfertaInferior() throws ExcepcionLaSubastaAunNoHaIniciado, ExcepcionLaSubastaYaHaFinalizado, ExcepcionOfertaInferior{
+		
+		
+
+		when(subasta.getEstado()).thenReturn(subastaEnCurso);
+		try{
+			usuario.ofertarEnSubasta(subasta,120);
+		}catch(ExcepcionNoEstaOnline e){
+	
+		}
+		
+	}
+	
+	public void testOfertarEnSubastaEnCursoSinEstarLogueadoConOfertaSuperior() throws ExcepcionLaSubastaAunNoHaIniciado, ExcepcionLaSubastaYaHaFinalizado, ExcepcionOfertaInferior{
+		
+		
+
+		when(subasta.getEstado()).thenReturn(subastaEnCurso);
+		try{
+			usuario.ofertarEnSubasta(subasta,300);
+		}catch(ExcepcionNoEstaOnline e){
+	
+		}
+		
+	}
+	
+	public void testSuscribirseAlAvisoDeOfertasHotelerasSinEstarLogueado() throws ExcepcionSeDebeTenerAlMenosUnCriterioDePreferencia,ExcepcionNoEstaOnline{
+		
+		usuario.setPreferencia(preferenciaPorLugar);
+		try{
+			usuario.suscribirseAlAvisoDeOfertasHoteleras(sistema);
+		
+		} catch (ExcepcionNoEstaOnline e) {
+			
+		}
+		
+	}
+	
+	public void testSuscribirseAlAvisoDeOfertasHotelerasEstandoLogueadoConPreferencia() throws ExcepcionSeDebeTenerAlMenosUnCriterioDePreferencia,ExcepcionNoEstaOnline{
+		
+		usuario.setPreferencia(preferenciaPorLugar);
+		usuario.suscribirseAlAvisoDeOfertasHoteleras(sistema);
+		verify(sistema).agregarSuscripto(usuario);
+		
+	}
+	
+	public void testSuscribirseAlAvisoDeOfertasHotelerasEstandoLogueadoSinPreferencia() throws ExcepcionSeDebeTenerAlMenosUnCriterioDePreferencia,ExcepcionNoEstaOnline{
+		
+		usuario.setPreferencia(null);
+		try{
+			usuario.suscribirseAlAvisoDeOfertasHoteleras(sistema);
+			fail("NO SE LANZÓ LA EXsCEPCIÓN DE suscribirseAlAvisoDeOfertasHoteleras()");
+		} catch (ExcepcionSeDebeTenerAlMenosUnCriterioDePreferencia e) {
+			
+		}
+	}
+	
+	
+		/**
+=======
 	public void ofertarEnSubastaFuturaEstandoLogueado() throws ExcepcionLaSubastaAunNoHaIniciado, ExcepcionLaSubastaYaHaFinalizado, ExcepcionOfertaInferior{
 		
 		when(subasta.getEstado()).thenReturn(subastaFutura);
@@ -339,6 +499,7 @@ public class UsuarioTest extends TestCase {
 	
 	
 		/**
+>>>>>>> .r61
 	 * @param args
 	 */
 	public static void main(String[] args) {
