@@ -4,7 +4,7 @@ import java.util.Calendar;
 
 public class DescuentoPorFecha extends Descuento {
 
-	protected Calendar fechaLimite;
+	private Calendar fechaLimite;
 
 	public Calendar getFechaLimite() {
 		return fechaLimite;
