@@ -192,8 +192,12 @@ public class Usuario implements Observer{
 		
 	}
 	
-	public void ofertarEnSubasta(Subasta sub, float unMonto) throws ExcepcionLaSubastaAunNoHaIniciado, ExcepcionLaSubastaYaHaFinalizado, ExcepcionOfertaInferior{
-		sub.agragarOferta(this, unMonto);
+	public void ofertarEnSubasta(Subasta sub, float unMonto) throws ExcepcionLaSubastaAunNoHaIniciado, ExcepcionLaSubastaYaHaFinalizado, ExcepcionOfertaInferior, ExcepcionNoEstaOnline{
+		if(isOnline()){
+			sub.agragarOferta(this, unMonto);
+		}else{
+			throw new ExcepcionNoEstaOnline();
+		}
 	}
 	
 	public void suscribirseAlAvisoDeOfertasHoteleras(SistemaDeBusqueda s) throws ExcepcionSeDebeTenerAlMenosUnCriterioDePreferencia,ExcepcionNoEstaOnline{
