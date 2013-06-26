@@ -2,6 +2,7 @@ package ofertaHotelera;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 public class Comparador {
@@ -34,6 +35,32 @@ public class Comparador {
 		
 	}
 	
+	public static boolean algunDiaIncluido(List<Calendar> fechas1, List<Calendar> fechas2){
+		boolean val= false;
+		GregorianCalendar diaInicio= (GregorianCalendar) fechas1.get(1);
+		GregorianCalendar diaPostFin= (GregorianCalendar) fechas1.get(2);
+		diaPostFin.add(Calendar.DATE, 1);
+		while(!val && !(sonIguales(diaInicio, diaPostFin))){
+			if(between(diaInicio, fechas2.get(1), fechas2.get(2)))
+			{
+				val= true;
+			}
+			diaInicio.add(Calendar.DATE, 1);
+		}
+		return val;
+	}
+	
+	public static boolean algunDiaIncluidoEnColeccion(List<Calendar> fechas, List<List<Calendar>> colFechas){
+		boolean val= false;
+		for(List<Calendar> each: colFechas){
+			val= algunDiaIncluido(fechas, each);
+			if(val)
+			{
+				break;
+			}
+		}
+		return val;
+	}
 	/**
 	 * @param args
 	 */
