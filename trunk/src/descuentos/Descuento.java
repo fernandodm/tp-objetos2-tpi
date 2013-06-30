@@ -10,5 +10,6 @@ public abstract class Descuento {
 	public void setPorcentajeDescontado(int porcentajeDescontado) {
 		this.porcentajeDescontado = porcentajeDescontado;
 	}
+	public abstract String descuento();
 	
 }
