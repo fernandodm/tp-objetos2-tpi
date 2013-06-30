@@ -4,9 +4,9 @@ import java.util.Calendar;
 
 public class PeriodoConPrecio extends Periodo {
 
-	private int precio;
+	private float precio;
 	
-	public int getPrecio() {
+	public float getPrecio() {
 		return precio;
 	}
 

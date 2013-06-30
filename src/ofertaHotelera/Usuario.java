@@ -24,7 +24,7 @@ public class Usuario implements Observer{
 	private String nombre;
 	private String mail;
 	private boolean online;
-	private Preferencia preferencia;
+	private List<Preferencia> preferencias = new ArrayList<Preferencia>();
 	
 	public Usuario(){};
 	
@@ -82,12 +82,12 @@ public class Usuario implements Observer{
 		this.online = online;
 	}
 	
-	public Preferencia getPreferencia() {
-		return preferencia;
+	public List<Preferencia> getPreferencias() {
+		return preferencias;
 	}
 
-	public void setPreferencia(Preferencia preferencia) {
-		this.preferencia = preferencia;
+	public void setPreferencias(List<Preferencia> preferencias) {
+		this.preferencias = preferencias;
 	}
 
 	public List<Reserva> todasLasReservas()throws ExcepcionNoEstaOnline{
