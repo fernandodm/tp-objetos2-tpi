@@ -216,4 +216,22 @@ public class HabitacionTest extends TestCase {
 		Assert.assertFalse(tieneDescuento);
 		
 	}
+	
+	public void testObtenerDescuento(){
+	
+		List<Descuento> descuentos = new ArrayList<Descuento>();
+		DescuentoPorCantidadDeNoches descuento1 = mock(DescuentoPorCantidadDeNoches.class); 
+		DescuentoPorFecha descuento2 = mock(DescuentoPorFecha.class);
+		
+		descuentos.add(descuento1);
+		descuentos.add(descuento2);
+		
+		habitacion.setDescuentos(descuentos);
+		when(descuento1.descuento()).thenReturn("Hola ");
+		when(descuento2.descuento()).thenReturn("a todos.");
+		
+		String desc = habitacion.obtenerDescuento();
+		
+		Assert.assertEquals(desc, "Hola a todos.");
+	}
 }
