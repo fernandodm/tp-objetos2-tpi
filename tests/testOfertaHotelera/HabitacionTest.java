@@ -5,9 +5,15 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import descuentos.Descuento;
+import descuentos.DescuentoPorCantidadDeNoches;
+import descuentos.DescuentoPorFecha;
+import descuentos.DescuentoPorRangoDeFechas;
+
 import ofertaHotelera.Habitacion;
 import ofertaHotelera.Hotel;
 import ofertaHotelera.Periodo;
+import ofertaHotelera.PeriodoConPrecio;
 import ofertaHotelera.PorPrecioPorEstadia;
 import ofertaHotelera.PorPrecioPorNoche;
 import ofertaHotelera.Preferencia;
@@ -164,5 +170,50 @@ public class HabitacionTest extends TestCase {
 		boolean estaDisponible = habitacion.estaDisponible(fechaInicio7, fechaFin8);
 		
 		Assert.assertTrue("FALLA testEstaDisponibleFalse()",estaDisponible);
+	}
+	
+	/*public void testPrecioTotal(){
+		
+		Calendar fechaInicio7 = Calendar.getInstance();
+		fechaInicio7.set(fechaInicio7.get(fechaInicio7.YEAR),fechaInicio7.get(fechaInicio7.MONTH),fechaInicio7.get(fechaInicio7.DATE) + 1,0,0,0);
+		Calendar fechaFin8 = Calendar.getInstance();
+		fechaFin8.set(2013,06,fechaInicio7.get(fechaInicio7.DATE) + 4,0,0,0);
+		
+		PeriodoConPrecio periodo = mock(PeriodoConPrecio.class);
+	}**/
+	
+	public void testCantidadDeDias(){
+		
+		Calendar fechaInicio7 = Calendar.getInstance();
+		fechaInicio7.set(fechaInicio7.get(fechaInicio7.YEAR),fechaInicio7.get(fechaInicio7.MONTH),fechaInicio7.get(fechaInicio7.DATE) + 1,0,0,0);
+		Calendar fechaFin8 = Calendar.getInstance();
+		fechaFin8.set(2013,06,fechaInicio7.get(fechaInicio7.DATE) + 4,0,0,0);
+		
+		int cantidad = habitacion.cantidadDeDias(fechaInicio7, fechaFin8);
+		
+		Assert.assertTrue(cantidad == 5);
+	}
+	
+	public void testTieneDescuentoConDescuento(){
+		
+		List<Descuento> descuentos = new ArrayList<Descuento>();
+		DescuentoPorCantidadDeNoches descuento = mock(DescuentoPorCantidadDeNoches.class); 
+		
+		descuentos.add(descuento);
+		
+		habitacion.setDescuentos(descuentos);
+		
+		boolean tieneDescuento = habitacion.tieneDescuentos();
+		
+		Assert.assertTrue(tieneDescuento);
+		
+	}
+	
+	public void testTieneDescuentoSinDescuento(){
+		
+		boolean tieneDescuento = habitacion.tieneDescuentos();
+		
+		Assert.assertFalse(tieneDescuento);
+		
 	}
 }

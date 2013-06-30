@@ -3,8 +3,6 @@ package ofertaHotelera;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.HashMap;
-import java.util.Map;
 import descuentos.Descuento;
 import excepciones.ExcepcionNoHayPrecioEstablecidoParaTalFecha;
 
@@ -161,7 +159,7 @@ public class Habitacion {
 	}
 	
 	public float precioTotal(Calendar fechaInicio, Calendar fechaFin) throws ExcepcionNoHayPrecioEstablecidoParaTalFecha{
-		
+		//TODO hacer el test de este metodo (fer)
 		float precio = 0;
 		int cantidad = cantidadDeDias(fechaInicio, fechaFin);
 		List<Calendar> fechas = GeneradorDeCalendar.generar(cantidad);
@@ -200,8 +198,6 @@ public class Habitacion {
 		while(!Comparador.sonIguales(inicio, hasta)){
 			cant = cant + 1;
 			inicio.set(inicio.get(inicio.YEAR),inicio.get(inicio.MONTH),inicio.get(inicio.DATE)+1);
-			System.out.println(inicio.getTime());
-			System.out.println(hasta.getTime());
 		}
 		cant = cant + 1;
 		return cant;
@@ -230,7 +226,7 @@ public class Habitacion {
 		Calendar c = Calendar.getInstance();
 		Calendar c1 = Calendar.getInstance();
 		c.set(2013,06,3);
-		//System.out.println(c.getTime());
+		System.out.println(c.getTime());
 		//System.out.println(cantidadDeDias(c1,c));
 		
 	}

@@ -7,8 +7,8 @@ import java.util.Calendar;
 import java.util.List;
 
 import excepciones.ExcepcionElNombreDeUsuarioYaExiste;
-import excepciones.ExcepcionHotelNoEncontrado;
 import excepciones.ExcepcionNoEstaOnline;
+import excepciones.ExcepcionNoHayPrecioEstablecidoParaTalFecha;
 import excepciones.ExcepcionPasswordIncorrecto;
 import excepciones.ExcepcionSeDebeTenerAlMenosUnCriterioDePreferencia;
 import excepciones.ExcepcionUsuarioIncorrecto;
@@ -25,9 +25,9 @@ public class SistemaDeBusquedaTest extends TestCase {
 	private Usuario usuario2;
 	private Hotel hotel1;
 	private Hotel hotel2;
-	private Habitacion habittacion1;
-	private Habitacion habittacion2;
-	private Habitacion habittacion3;
+	private Habitacion habitacion1;
+	private Habitacion habitacion2;
+	private Habitacion habitacion3;
 	private SistemaDeBusqueda sistema;
 	
 	public void setUp(){
@@ -36,6 +36,10 @@ public class SistemaDeBusquedaTest extends TestCase {
 		List<Hotel> hoteles = new ArrayList<Hotel>();
 		
 		sistema = new SistemaDeBusqueda();
+		
+		habitacion1 = mock(Habitacion.class);
+		habitacion2 = mock(Habitacion.class);
+		habitacion3= mock(Habitacion.class);
 		
 		usuario1 = mock(Usuario.class);
 		usuario2 = mock(Usuario.class);
@@ -127,8 +131,8 @@ public class SistemaDeBusquedaTest extends TestCase {
 		}
 	}
 	
-	public void testBuscarHoteles(){
-		
+	public void testBuscarHoteles() throws ExcepcionNoHayPrecioEstablecidoParaTalFecha{
+	
 		Calendar desde = Calendar.getInstance();
 		desde.set(2013, 03, 01, 0,0,0);
 		
@@ -140,6 +144,8 @@ public class SistemaDeBusquedaTest extends TestCase {
 		when(hotel2.tieneHabitacionesCon(desde, hasta, 2)).thenReturn(false);
 		when(hotel1.getCiudad()).thenReturn("quilmes");	
 		when(hotel2.getCiudad()).thenReturn("quilmes");
+		when(hotel1.getNombre()).thenReturn("Dallas");	
+		when(hotel2.getNombre()).thenReturn("Luna");
 		
 		List<Hotel> hoteles = sistema.buscarHoteles("quilmes", desde, hasta, 2);
 		Hotel hotel = hoteles.get(0);		
@@ -167,10 +173,8 @@ public class SistemaDeBusquedaTest extends TestCase {
 		Assert.assertTrue(h2 == hotel3);
 	}
 	
-	public void testBuscarHotelTrue() throws ExcepcionHotelNoEncontrado{
-		
-		//Con hotel encontrado
-		
+	public void testBuscarHotel(){
+				
 		when(hotel1.getNombre()).thenReturn("Luna");
 		when(hotel2.getNombre()).thenReturn("Sol");
 		
@@ -178,22 +182,7 @@ public class SistemaDeBusquedaTest extends TestCase {
 		
 		Assert.assertTrue(hotel == hotel1);
 	}
-	
-	public void testBuscarHotelFalse(){
 		
-		//Con hotel no encontrado
-		
-		when(hotel1.getNombre()).thenReturn("Luna");
-		when(hotel2.getNombre()).thenReturn("Sol");
-		
-		try {
-			sistema.buscarHotel("Dallas");
-			fail("NO SE LANZO LA EXCEPCION DE buscarHotelFalse()");
-		} catch (ExcepcionHotelNoEncontrado e) {
-			
-		} 	
-	}
-	
 	public void testLogOut(){
 		
 		sistema.logOut(usuario1);
@@ -201,6 +190,39 @@ public class SistemaDeBusquedaTest extends TestCase {
 		
 	}
 	
+	public void testBuscarHabitaion() throws ExcepcionNoHayPrecioEstablecidoParaTalFecha{
+		
+		List<Habitacion> habitaciones = new ArrayList<Habitacion>();
+		
+		habitaciones.add(habitacion1);
+		habitaciones.add(habitacion2);
+		habitaciones.add(habitacion3);
+		
+		Calendar desde = Calendar.getInstance();
+		desde.set(2013, 03, 01, 0,0,0);
+		
+		Calendar hasta = Calendar.getInstance();
+		hasta.set(2013, 03, 07, 0,0,0);
+		
+		when(hotel1.getNombre()).thenReturn("Luna");
+		when(hotel2.getNombre()).thenReturn("Sol");
+		when(hotel1.getHabitaciones()).thenReturn(habitaciones);
+		when(habitacion1.getCapacidadMaxima()).thenReturn(3);	
+		when(habitacion2.getCapacidadMaxima()).thenReturn(3);
+		when(habitacion3.getCapacidadMaxima()).thenReturn(2);
+		when(habitacion1.estaDisponible(desde, hasta)).thenReturn(true);	
+		when(habitacion2.estaDisponible(desde, hasta)).thenReturn(false);
+		when(habitacion3.estaDisponible(desde, hasta)).thenReturn(true);
+		
+		List<Habitacion> hab = sistema.buscarHabitacion("Luna", desde, hasta, 3);
+		
+		Habitacion habitacion = hab.get(0);
+		
+		verify(habitacion1).getNumero();
+		verify(habitacion1).precioTotal(desde,hasta);
+		verify(habitacion1).obtenerDescuento();
+		Assert.assertTrue(habitacion == habitacion1);
+	}
 
 	
 	/**

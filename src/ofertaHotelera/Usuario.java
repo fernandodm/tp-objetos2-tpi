@@ -212,6 +212,9 @@ public class Usuario implements Observer{
 	public void suscribirseAlAvisoDeOfertasHoteleras(SistemaDeBusqueda s) throws ExcepcionSeDebeTenerAlMenosUnCriterioDePreferencia,ExcepcionNoEstaOnline{
 		
 		if(isOnline()){
+
+			if(!(getPreferencias() == null)){
+
 			if(getPreferencias().size() > 0){
 				s.agregarSuscripto(this);
 			} else {
