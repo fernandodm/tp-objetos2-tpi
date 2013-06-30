@@ -18,8 +18,8 @@ public class DescuentoPorCantidadDeNoches extends Descuento {
 	
 	public String descuento() {
 		
-		return "si pasas " + getCantidadDeNochesParaDescuento() +
-		" te hacemos un " + getPorcentajeDescontado() + "%" + " de descuento.";
+		return "Si pasas " + getCantidadDeNochesParaDescuento() +
+		" te hacemos un " + getPorcentajeDescontado() + "%" + " de descuento. ";
 	}
 	
 }
