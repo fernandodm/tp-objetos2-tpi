@@ -38,16 +38,7 @@ public class PorPrecioPorEstadia extends Preferencia {
 	}
 	@Override
 	public boolean lePuedeInteresarHabitacion(Habitacion h) throws ExcepcionNoHayPrecioEstablecidoParaTalFecha {
-		// TODO Auto-generated method stub
-		float total = 0;
-		for(Calendar c = getFechaInicialDeInteres(); c.before(getFechaFinalDeInteres());c.add(Calendar.DATE, 1) ){
-			if(h.hayPrecioParaFecha(c)){
-				total = total + h.precioDeLaFecha(c);
-			}
-		}
-		return (total >= getPrecioMinimo() && total <= getPrecioMaximo());
+
+		return (h.precioTotal(getFechaInicialDeInteres(), getFechaFinalDeInteres()) >= getPrecioMinimo() && h.precioTotal(getFechaInicialDeInteres(), getFechaFinalDeInteres()) <= getPrecioMaximo());
 	}
-	
-	
-	
 }

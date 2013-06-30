@@ -127,9 +127,16 @@ public class Habitacion {
 		return promedio;
 	}
 	
-	public boolean lePuedeInteresarAlUsuario(Usuario user){
+	public boolean lePuedeInteresarAlUsuario(Usuario user) throws ExcepcionNoHayPrecioEstablecidoParaTalFecha{
 		
-		return (user.getPreferencia().lePuedeInteresarHabitacion(this));
+		boolean ok = false;
+		if(user.getPreferencias().size() == 1){
+			ok = user.getPreferencias().get(0).lePuedeInteresarHabitacion(this);
+		}
+		for(int i = 0 ; i < user.getPreferencias().size() - 1 ; i++){
+			ok = user.getPreferencias().get(i).lePuedeInteresarHabitacion(this) && user.getPreferencias().get(i+1).lePuedeInteresarHabitacion(this);
+		}
+		return ok;
 	}
 
 	public boolean estaDisponible(Calendar desde, Calendar hasta) {

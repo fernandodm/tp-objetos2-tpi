@@ -10,7 +10,8 @@ import ofertaHotelera.Hotel;
 import ofertaHotelera.Periodo;
 import ofertaHotelera.PorPrecioPorEstadia;
 import ofertaHotelera.PorPrecioPorNoche;
-import ofertaHotelera.SoloImportaElLugar;
+import ofertaHotelera.Preferencia;
+import ofertaHotelera.PreferenciaPorLugar;
 import ofertaHotelera.Usuario;
 
 import junit.framework.Assert;
@@ -31,8 +32,9 @@ public class HabitacionTest extends TestCase {
 	private Usuario user;
 	private PorPrecioPorNoche preferencia1;
 	private PorPrecioPorEstadia preferencia2;
-	private SoloImportaElLugar preferencia3;
+	private PreferenciaPorLugar preferencia3;
 	private Hotel hotel;
+	private List<Preferencia> preferencias = new ArrayList<Preferencia>();
 
 	
 	
@@ -76,7 +78,11 @@ public class HabitacionTest extends TestCase {
 		user = mock(Usuario.class);
 		preferencia1 = mock(PorPrecioPorNoche.class);
 		preferencia2 = mock(PorPrecioPorEstadia.class);
-		preferencia3 = mock(SoloImportaElLugar.class);
+		preferencia3 = mock(PreferenciaPorLugar.class);
+		preferencias.add(preferencia1);
+		preferencias.add(preferencia2);
+		preferencias.add(preferencia3);
+		when(user.getPreferencias()).thenReturn(preferencias);
 		
 		hotel = mock(Hotel.class);
 		
