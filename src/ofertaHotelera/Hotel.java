@@ -145,8 +145,8 @@ public class Hotel {
 			Calendar desde = each.getPeriodo().getDesde();
 			Calendar hasta = each.getPeriodo().getHasta();
 			if((diaActual.after(desde) && diaActual.before(hasta)) 
-					|| Comparador.sonIguales(diaActual, desde) 
-					|| Comparador.sonIguales(diaActual, hasta)){
+				|| Comparador.sonIguales(diaActual, desde) 
+				|| Comparador.sonIguales(diaActual, hasta)){
 				
 				actuales.add(each);
 			}

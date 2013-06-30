@@ -11,6 +11,7 @@ import java.util.Observable;
 import excepciones.ExcepcionElNombreDeUsuarioYaExiste;
 
 import excepciones.ExcepcionHotelNoEncontrado;
+import excepciones.ExcepcionNoHayPrecioEstablecidoParaTalFecha;
 import excepciones.ExcepcionPasswordIncorrecto;
 import excepciones.ExcepcionUsuarioIncorrecto;
 
@@ -127,31 +128,33 @@ public class SistemaDeBusqueda extends Observable{
 	}
 	
 
-	public List<Hotel> buscarHoteles(String ciudad, Calendar desde, Calendar hasta, int huespedes){
+	public List<Hotel> buscarHoteles(String ciudad, Calendar desde, Calendar hasta, int huespedes) throws ExcepcionHotelNoEncontrado, ExcepcionNoHayPrecioEstablecidoParaTalFecha{
 		
 		List<Hotel> hoteles = hotelesDe(ciudad);
 		List<Hotel> retornarHoteles = new ArrayList<Hotel>();
 		for(Hotel each: hoteles){
 			if(each.tieneHabitacionesCon(desde, hasta, huespedes)){
 				retornarHoteles.add(each);
-				System.out.println(each.getNombre());
+				buscarHabitacion(each.getNombre(), desde, hasta, huespedes);
 			}
 		}
 		return retornarHoteles;
 	}
 	
-	public void buscarHabitacion(String nombreHotel, Calendar desde, Calendar hasta, int huespedes) throws ExcepcionHotelNoEncontrado{
+	public void buscarHabitacion(String nombreHotel, Calendar desde, Calendar hasta, int huespedes) throws ExcepcionHotelNoEncontrado, ExcepcionNoHayPrecioEstablecidoParaTalFecha{
 		
 		Hotel hotel = buscarHotel(nombreHotel);
 		System.out.println("Habitaciones de " + nombreHotel);
 		for(Habitacion each: hotel.getHabitaciones()){
 			if(each.estaDisponible(desde, hasta) && each.getCapacidadMaxima() == huespedes){
 				System.out.println("-Numero: " + each.getNumero());
-				//System.out.println("  -Precio: " + "$" + each.getPrecioPorNoche() + " por noche");
-				each.imprimirServicios();
+				System.out.println("  -Precio: " + each.precioTotal(desde, hasta));
+				System.out.println("  -Descuento: " + each.obtenerDescuento());					
 			}
+			each.imprimirServicios();
 		}
 	}
+
 	
 	public Hotel buscarHotel(String nombreHotel) throws ExcepcionHotelNoEncontrado {
 		
@@ -190,6 +193,8 @@ public class SistemaDeBusqueda extends Observable{
 		// TODO Auto-generated method stub
 		SistemaDeBusqueda sist = new SistemaDeBusqueda();
 		Hotel hot = new Hotel();
+		Hotel hot1 = new Hotel();
+		hot1.setNombre("Luna");
 		hot.setNombre("Dallas");
 		Habitacion h1 = new Habitacion();
 		Habitacion h2 = new Habitacion();
@@ -213,7 +218,11 @@ public class SistemaDeBusqueda extends Observable{
 		habitaciones.add(h1);
 		habitaciones.add(h2);
 		hot.setHabitaciones(habitaciones);
+		hot1.setHabitaciones(habitaciones);
+		hot.setCiudad("Quilmes");
+		hot1.setCiudad("Quilmes");
 		sist.hoteles.add(hot);
-		sist.buscarHabitacion("Dallas", Calendar.getInstance(), Calendar.getInstance(), 2);
+		sist.hoteles.add(hot1);
+	//	sist.buscarHoteles("Quilmes", Calendar.getInstance(), Calendar.getInstance(), 2);
 	}
 }

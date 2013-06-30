@@ -18,4 +18,17 @@ public class DescuentoPorFecha extends Descuento {
 		this.setPorcentajeDescontado(porcentaje);
 	}
 	
+	public String descuento() {
+		
+		Calendar fecha = getFechaLimite();
+		int año = fecha.get(fecha.YEAR);
+		int mes = fecha.get(fecha.MONTH);
+		int dia = fecha.get(fecha.DATE);
+		
+		String laFechaLimite = dia + "/" + mes + "/" + año;
+		
+		return "Si venis antes del " + laFechaLimite + "te hacemos un " + 
+		getPorcentajeDescontado() + "%" + " de descuento";
+	}
+	
 }
