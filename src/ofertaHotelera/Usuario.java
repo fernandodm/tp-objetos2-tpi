@@ -10,6 +10,7 @@ import java.util.Observer;
 import excepciones.ExcepcionLaSubastaAunNoHaIniciado;
 import excepciones.ExcepcionLaSubastaYaHaFinalizado;
 import excepciones.ExcepcionNoEstaOnline;
+import excepciones.ExcepcionNoHayPrecioEstablecidoParaTalFecha;
 import excepciones.ExcepcionNoSeEncontroReserva;
 import excepciones.ExcepcionOfertaInferior;
 import excepciones.ExcepcionSeDebeTenerAlMenosUnCriterioDePreferencia;
@@ -221,30 +222,25 @@ public class Usuario implements Observer{
 		}
 	}
 	
-	public boolean puedeEstarInteresadoEnHotel(Hotel h){
+	public boolean puedeEstarInteresadoEnHotel(Hotel h) throws ExcepcionNoHayPrecioEstablecidoParaTalFecha{
 		
-		boolean lePuedeInteresar = false;
-		for(Habitacion each : h.getHabitaciones()){
-			if(getPreferencia().lePuedeInteresarHabitacion(each)){
-				lePuedeInteresar = true;
-				break;
-			}
-		}
+
 		
-		return lePuedeInteresar;
+		return (h.lePuedeInteresarAlUsuario(this));
 	}
 	
 	
 	@Override
 	public void update(Observable arg0, Object arg1) {
 		// TODO Auto-generated method stub
-		for(Habitacion each : ((Hotel) arg1).getHabitaciones()){
-			
-			if(this.getPreferencia().lePuedeInteresarHabitacion(each)){
-				//aca iria el método en el que el usuario recibe el mail con la informacion.
+		try {
+			if(puedeEstarInteresadoEnHotel((Hotel) arg1)){
+				
 				
 			}
-			
+		} catch (ExcepcionNoHayPrecioEstablecidoParaTalFecha e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 	}
