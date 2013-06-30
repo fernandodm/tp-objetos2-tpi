@@ -224,6 +224,7 @@ public class Usuario implements Observer{
 			throw new ExcepcionNoEstaOnline();
 		}
 	}
+	}
 	
 	public boolean puedeEstarInteresadoEnHotel(Hotel h) throws ExcepcionNoHayPrecioEstablecidoParaTalFecha{
 		
