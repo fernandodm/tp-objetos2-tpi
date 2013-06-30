@@ -36,7 +36,7 @@ public class DescuentoPorRangoDeFechas extends Descuento {
 		String laFechaFin = dia2 + "/" + mes2 + "/" + año2;
 		
 		return "Si reservas entre el " + laFechaInicio + " y el " + laFechaFin + 
-		" te hacemos un " + getPorcentajeDescontado() + "%" + " de descuento";
+		" te hacemos un " + getPorcentajeDescontado() + "%" + " de descuento. ";
 	}
 	
 	
