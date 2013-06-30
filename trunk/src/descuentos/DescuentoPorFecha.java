@@ -27,7 +27,7 @@ public class DescuentoPorFecha extends Descuento {
 		
 		String laFechaLimite = dia + "/" + mes + "/" + año;
 		
-		return "Si venis antes del " + laFechaLimite + "te hacemos un " + 
+		return "Si venis antes del " + laFechaLimite + " te hacemos un " + 
 		getPorcentajeDescontado() + "%" + " de descuento. ";
 	}
 	

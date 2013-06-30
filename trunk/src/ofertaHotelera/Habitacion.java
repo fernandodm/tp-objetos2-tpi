@@ -208,7 +208,6 @@ public class Habitacion {
 	 */
 	public String obtenerDescuento() {
 		
-		
 		String descuentos = "";
 		if(tieneDescuentos()){
 			for(Descuento each: getDescuentos()){
