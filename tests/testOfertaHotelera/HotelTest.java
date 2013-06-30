@@ -18,7 +18,7 @@ import ofertaHotelera.Hotel;
 import ofertaHotelera.Periodo;
 import ofertaHotelera.Reserva;
 import ofertaHotelera.SistemaDeBusqueda;
-import ofertaHotelera.SoloImportaElLugar;
+import ofertaHotelera.PreferenciaPorLugar;
 import ofertaHotelera.Usuario;
 import junit.framework.TestCase;
 
@@ -44,7 +44,7 @@ public class HotelTest extends TestCase{
 	private Calendar fecha5;
 	private Calendar fecha6;
 	private Usuario usuario;
-	private SoloImportaElLugar preferenciaPorLugar;
+	private PreferenciaPorLugar preferenciaPorLugar;
 	private SistemaDeBusqueda sistema;
 	
 	public void setUp(){
@@ -119,7 +119,7 @@ public class HotelTest extends TestCase{
 		when(calificacion2.getPuntaje()).thenReturn(6);
 		when(calificacion2.getComentario()).thenReturn("Podria mejorar");
 		
-		preferenciaPorLugar = mock(SoloImportaElLugar.class);
+		preferenciaPorLugar = mock(PreferenciaPorLugar.class);
 		when(preferenciaPorLugar.getPaisDelHotel()).thenReturn("China");
 		when(preferenciaPorLugar.getCiudadDelHotel()).thenReturn("Beijing");
 		

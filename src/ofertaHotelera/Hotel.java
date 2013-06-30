@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import excepciones.ExcepcionNoHayPrecioEstablecidoParaTalFecha;
 import excepciones.ExcepcionTodaviaNoSeHospedoEnEsteHotelOSuReservaNoHaFinalizado;
 
 public class Hotel {
@@ -198,7 +199,7 @@ public class Hotel {
 		return(promedio / getCalificaciones().size());
 	}
 	
-	public boolean lePuedeInteresarAlUsuario(Usuario user){
+	public boolean lePuedeInteresarAlUsuario(Usuario user) throws ExcepcionNoHayPrecioEstablecidoParaTalFecha{
 		
 		boolean lePuedeInteresar = false;
 		for(Habitacion each : getHabitaciones()){
