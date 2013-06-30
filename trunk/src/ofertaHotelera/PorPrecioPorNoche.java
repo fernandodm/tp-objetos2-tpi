@@ -2,32 +2,31 @@ package ofertaHotelera;
 
 public class PorPrecioPorNoche extends Preferencia{
 	
-	private int precioMinimo;
-	private int precioMaximo;
+	private float precioMinimo;
+	private float precioMaximo;
 	
-	public int getPrecioMinimo() {
+	public float getPrecioMinimo() {
 		return precioMinimo;
 	}
-	public void setPrecioMinimo(int precioMinimo) {
+	public void setPrecioMinimo(float precioMinimo) {
 		this.precioMinimo = precioMinimo;
 	}
-	public int getPrecioMaximo() {
+	public float getPrecioMaximo() {
 		return precioMaximo;
 	}
-	public void setPrecioMaximo(int precioMaximo) {
+	public void setPrecioMaximo(float precioMaximo) {
 		this.precioMaximo = precioMaximo;
+	}
+	
+	public PorPrecioPorNoche(float maximo){
+		setPrecioMinimo(0);
+		setPrecioMaximo(maximo);
 	}
 	
 	@Override
 	public boolean lePuedeInteresarHabitacion(Habitacion h) {
-		
-		boolean b = false;
-		if(lasFechasEstanBien(h) && h.getPrecioPorNoche() > getPrecioMinimo() && h.getPrecioPorNoche() < getPrecioMaximo()){
-			b = true;
-		}
-		
-		
-		return b;
+
+		return (h.precioPorNochePromedio() >= getPrecioMinimo() && h.precioPorNochePromedio() <= getPrecioMaximo());
 	}
 	
 	

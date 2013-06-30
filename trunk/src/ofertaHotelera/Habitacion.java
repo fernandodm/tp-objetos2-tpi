@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
 import descuentos.Descuento;
+import excepciones.ExcepcionNoHayPrecioEstablecidoParaTalFecha;
 
 
 
@@ -16,7 +17,7 @@ public class Habitacion {
 	private int numero;
 	private List<Descuento> descuentos = new ArrayList<Descuento>();
 	private List<Periodo> diasOcupados = new ArrayList<Periodo>();
-	private Map<List<Calendar>,Integer> preciosPorFecha = new HashMap<List<Calendar>,Integer>();  
+	private List<PeriodoConPrecio> preciosPorFecha = new ArrayList<PeriodoConPrecio>();  
 	private List<Servicio> servicios = new ArrayList<Servicio>();
 
 	public List<Periodo> getDiasOcupados() {
@@ -61,13 +62,13 @@ public class Habitacion {
 	public void setHotel(Hotel hotel) {
 		this.hotel = hotel;
 	}
-	public Map<List<Calendar>, Integer> getPreciosPorFecha() {
+
+	public List<PeriodoConPrecio> getPreciosPorFecha() {
 		return preciosPorFecha;
 	}
-	public void setPreciosPorFecha(Map<List<Calendar>, Integer> preciosPorFecha) {
+	public void setPreciosPorFecha(List<PeriodoConPrecio> preciosPorFecha) {
 		this.preciosPorFecha = preciosPorFecha;
 	}
-	
 	public Habitacion(){
 		
 	}
@@ -88,6 +89,41 @@ public class Habitacion {
 			}
 		}
 		
+	}
+	
+	public boolean hayPrecioParaFecha(Calendar fecha){
+		boolean hay = false;
+		for(PeriodoConPrecio each : getPreciosPorFecha()){
+			if(each.fechaEstaEnElPeriodo(fecha)){
+				hay = true;
+				break;
+			}
+		}
+		return hay;
+	}
+	
+	public float precioDeLaFecha(Calendar fecha) throws ExcepcionNoHayPrecioEstablecidoParaTalFecha{
+		
+		float precio = 0;
+		for(PeriodoConPrecio each : getPreciosPorFecha()){
+			if(each.fechaEstaEnElPeriodo(fecha)){
+				precio = each.getPrecio();
+				break;
+			} else{
+				throw new ExcepcionNoHayPrecioEstablecidoParaTalFecha();
+			}
+		}
+		return precio;
+		
+	}
+	
+	public float precioPorNochePromedio(){
+		
+		float promedio = 0;
+		for(PeriodoConPrecio each : getPreciosPorFecha()){
+			promedio = each.getPrecio();
+		}
+		return promedio;
 	}
 	
 	public boolean lePuedeInteresarAlUsuario(Usuario user){

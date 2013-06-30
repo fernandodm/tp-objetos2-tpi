@@ -33,6 +33,10 @@ public class Periodo {
 	public void setHasta(Calendar hasta) {
 		this.hasta = hasta;
 	}
+	
+	public boolean fechaEstaEnElPeriodo(Calendar fecha){
+		return((fecha.equals(getDesde()) || fecha.equals(getHasta())) || (fecha.after(getDesde())) && fecha.before(getHasta()));
+	}
 
 	public boolean estaEntre(Calendar desde2, Calendar hasta2) {
 
