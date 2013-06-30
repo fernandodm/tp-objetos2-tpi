@@ -9,8 +9,6 @@ import java.util.Observable;
 //TODO import testOfertaHotelera.SistemaDeBusquedaTest;
 
 import excepciones.ExcepcionElNombreDeUsuarioYaExiste;
-
-import excepciones.ExcepcionHotelNoEncontrado;
 import excepciones.ExcepcionNoHayPrecioEstablecidoParaTalFecha;
 import excepciones.ExcepcionPasswordIncorrecto;
 import excepciones.ExcepcionUsuarioIncorrecto;
@@ -128,7 +126,7 @@ public class SistemaDeBusqueda extends Observable{
 	}
 	
 
-	public List<Hotel> buscarHoteles(String ciudad, Calendar desde, Calendar hasta, int huespedes) throws ExcepcionHotelNoEncontrado, ExcepcionNoHayPrecioEstablecidoParaTalFecha{
+	public List<Hotel> buscarHoteles(String ciudad, Calendar desde, Calendar hasta, int huespedes) throws ExcepcionNoHayPrecioEstablecidoParaTalFecha{
 		
 		List<Hotel> hoteles = hotelesDe(ciudad);
 		List<Hotel> retornarHoteles = new ArrayList<Hotel>();
@@ -141,29 +139,33 @@ public class SistemaDeBusqueda extends Observable{
 		return retornarHoteles;
 	}
 	
-	public void buscarHabitacion(String nombreHotel, Calendar desde, Calendar hasta, int huespedes) throws ExcepcionHotelNoEncontrado, ExcepcionNoHayPrecioEstablecidoParaTalFecha{
+	public List<Habitacion> buscarHabitacion(String nombreHotel, Calendar desde, Calendar hasta, int huespedes)throws ExcepcionNoHayPrecioEstablecidoParaTalFecha{
 		
+		List<Habitacion> habitaciones = new ArrayList<Habitacion>();
 		Hotel hotel = buscarHotel(nombreHotel);
 		System.out.println("Habitaciones de " + nombreHotel);
 		for(Habitacion each: hotel.getHabitaciones()){
 			if(each.estaDisponible(desde, hasta) && each.getCapacidadMaxima() == huespedes){
+				habitaciones.add(each);
 				System.out.println("-Numero: " + each.getNumero());
 				System.out.println("  -Precio: " + each.precioTotal(desde, hasta));
 				System.out.println("  -Descuento: " + each.obtenerDescuento());					
 			}
 			each.imprimirServicios();
 		}
+		return habitaciones;
 	}
 
 	
-	public Hotel buscarHotel(String nombreHotel) throws ExcepcionHotelNoEncontrado {
+	public Hotel buscarHotel(String nombreHotel){
 		
+		Hotel hotel = new Hotel();
 		for(Hotel each: getHoteles()){
 			if(each.getNombre().equals(nombreHotel)){
-				return each;
+				hotel = each;
 			}
 		}
-		throw new ExcepcionHotelNoEncontrado();
+		return hotel;
 	}
 
 	public List<Hotel> hotelesDe(String ciudad) {
@@ -189,7 +191,7 @@ public class SistemaDeBusqueda extends Observable{
 	 * @param args
 	 * @throws ExcepcionHotelNoEncontrado 
 	 */
-	public static void main(String[] args) throws ExcepcionHotelNoEncontrado {
+	public static void main(String[] args){
 		// TODO Auto-generated method stub
 		SistemaDeBusqueda sist = new SistemaDeBusqueda();
 		Hotel hot = new Hotel();
