@@ -28,7 +28,14 @@ public class Auxiliar {
 		cant = cant + 1;
 		return cant;
 	}	
-		
+	
+	/**
+	 * Dada una lista de Calendar y un Calendar retorna si
+	 * ese calendar esta en la lista
+	 * @param siguientesDias
+	 * @param fechaDeIngreso
+	 * @return
+	 */
 	public static boolean listaContieneFecha(List<Calendar> siguientesDias,
 			Calendar fechaDeIngreso) {
 		
@@ -41,7 +48,13 @@ public class Auxiliar {
 		
 		return false;
 	}
-	
+	/**
+	 * retorna true si la fecha1 esta entre la fecha2 y fecha3
+	 * @param fecha1
+	 * @param fecha2
+	 * @param fecha3
+	 * @return
+	 */
 	public static boolean between(Calendar fecha1, Calendar fecha2, Calendar fecha3){
 		
 		return (fecha1.after(fecha2) && fecha1.before(fecha3)) 
@@ -80,41 +93,6 @@ public class Auxiliar {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Calendar fechau = Calendar.getInstance();
-		fechau.set(fechau.get(fechau.YEAR),fechau.get(fechau.MONTH), fechau.get(fechau.DATE),0,0,0);
-		Calendar fecha1 = Calendar.getInstance();
-		fecha1.set(fecha1.get(fecha1.YEAR),fecha1.get(fecha1.MONTH), fecha1.get(fecha1.DATE),0,0,0);
-		fecha1.clear(Calendar.MILLISECOND);
-		Calendar fecha2 = Calendar.getInstance();
-		fecha2.set(fecha2.get(fecha2.YEAR),fecha2.get(fecha1.MONTH), fecha2.get(fecha2.DATE) + 7,0,0,0);
-		fecha2.clear(Calendar.MILLISECOND);
-		Calendar fecha3 = Calendar.getInstance();
-		fecha3.set(fecha3.get(fecha3.YEAR),fecha3.get(fecha1.MONTH), fecha3.get(fecha3.DATE) - 3,0,0,0);
-		Calendar fecha4 = Calendar.getInstance();
-		fecha4.set(fecha4.get(fecha4.YEAR),fecha4.get(fecha1.MONTH), fecha4.get(fecha4.DATE) + 4,0,0,0);
-		Calendar fecha5 = Calendar.getInstance();
-		fecha5.set(fecha5.get(fecha5.YEAR),fecha5.get(fecha1.MONTH), fecha5.get(fecha5.DATE) - 7,0,0,0);
-		Calendar fecha6 = Calendar.getInstance();
-		fecha6.set(fecha6.get(fecha6.YEAR),fecha6.get(fecha1.MONTH), fecha6.get(fecha6.DATE),0,0,0);
 	
-		List<Calendar> c = new ArrayList<Calendar>();
-		c.add(fecha1);
-		c.add(fecha3);
-		c.add(fecha4);
-
-		Calendar fechaInicio = Calendar.getInstance();
-		fechaInicio = Calendar.getInstance();
-		fechaInicio.set(fechaInicio.get(fechaInicio.YEAR),fechaInicio.get(fechaInicio.MONTH),fechaInicio.get(fechaInicio.DATE) + 1,0,0,0);
-		fechaInicio.clear(Calendar.MILLISECOND);
-		
-		Calendar fechaFin = Calendar.getInstance();
-		fechaFin = Calendar.getInstance();
-		fechaFin.set(2013,fechaFin.get(fechaFin.MONTH),fechaFin.get(fechaFin.DATE) + 2,0,0,0);
-		fechaFin.clear(Calendar.MILLISECOND);
-		
-		//System.out.println(Auxiliar.listaContieneFecha(c, fecha6));
-		System.out.println(fechaInicio.getTime());
-		System.out.println(fechaFin.getTime());
-		System.out.println(cantidadDeDias(fechaInicio,fechaFin));
 	}
 }

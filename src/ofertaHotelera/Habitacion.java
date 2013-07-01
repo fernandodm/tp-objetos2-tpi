@@ -77,6 +77,10 @@ public class Habitacion {
 		this.setNumero(nro);
 	}
 	
+	/**
+	 * Elimina el periodo que se paso como parametro
+	 * @param unPeriodo
+	 */
 	public void eliminarHorario(Periodo unPeriodo) {
 		
 		for(Periodo each: getDiasOcupados()){
@@ -136,6 +140,13 @@ public class Habitacion {
 		return ok;
 	}
 
+	/**
+	 * Retorna true si la habitacion esta disponible entre las fechas
+	 * de los parametros, false en caso contrario
+	 * @param desde
+	 * @param hasta
+	 * @return
+	 */
 	public boolean estaDisponible(Calendar desde, Calendar hasta) {
 		
 		for(Periodo each: getDiasOcupados()){
@@ -149,6 +160,9 @@ public class Habitacion {
 		return true;
 	}
 	
+	/**
+	 * Imprime los servicios en la consola
+	 */
 	public void imprimirServicios(){
 		
 		System.out.println(" -Servicios:");
@@ -157,10 +171,17 @@ public class Habitacion {
 		}
 	}
 	
+	/**
+	 * Retorna el precio total de una habitacion en un periodo
+	 * @param fechaInicio
+	 * @param fechaFin
+	 * @return
+	 * @throws ExcepcionNoHayPrecioEstablecidoParaTalFecha
+	 */
 	public float precioTotal(Calendar fechaInicio, Calendar fechaFin) throws ExcepcionNoHayPrecioEstablecidoParaTalFecha{
 		
 		float precio = 0;
-		int cantidad = Auxiliar.cantidadDeDias(fechaInicio, fechaFin);
+		
 		List<Calendar> fechas = GeneradorDeCalendar.generarDiasEntre(fechaInicio, fechaFin);
 		
 		for(Calendar each: fechas){

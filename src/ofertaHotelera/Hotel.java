@@ -2,11 +2,7 @@ package ofertaHotelera;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 
 import excepciones.ExcepcionNoHayPrecioEstablecidoParaTalFecha;
 import excepciones.ExcepcionTodaviaNoSeHospedoEnEsteHotelOSuReservaNoHaFinalizado;
@@ -128,12 +124,20 @@ public class Hotel {
 		
 	}
 	
+	/**
+	 * Elimina una reserva
+	 * @param unaReserva
+	 */
 	public void eliminarReserva(Reserva unaReserva){
 	
 	 	getReservas().remove(unaReserva);
 
 	}
 	
+	/**
+	 * Retorna todas las reservas actuales
+	 * @return
+	 */
 	public List<Reserva> reservasActuales(){
 		
 		List<Reserva> actuales = new ArrayList<Reserva>();
@@ -156,6 +160,11 @@ public class Hotel {
 		return actuales;		
 	}
 	
+	/**
+	 * Retorna las siguientes n reservas
+	 * @param n
+	 * @return
+	 */
 	public List<Reserva> reservasEnLosSiguientesNDias(int n){
 		
 		List<Reserva> lasReservas = new ArrayList<Reserva>();
@@ -169,6 +178,10 @@ public class Hotel {
 		return lasReservas;
 	}
 	
+	/**
+	 * Retorna todas las reservas futuras
+	 * @return
+	 */
 	public List<Reserva> reservasFuturas(){
 		
 		List<Reserva> reservasFuturas = new ArrayList<Reserva>();
@@ -218,6 +231,14 @@ public class Hotel {
 		getSistemaEnElQueEstaCargado().actualizarOfertaDelHotel(this);
 	}
 
+	/**
+	 * Retorna true si el hotel contiene una habitacion que sastisfaga
+	 * con los parametros 
+	 * @param desde
+	 * @param hasta
+	 * @param huespedes
+	 * @return
+	 */
 	public boolean tieneHabitacionesCon(Calendar desde, Calendar hasta,
 			int huespedes) {
 		
