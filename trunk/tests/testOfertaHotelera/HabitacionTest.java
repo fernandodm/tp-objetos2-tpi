@@ -191,21 +191,7 @@ public class HabitacionTest extends TestCase {
 		
 		PeriodoConPrecio periodo = mock(PeriodoConPrecio.class);
 	}**/
-	
-	public void testCantidadDeDias(){
 		
-		Calendar fechaInicio7 = Calendar.getInstance();
-		fechaInicio7.set(fechaInicio7.get(fechaInicio7.YEAR),fechaInicio7.get(fechaInicio7.MONTH),fechaInicio7.get(fechaInicio7.DATE) + 1,0,0,0);
-		fechaInicio7.clear(Calendar.MILLISECOND);
-		Calendar fechaFin8 = Calendar.getInstance();
-		fechaFin8.set(2013,06,fechaInicio7.get(fechaInicio7.DATE) + 4,0,0,0);
-		fechaFin8.clear(Calendar.MILLISECOND);
-		
-		int cantidad = habitacion.cantidadDeDias(fechaInicio7, fechaFin8);
-		
-		Assert.assertTrue(cantidad == 5);
-	}
-	
 	public void testTieneDescuentoConDescuento(){
 		
 		List<Descuento> descuentos = new ArrayList<Descuento>();

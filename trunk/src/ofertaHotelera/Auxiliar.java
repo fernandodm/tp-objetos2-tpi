@@ -24,7 +24,6 @@ public class Auxiliar {
 		while(!fecha.equals(hasta)){
 			cant = cant + 1;
 			fecha.set(fecha.get(fecha.YEAR),fecha.get(fecha.MONTH),fecha.get(fecha.DATE)+1,0,0,0);
-
 		}
 		cant = cant + 1;
 		return cant;
@@ -85,8 +84,10 @@ public class Auxiliar {
 		fechau.set(fechau.get(fechau.YEAR),fechau.get(fechau.MONTH), fechau.get(fechau.DATE),0,0,0);
 		Calendar fecha1 = Calendar.getInstance();
 		fecha1.set(fecha1.get(fecha1.YEAR),fecha1.get(fecha1.MONTH), fecha1.get(fecha1.DATE),0,0,0);
+		fecha1.clear(Calendar.MILLISECOND);
 		Calendar fecha2 = Calendar.getInstance();
 		fecha2.set(fecha2.get(fecha2.YEAR),fecha2.get(fecha1.MONTH), fecha2.get(fecha2.DATE) + 7,0,0,0);
+		fecha2.clear(Calendar.MILLISECOND);
 		Calendar fecha3 = Calendar.getInstance();
 		fecha3.set(fecha3.get(fecha3.YEAR),fecha3.get(fecha1.MONTH), fecha3.get(fecha3.DATE) - 3,0,0,0);
 		Calendar fecha4 = Calendar.getInstance();
@@ -101,8 +102,19 @@ public class Auxiliar {
 		c.add(fecha3);
 		c.add(fecha4);
 
-		System.out.println(Auxiliar.listaContieneFecha(c, fecha6));
+		Calendar fechaInicio = Calendar.getInstance();
+		fechaInicio = Calendar.getInstance();
+		fechaInicio.set(fechaInicio.get(fechaInicio.YEAR),fechaInicio.get(fechaInicio.MONTH),fechaInicio.get(fechaInicio.DATE) + 1,0,0,0);
+		fechaInicio.clear(Calendar.MILLISECOND);
 		
-		System.out.println(cantidadDeDias(fecha1,fecha2));
+		Calendar fechaFin = Calendar.getInstance();
+		fechaFin = Calendar.getInstance();
+		fechaFin.set(2013,fechaFin.get(fechaFin.MONTH),fechaFin.get(fechaFin.DATE) + 2,0,0,0);
+		fechaFin.clear(Calendar.MILLISECOND);
+		
+		//System.out.println(Auxiliar.listaContieneFecha(c, fecha6));
+		System.out.println(fechaInicio.getTime());
+		System.out.println(fechaFin.getTime());
+		System.out.println(cantidadDeDias(fechaInicio,fechaFin));
 	}
 }
