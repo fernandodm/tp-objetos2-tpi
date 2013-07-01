@@ -1,7 +1,6 @@
 package ofertaHotelera;
 
 import java.util.*;
-import ofertaHotelera.Auxiliar;
 import descuentos.Descuento;
 import excepciones.Excepcion1OMasDiasYaTenianPrecioSetteado;
 import ofertaHotelera.OperadorDeColecciones;
@@ -116,11 +115,8 @@ public class Hotelero {
 	 * @param valorInicial
 	 * @param sistem
 	 */
-	public void subastarHabitacion(Habitacion h, Calendar fechaIni, Calendar fechaFin, int valorInicial, SistemaDeBusqueda sistem){
-		
-		Subasta subasta = new Subasta(h,valorInicial,fechaIni,fechaFin);
-		sistem.agregarSubasta(subasta);
-		
+	public void subastarHabitacion(Subasta subasta, SistemaDeBusqueda sistema){
+		sistema.agregarSubasta(subasta);		
 	}
 	
 }
