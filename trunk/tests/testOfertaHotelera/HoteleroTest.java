@@ -3,6 +3,7 @@ package testOfertaHotelera;
 import java.util.ArrayList;
 import java.util.List;
 import descuentos.Descuento;
+import excepciones.Excepcion1OMasDiasYaTenianPrecioSetteado;
 import ofertaHotelera.Habitacion;
 import ofertaHotelera.Hotel;
 import ofertaHotelera.Hotelero;
@@ -20,6 +21,7 @@ public class HoteleroTest extends TestCase {
 	private List<Habitacion> habitaciones = new ArrayList<Habitacion>();
 	private List<Hotel> hoteles= new ArrayList<Hotel>();
 	private List<PeriodoConPrecio> periodos= new ArrayList<PeriodoConPrecio>();
+	private PeriodoConPrecio per;
 	
 	public void setUp(){
 		hotel = mock(Hotel.class);
@@ -27,14 +29,23 @@ public class HoteleroTest extends TestCase {
 		hotelero = new Hotelero("Steve", hoteles, "loquillo@gmail.com");
 		habitacion1 = mock(Habitacion.class);
 		habitacion2 = mock(Habitacion.class);
+		per= mock(PeriodoConPrecio.class); 
+		when(habitacion1.getPreciosPorFecha()).thenReturn(periodos);
+		
 	}
 	
+	/**
+	 * Testeo el constructor de la clase Hotelero
+	 */
 	public void testConstructorHotelero(){
 		Assert.assertEquals("Steve", hotelero.getNombre());
 		Assert.assertEquals(hotel, hotelero.getMisHoteles().get(0));
 		Assert.assertEquals("loquillo@gmail.com", hotelero.getMail());		
 	}
 	
+	/**
+	 * Testeo el método agregarDescuento()
+	 */
 	public void testAgregarDescuento(){
 		habitaciones.add(habitacion1);
 		habitaciones.add(habitacion2);
@@ -53,17 +64,33 @@ public class HoteleroTest extends TestCase {
 		Assert.assertEquals(resultadoEsperado , descHab1+descHab2);
 	}
 	
-	public void testPonerPrecioHabRangoDiasSinDiasRepetidos(){
-		PeriodoConPrecio per= mock(PeriodoConPrecio.class); 
-		when(habitacion1.getPreciosPorFecha()).thenReturn(periodos);
+	/**
+	 * Testeo el método ponerPrecioRangoDias en un escenario en donde no se 
+	 * tendría que lanzar la excepción
+	 */
+	public void testPonerPrecioHabRangoDiasSinDiasRepetidos() 
+			throws Excepcion1OMasDiasYaTenianPrecioSetteado{
+		
 		hotelero.ponerPrecioHabRangoDias(per, habitacion1);
 		PeriodoConPrecio resultadoEsperado= periodos.get(0);
 		
 		Assert.assertEquals(resultadoEsperado , per);
 	}
 	
-	public void testPonerPrecioHabRangoDiasConDiasRepetidos(){
-		//TODO aca deberia chequear que se lanzo la excepcion.
-	}	
+	/**
+	 * Testeo el método ponerPrecioRangoDias en un escenario en donde se 
+	 * tendría que lanzar la excepción
+	 */
+	public void testPonerPrecioHabRangoDiasConDiasRepetidos() 
+			throws Excepcion1OMasDiasYaTenianPrecioSetteado{
+		    
+		when(per.algunDiaCoincide(periodos)).thenReturn(true);
+		try{
+			hotelero.ponerPrecioHabRangoDias(per, habitacion1);	
+			fail("NO SE LANZO LA EXCEPCION DE DIASYASETTEADOS");
+		}catch(Excepcion1OMasDiasYaTenianPrecioSetteado e){
+				
+		}
+	}
 	
-}
+	}
