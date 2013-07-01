@@ -39,12 +39,17 @@ public class HoteleroTest extends TestCase {
 		habitaciones.add(habitacion1);
 		habitaciones.add(habitacion2);
 		Descuento descuento1 = mock(Descuento.class);
-		Descuento descuento2= mock(Descuento.class);
+		List<Descuento> descuentoshab1= new ArrayList<Descuento>();
+		List<Descuento> descuentoshab2= new ArrayList<Descuento>();
+		when(habitacion1.getDescuentos()).thenReturn(descuentoshab1);
+		when(habitacion2.getDescuentos()).thenReturn(descuentoshab2);
+		
 		hotelero.agregarDescuento(descuento1, habitaciones);
-		hotelero.agregarDescuento(descuento2, habitaciones);
+		
 		int descHab1= habitacion1.getDescuentos().size();
 		int descHab2= habitacion2.getDescuentos().size();
-		int resultadoEsperado = 4;
+		int resultadoEsperado = 2;
+		
 		Assert.assertEquals(resultadoEsperado , descHab1+descHab2);
 	}
 	
