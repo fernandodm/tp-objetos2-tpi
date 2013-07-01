@@ -10,6 +10,7 @@ import descuentos.DescuentoPorFecha;
 
 //TODO import testOfertaHotelera.SistemaDeBusquedaTest;
 
+import excepciones.ExcepcionHabitacionNoDisponible;
 import excepciones.ExcepcionNoSeEncontroHabitacion;
 import excepciones.ExcepcionElNombreDeUsuarioYaExiste;
 import excepciones.ExcepcionHotelNoEncontrado;
@@ -253,29 +254,24 @@ public class SistemaDeBusqueda extends Observable{
 	 * @param unaHabitacion
 	 * @param desde
 	 * @param hasta
+	 * @throws ExcepcionHabitacionNoDisponible 
 	 * @throws ExcepcionHotelNoEncontrado
 	 * @throws ExcepcionNoSeEncontroHabitacion
 	 */
-	public void realizarReserva(Usuario unUsuario,FormaDePago unaFormaDePago, Hotel unHotel,
-			Habitacion unaHabitacion, Calendar desde, Calendar hasta) throws ExcepcionHotelNoEncontrado, ExcepcionNoSeEncontroHabitacion{
+	public void realizarReserva(Usuario unUsuario, Habitacion unaHabitacion, String formaDePago,
+			Calendar desde, Calendar hasta) throws ExcepcionHabitacionNoDisponible{
 		
-		Hotel hotel = buscarHotel(unHotel.getNombre());
-		List<Habitacion> habitaciones = hotel.getHabitaciones();
-		
-		if(habitaciones.contains(unaHabitacion)){
-			if(unaHabitacion.estaDisponible(desde, hasta)){
+		if(unaHabitacion.estaDisponible(desde, hasta)){
 				
-				Periodo periodo = new Periodo(desde, hasta);
-				Reserva reserva = new Reserva(unUsuario, unHotel, unaHabitacion, periodo);
-				unUsuario.agregarReserva(reserva);
-				unHotel.agregarReserva(reserva);
-				unaHabitacion.agregarDiaReservado(periodo);
-				//enviar mail al usuario
-			}			
+			Periodo periodo = new Periodo(desde, hasta);
+			Reserva reserva = new Reserva(unUsuario, unaHabitacion.getHotel(), unaHabitacion, periodo);
+			unUsuario.agregarReserva(reserva);
+			unaHabitacion.getHotel().agregarReserva(reserva);
+			unaHabitacion.agregarDiaReservado(periodo);
+			//enviar mail al usuario 
 		}else{
-			throw new ExcepcionNoSeEncontroHabitacion();
+			throw new ExcepcionHabitacionNoDisponible();
 		}
-		
 	}
 	
 	/**
