@@ -166,9 +166,10 @@ public class HabitacionTest extends TestCase {
 		
 	}
 	
+	/**
+	 * Se testea el caso en que no este disponible
+	 */
 	public void testEstaDisponibleFalse(){
-		
-		//con fecha no disponible
 		
 		Calendar fechaInicio7 = Calendar.getInstance();
 		fechaInicio7.set(2013,01,17,0,0,0);
@@ -186,13 +187,15 @@ public class HabitacionTest extends TestCase {
 		Assert.assertFalse("FALLA testEstaDisponibleFalse()",estaDisponible);
 	}
 	
+	/**
+	 * Se testea el caso en que este disponible
+	 */
 	public void testEstaDisponibleTrue(){
-		
-		//con fecha disponible
-		
+				
 		Calendar fechaInicio7 = Calendar.getInstance();
 		fechaInicio7.set(2013,01,28,0,0,0);
 		fechaInicio7.clear(Calendar.MILLISECOND);
+		
 		Calendar fechaFin8 = Calendar.getInstance();
 		fechaFin8.set(2013,02,5,0,0,0);
 		fechaFin8.clear(Calendar.MILLISECOND);
@@ -203,7 +206,7 @@ public class HabitacionTest extends TestCase {
 	}
 	
 	public void testPrecioTotal() throws ExcepcionNoHayPrecioEstablecidoParaTalFecha{
-		
+				
 		Calendar fechaInicio7 = Calendar.getInstance();
 		fechaInicio7.set(2013,01,03,0,0,0);
 		fechaInicio7.clear(Calendar.MILLISECOND);
@@ -211,7 +214,7 @@ public class HabitacionTest extends TestCase {
 		Calendar fechaFin8 = Calendar.getInstance();
 		fechaFin8.set(2013,01,04,0,0,0);
 		fechaFin8.clear(Calendar.MILLISECOND);
-				
+						
 		PeriodoConPrecio periodoConPrecio1 = mock(PeriodoConPrecio.class);
 		PeriodoConPrecio periodoConPrecio2 = mock(PeriodoConPrecio.class);
 			
@@ -234,7 +237,10 @@ public class HabitacionTest extends TestCase {
 		Assert.assertTrue(precio == 235.5f);
 		
 	}
-		
+	
+	/**
+	 * Se testea el caso en que la habitacion si tenga descuento
+	 */
 	public void testTieneDescuentoConDescuento(){
 		
 		List<Descuento> descuentos = new ArrayList<Descuento>();
@@ -250,6 +256,9 @@ public class HabitacionTest extends TestCase {
 		
 	}
 	
+	/**
+	 * Se testea el caso de que la habitacion no tenga descuento
+	 */
 	public void testTieneDescuentoSinDescuento(){
 		
 		boolean tieneDescuento = habitacion.tieneDescuentos();
@@ -287,5 +296,31 @@ public class HabitacionTest extends TestCase {
 		
 		Assert.assertTrue(cantidad == 4);
 		Assert.assertTrue(periodo == peri);
+	}
+	
+	/**
+	 * Se testea el caso de que tenga cama twin
+	 */
+	public void testTieneCamaTwinSi(){
+		
+		habitacion.setCamaTwin(true);
+		
+		String tiene = habitacion.tieneCamaTwin();
+		
+		Assert.assertEquals(tiene, "Si");
+		
+	}
+	
+	/**
+	 * Se testea el caso de que no tnga cama twin
+	 */
+	public void testTieneCamaTwinNo(){
+		
+		habitacion.setCamaTwin(false);
+		
+		String tiene = habitacion.tieneCamaTwin();
+		
+		Assert.assertEquals(tiene, "No");
+		
 	}
 }
