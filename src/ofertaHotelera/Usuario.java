@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
+import excepciones.ExcepcionHabitacionNoDisponible;
 import excepciones.ExcepcionLaSubastaAunNoHaIniciado;
 import excepciones.ExcepcionLaSubastaYaHaFinalizado;
 import excepciones.ExcepcionNoEstaOnline;
@@ -274,9 +275,8 @@ public class Usuario implements Observer{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 	}
-
+	
 	/**
 	 * Agrega una reserva
 	 * @param reserva
@@ -284,6 +284,17 @@ public class Usuario implements Observer{
 	public void agregarReserva(Reserva reserva) {
 		
 		reservas.add(reserva);
+		
+	}
+	
+	public void reservarHabitacion(Habitacion unaHabitacion, String formaDePago,
+			Calendar desde, Calendar hasta) throws ExcepcionHabitacionNoDisponible, ExcepcionNoEstaOnline{
+		
+		if(isOnline()){
+			getSistema().realizarReserva(this,unaHabitacion, formaDePago, desde, hasta);
+		}else{
+			throw new ExcepcionNoEstaOnline();
+		}
 		
 	}
 }
