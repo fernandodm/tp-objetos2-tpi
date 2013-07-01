@@ -162,7 +162,7 @@ public class Hotel {
 		List<Calendar> siguientesDias = GeneradorDeCalendar.generar(n);
 		
 		for(Reserva each: getReservas()){
-			if(Comparador.listaContieneFecha(siguientesDias, each.getPeriodo().getDesde())){
+			if(Auxiliar.listaContieneFecha(siguientesDias, each.getPeriodo().getDesde())){
 				lasReservas.add(each);
 			}
 		}

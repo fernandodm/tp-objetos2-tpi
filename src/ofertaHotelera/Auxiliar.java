@@ -5,7 +5,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-public class Comparador {
+public class Auxiliar {
 
 	/**
 	 * Dada dos fecha devuelve la cantidad de dias que hay desde
@@ -109,7 +109,7 @@ public class Comparador {
 		c.add(fecha3);
 		c.add(fecha4);
 
-		System.out.println(Comparador.listaContieneFecha(c, fecha6));
+		System.out.println(Auxiliar.listaContieneFecha(c, fecha6));
 		
 		System.out.println(cantidadDeDias(fecha1,fecha2));
 	}

@@ -161,7 +161,7 @@ public class Habitacion {
 	public float precioTotal(Calendar fechaInicio, Calendar fechaFin) throws ExcepcionNoHayPrecioEstablecidoParaTalFecha{
 		//TODO hacer el test de este metodo (fer)
 		float precio = 0;
-		int cantidad = Comparador.cantidadDeDias(fechaInicio, fechaFin);
+		int cantidad = Auxiliar.cantidadDeDias(fechaInicio, fechaFin);
 		List<Calendar> fechas = GeneradorDeCalendar.generarDiasEntre(fechaInicio, fechaFin);
 		
 		for(Calendar each: fechas){
