@@ -59,20 +59,26 @@ public class HotelTest extends TestCase{
 		
 		fecha1 = Calendar.getInstance();
 		fecha1.set(fecha1.get(fecha1.YEAR),fecha1.get(fecha1.MONTH), fecha1.get(fecha1.DATE),0,0,0);
+		fecha1.clear(Calendar.MILLISECOND);
 		fecha2 = Calendar.getInstance();
 		fecha2.set(fecha2.get(fecha2.YEAR),fecha2.get(fecha2.MONTH), fecha2.get(fecha2.DATE) + 7,0,0,0);
+		fecha2.clear(Calendar.MILLISECOND);
 		when(periodo1.getDesde()).thenReturn(fecha1);
 		when(periodo1.getHasta()).thenReturn(fecha2);
 		fecha3 = Calendar.getInstance();
 		fecha3.set(fecha3.get(fecha3.YEAR),fecha3.get(fecha3.MONTH), fecha3.get(fecha3.DATE) - 3,0,0,0);
+		fecha3.clear(Calendar.MILLISECOND);
 		fecha4 = Calendar.getInstance();
 		fecha4.set(fecha4.get(fecha4.YEAR),fecha4.get(fecha4.MONTH), fecha4.get(fecha4.DATE) + 4,0,0,0);
+		fecha4.clear(Calendar.MILLISECOND);
 		when(periodo2.getDesde()).thenReturn(fecha3);
 		when(periodo2.getHasta()).thenReturn(fecha4);
 		fecha5 = Calendar.getInstance();
 		fecha5.set(fecha5.get(fecha5.YEAR),fecha5.get(fecha5.MONTH), fecha5.get(fecha5.DATE) - 7,0,0,0);
+		fecha5.clear(Calendar.MILLISECOND);
 		fecha6 = Calendar.getInstance();
 		fecha6.set(fecha6.get(fecha6.YEAR),fecha6.get(fecha6.MONTH), fecha6.get(fecha6.DATE),-1,0,0);
+		fecha6.clear(Calendar.MILLISECOND);
 		when(periodo3.getDesde()).thenReturn(fecha5);
 		when(periodo3.getHasta()).thenReturn(fecha6);
 		
@@ -165,8 +171,11 @@ public class HotelTest extends TestCase{
 				
 		Calendar fecha7 = Calendar.getInstance();
 		fecha7.set(fecha7.get(fecha7.YEAR),fecha7.get(fecha7.MONTH), fecha7.get(fecha7.DATE) + 1,0,0,0);
+		fecha7.clear(Calendar.MILLISECOND);
+		
 		Calendar fecha8 = Calendar.getInstance();
 		fecha8.set(fecha8.get(fecha8.YEAR),fecha8.get(fecha8.MONTH), fecha8.get(fecha8.DATE) + 4,0,0,0);
+		fecha8.clear(Calendar.MILLISECOND);
 		
 		when(reserva4.getPeriodo()).thenReturn(periodo4);
 		when(reserva5.getPeriodo()).thenReturn(periodo5);
@@ -195,8 +204,11 @@ public class HotelTest extends TestCase{
 		
 		Calendar fecha7 = Calendar.getInstance();
 		fecha7.set(fecha7.get(fecha7.YEAR) + 1,fecha7.get(fecha7.MONTH), fecha7.get(fecha7.DATE),0,0,0);
+		fecha7.clear(Calendar.MILLISECOND);
+		
 		Calendar fecha8 = Calendar.getInstance();
 		fecha8.set(fecha8.get(fecha8.YEAR),fecha8.get(fecha8.MONTH), fecha8.get(fecha8.DATE) + 19,0,0,0);
+		fecha8.clear(Calendar.MILLISECOND);
 		
 		when(reserva4.getPeriodo()).thenReturn(periodo4);
 		when(reserva5.getPeriodo()).thenReturn(periodo5);

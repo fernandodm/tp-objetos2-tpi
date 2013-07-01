@@ -54,22 +54,28 @@ public class HabitacionTest extends TestCase {
 		
 		fechaInicio1 = Calendar.getInstance();
 		fechaInicio1.set(2013,01,1,0,0,0);
+		fechaInicio1.clear(Calendar.MILLISECOND);
 		fechaFin2 = Calendar.getInstance();
 		fechaFin2.set(2013,01,7,0,0,0);
+		fechaFin2.clear(Calendar.MILLISECOND);
 		when(periodo1.getDesde()).thenReturn(fechaInicio1);
 		when(periodo1.getHasta()).thenReturn(fechaFin2);
 		
 		fechaInicio3 = Calendar.getInstance();
 		fechaInicio3.set(2013,01,10,0,0,0);		
+		fechaInicio3.clear(Calendar.MILLISECOND);
 		fechaFin4 = Calendar.getInstance();
 		fechaFin4.set(2013,01,17,0,0,0);
+		fechaFin4.clear(Calendar.MILLISECOND);
 		when(periodo2.getDesde()).thenReturn(fechaInicio3);
 		when(periodo2.getHasta()).thenReturn(fechaFin4);
 		
 		fechaInicio5 = Calendar.getInstance();
 		fechaInicio5.set(2013,01,20,0,0,0);
+		fechaInicio5.clear(Calendar.MILLISECOND);
 		fechaFin6 = Calendar.getInstance();
 		fechaFin6.set(2013,01,27,0,0,0);
+		fechaFin6.clear(Calendar.MILLISECOND);
 		when(periodo3.getDesde()).thenReturn(fechaInicio5);
 		when(periodo3.getHasta()).thenReturn(fechaFin6);
 		
@@ -146,8 +152,10 @@ public class HabitacionTest extends TestCase {
 		
 		Calendar fechaInicio7 = Calendar.getInstance();
 		fechaInicio7.set(2013,01,17,0,0,0);
+		fechaInicio7.clear(Calendar.MILLISECOND);
 		Calendar fechaFin8 = Calendar.getInstance();
 		fechaFin8.set(2013,01,9,0,0,0);
+		fechaFin8.clear(Calendar.MILLISECOND);
 		
 		when(periodo1.estaEntre(fechaInicio7, fechaFin8)).thenReturn(false);	
 		when(periodo2.estaEntre(fechaInicio7, fechaFin8)).thenReturn(false);
@@ -164,8 +172,10 @@ public class HabitacionTest extends TestCase {
 		
 		Calendar fechaInicio7 = Calendar.getInstance();
 		fechaInicio7.set(2013,01,28,0,0,0);
+		fechaInicio7.clear(Calendar.MILLISECOND);
 		Calendar fechaFin8 = Calendar.getInstance();
 		fechaFin8.set(2013,02,5,0,0,0);
+		fechaFin8.clear(Calendar.MILLISECOND);
 		
 		boolean estaDisponible = habitacion.estaDisponible(fechaInicio7, fechaFin8);
 		
@@ -186,8 +196,10 @@ public class HabitacionTest extends TestCase {
 		
 		Calendar fechaInicio7 = Calendar.getInstance();
 		fechaInicio7.set(fechaInicio7.get(fechaInicio7.YEAR),fechaInicio7.get(fechaInicio7.MONTH),fechaInicio7.get(fechaInicio7.DATE) + 1,0,0,0);
+		fechaInicio7.clear(Calendar.MILLISECOND);
 		Calendar fechaFin8 = Calendar.getInstance();
 		fechaFin8.set(2013,06,fechaInicio7.get(fechaInicio7.DATE) + 4,0,0,0);
+		fechaFin8.clear(Calendar.MILLISECOND);
 		
 		int cantidad = habitacion.cantidadDeDias(fechaInicio7, fechaFin8);
 		

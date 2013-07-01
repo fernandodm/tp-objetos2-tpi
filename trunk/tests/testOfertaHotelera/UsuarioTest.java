@@ -354,17 +354,7 @@ public class UsuarioTest extends TestCase {
 			
 		}
 	}
-	
-<<<<<<< .mine
-	
 
-
-		/**
->>>>>>> .r61
-	 * @param args
-	 */
-=======
->>>>>>> .r71
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 

@@ -14,18 +14,34 @@ public class GeneradorDeCalendar {
 			Calendar fecha = Calendar.getInstance();
 			fecha.set(fecha.get(fecha.YEAR),fecha.get(fecha.MONTH),
 					fecha.get(fecha.DATE) + i,0,0,0);
+			fecha.clear(Calendar.MILLISECOND);
 			calendarios.add(fecha);
 		}
 		
 		return calendarios;
 	}
 
-	public static void main(String[] args) {
+	public static List<Calendar> generarDiasEntre(Calendar fechaInicio, Calendar fechaFin) {
 		
-		List<Calendar> c = GeneradorDeCalendar.generar(4);
-		for(int i = 0; i <4 ; i++){
-			System.out.println(c.get(i).getTime());
+		List<Calendar> calendarios = new ArrayList<Calendar>();
+		
+		int cantidad = Comparador.cantidadDeDias(fechaInicio, fechaFin);
+	
+		for(int i = 0; i < cantidad; i++){
+	
+			Calendar fecha = Calendar.getInstance();
+			fecha.set(fechaInicio.get(fechaInicio.YEAR),fechaInicio.get(fechaInicio.MONTH),
+					fechaInicio.get(fechaInicio.DATE) + i,0,0,0);
+			
+			fecha.clear(Calendar.MILLISECOND);
+			
+			calendarios.add(fecha);
 		}
+		
+		return calendarios;
 	}
 	
+	public static void main(String[] args) {
+		
+	}
 }

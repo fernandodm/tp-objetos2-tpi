@@ -7,19 +7,42 @@ import java.util.List;
 
 public class Comparador {
 
-	public static boolean sonIguales(Calendar c1, Calendar c2){
+	/**
+	 * Dada dos fecha devuelve la cantidad de dias que hay desde
+	 * "desde" hasta "hasta"
+	 * @param desde
+	 * @param hasta
+	 * @return
+	 */
+	public static int cantidadDeDias(Calendar desde, Calendar hasta) {
+		
+		Calendar fecha = Calendar.getInstance();
+		fecha.set(desde.get(desde.YEAR),desde.get(desde.MONTH),
+				desde.get(desde.DATE),0,0,0);
+		fecha.clear(Calendar.MILLISECOND);
+		int cant = 0;
+		while(!fecha.equals(hasta)){
+			cant = cant + 1;
+			fecha.set(fecha.get(fecha.YEAR),fecha.get(fecha.MONTH),fecha.get(fecha.DATE)+1,0,0,0);
+
+		}
+		cant = cant + 1;
+		return cant;
+	}	
+	
+	/*public static boolean sonIguales(Calendar c1, Calendar c2){
 		
 		String f1 = "" + c1.get(c1.YEAR) + c1.get(c1.MONTH) + c1.get(c1.DATE);
 		String f2 = "" + c2.get(c2.YEAR) + c2.get(c2.MONTH) + c2.get(c2.DATE);
 		
 		return f1.equals(f2);
-	}
+	}*/
 	
 	public static boolean listaContieneFecha(List<Calendar> siguientesDias,
 			Calendar fechaDeIngreso) {
 		
 		for(Calendar each: siguientesDias){
-			if(Comparador.sonIguales(each, fechaDeIngreso)){
+			if(each.equals(fechaDeIngreso)){
 				return true;
 			}
 			
@@ -31,7 +54,7 @@ public class Comparador {
 	public static boolean between(Calendar fecha1, Calendar fecha2, Calendar fecha3){
 		
 		return (fecha1.after(fecha2) && fecha1.before(fecha3)) 
-		|| sonIguales(fecha1,fecha2) || sonIguales(fecha1,fecha3);
+		|| fecha1.equals(fecha2) || fecha1.equals(fecha3);
 		
 	}
 	
@@ -40,7 +63,7 @@ public class Comparador {
 		GregorianCalendar diaInicio= (GregorianCalendar) fechas1.get(1);
 		GregorianCalendar diaPostFin= (GregorianCalendar) fechas1.get(2);
 		diaPostFin.add(Calendar.DATE, 1);
-		while(!val && !(sonIguales(diaInicio, diaPostFin))){
+		while(!val && !(diaInicio.equals(diaPostFin))){
 			if(between(diaInicio, fechas2.get(1), fechas2.get(2)))
 			{
 				val= true;
@@ -87,5 +110,7 @@ public class Comparador {
 		c.add(fecha4);
 
 		System.out.println(Comparador.listaContieneFecha(c, fecha6));
+		
+		System.out.println(cantidadDeDias(fecha1,fecha2));
 	}
 }
