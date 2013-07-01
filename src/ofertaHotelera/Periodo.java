@@ -5,8 +5,8 @@ import java.util.List;
 
 public class Periodo {
 	
-	private Calendar desde;
-	private Calendar hasta;
+	protected Calendar desde;
+	protected Calendar hasta;
 	
 	
 	public Periodo(Calendar desde, Calendar hasta) {
@@ -72,7 +72,6 @@ public class Periodo {
 		return fechaInicio.equals(fechaPeriodoDesde) || fechaInicio.equals(fechaPeriodoHasta)
 			|| fechaFin.equals(fechaPeriodoDesde) || fechaFin.equals(fechaPeriodoHasta);
 	}
-
 
 	/**
 	 * @param args
