@@ -209,17 +209,9 @@ public class HabitacionTest extends TestCase {
 		fechaInicio7.clear(Calendar.MILLISECOND);
 		
 		Calendar fechaFin8 = Calendar.getInstance();
-		fechaFin8.set(2013,01,9,0,0,0);
+		fechaFin8.set(2013,01,04,0,0,0);
 		fechaFin8.clear(Calendar.MILLISECOND);
-		
-		Calendar fechaInicio9 = Calendar.getInstance();
-		fechaInicio9.set(2013,01,8,0,0,0);
-		fechaInicio9.clear(Calendar.MILLISECOND);
-		
-		Calendar fechaFin10 = Calendar.getInstance();
-		fechaFin10.set(2013,01,10,0,0,0);
-		fechaFin10.clear(Calendar.MILLISECOND);
-		
+				
 		PeriodoConPrecio periodoConPrecio1 = mock(PeriodoConPrecio.class);
 		PeriodoConPrecio periodoConPrecio2 = mock(PeriodoConPrecio.class);
 			
@@ -227,24 +219,19 @@ public class HabitacionTest extends TestCase {
 		
 		preciosPorFecha.add(periodoConPrecio1);
 		preciosPorFecha.add(periodoConPrecio2);
-		
-		when(periodoConPrecio1.getDesde()).thenReturn(fechaInicio1);
-		when(periodoConPrecio1.getHasta()).thenReturn(fechaFin2);
-		when(periodoConPrecio2.getDesde()).thenReturn(fechaInicio9);
-		when(periodoConPrecio2.getHasta()).thenReturn(fechaFin10);
+	
 		when(periodoConPrecio1.getPrecio()).thenReturn(120f);
 		when(periodoConPrecio2.getPrecio()).thenReturn(115.5f);
 		
-		when(periodoConPrecio1.fechaEstaEnElPeriodo(any(Calendar.class))).thenReturn(true);
-		when(periodoConPrecio1.fechaEstaEnElPeriodo(fechaFin8)).thenReturn(false);
-		when(periodoConPrecio1.fechaEstaEnElPeriodo(fechaInicio9)).thenReturn(false);
-		when(periodoConPrecio2.fechaEstaEnElPeriodo(any(Calendar.class))).thenReturn(true);
+		when(periodoConPrecio1.fechaEstaEnElPeriodo(fechaInicio7)).thenReturn(true);
 		
+		when(periodoConPrecio2.fechaEstaEnElPeriodo(fechaFin8)).thenReturn(true);
+				
 		habitacion.setPreciosPorFecha(preciosPorFecha);
 		
 		float precio = habitacion.precioTotal(fechaInicio7, fechaFin8);
 		System.out.println(precio);
-		Assert.assertTrue(precio == 715.5f);
+		Assert.assertTrue(precio == 235.5f);
 		
 	}
 		

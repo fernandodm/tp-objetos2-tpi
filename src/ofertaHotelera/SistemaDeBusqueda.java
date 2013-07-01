@@ -165,7 +165,7 @@ public class SistemaDeBusqueda extends Observable{
 	 * @throws ExcepcionNoHayPrecioEstablecidoParaTalFecha
 	 * @throws ExcepcionHotelNoEncontrado
 	 */
-	public List<Hotel> buscarHoteles(String ciudad, Calendar desde, Calendar hasta, int huespedes) throws ExcepcionNoHayPrecioEstablecidoParaTalFecha, ExcepcionHotelNoEncontrado{
+	public List<Hotel> buscarHoteles(String ciudad, Calendar desde, Calendar hasta, int huespedes) throws ExcepcionNoHayPrecioEstablecidoParaTalFecha{
 		
 		List<Hotel> hoteles = hotelesDe(ciudad);
 		List<Hotel> retornarHoteles = new ArrayList<Hotel>();
@@ -190,7 +190,7 @@ public class SistemaDeBusqueda extends Observable{
 	 * @throws ExcepcionNoHayPrecioEstablecidoParaTalFecha
 	 * @throws ExcepcionHotelNoEncontrado 
 	 */
-	public List<Habitacion> buscarHabitacion(String nombreHotel, Calendar desde, Calendar hasta, int huespedes)throws ExcepcionNoHayPrecioEstablecidoParaTalFecha, ExcepcionHotelNoEncontrado{
+	public List<Habitacion> buscarHabitacion(String nombreHotel, Calendar desde, Calendar hasta, int huespedes)throws ExcepcionNoHayPrecioEstablecidoParaTalFecha{
 		
 		List<Habitacion> habitaciones = new ArrayList<Habitacion>();
 		Hotel hotel = buscarHotel(nombreHotel);
@@ -200,6 +200,7 @@ public class SistemaDeBusqueda extends Observable{
 				habitaciones.add(each);
 				System.out.println("-Numero: " + each.getNumero());
 				System.out.println("  -Precio: " + each.precioTotal(desde, hasta));
+				System.out.println("  -CamaTwin: " + each.tieneCamaTwin());
 				System.out.println("  -Descuento: " + each.obtenerDescuento());					
 			}
 			each.imprimirServicios();
@@ -212,14 +213,13 @@ public class SistemaDeBusqueda extends Observable{
 	 * @param nombreHotel
 	 * @return
 	 */
-	public Hotel buscarHotel(String nombreHotel)throws ExcepcionHotelNoEncontrado{
+	public Hotel buscarHotel(String nombreHotel){
 		
 		for(Hotel each: getHoteles()){
 			if(each.getNombre().equals(nombreHotel)){
 				return each;
 			}
 		}
-		new ExcepcionHotelNoEncontrado();
 		return null;
 	}
 	
