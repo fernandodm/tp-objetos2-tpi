@@ -3,6 +3,7 @@ package ofertaHotelera;
 import java.util.*;
 import ofertaHotelera.Auxiliar;
 import descuentos.Descuento;
+import excepciones.Excepcion1OMasDiasYaTenianPrecioSetteado;
 import ofertaHotelera.OperadorDeColecciones;
 
 public class Hotelero {
@@ -78,17 +79,16 @@ public class Hotelero {
 	
 	/**
 	 * Agrega a una habitación un periodo con precio, solo si los días a los que se quiere
-	 * setear un precio, no estaban previamente seteados.
-	 * Precondición: la habitación debe pertenecer a uno de los hoteles del hotelero
+	 * settear un precio, no estaban previamente setteados. Si algún día ya había sido
+	 * setteado previamente, se lanza la excepción.
+	 * Precondición: la habitación debe pertenecer a uno de los hoteles del hotelero.
 	 * @param periodo
 	 * @param hab
 	 */
-	public void ponerPrecioHabRangoDias(PeriodoConPrecio periodo, Habitacion hab){
+	public void ponerPrecioHabRangoDias(PeriodoConPrecio periodo, Habitacion hab) 
+			throws Excepcion1OMasDiasYaTenianPrecioSetteado{
 		if(periodo.algunDiaCoincide(hab.getPreciosPorFecha())){
-			//TODO deberiamos arrojar una excepcion que diga que uno de los dias 
-			// ya tenia un precio fijado. 
-			System.out.println("Uno o mas de los dias del periodo ya tiene un precio fijado");
-			
+			throw new  Excepcion1OMasDiasYaTenianPrecioSetteado();
 		}
 		else{
 			hab.getPreciosPorFecha().add(periodo);
