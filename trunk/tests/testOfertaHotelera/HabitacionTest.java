@@ -53,6 +53,7 @@ public class HabitacionTest extends TestCase {
 	private PeriodoConPrecio periPrecio2;
 	private PeriodoConPrecio periPrecio3;
 	
+	
 	public void setUp(){
 		
 		habitacion = new Habitacion();
@@ -87,7 +88,7 @@ public class HabitacionTest extends TestCase {
 		when(periodo2.getHasta()).thenReturn(fechaFin4);
 		when(periPrecio2.getDesde()).thenReturn(fechaInicio3);
 		when(periPrecio2.getHasta()).thenReturn(fechaFin4);
-		when(periPrecio1.getPrecio()).thenReturn((float) 200);
+		when(periPrecio2.getPrecio()).thenReturn((float) 200);
 		
 		fechaInicio5 = Calendar.getInstance();
 		fechaInicio5.set(2013,01,20,0,0,0);
@@ -99,11 +100,13 @@ public class HabitacionTest extends TestCase {
 		when(periodo3.getHasta()).thenReturn(fechaFin6);
 		when(periPrecio3.getDesde()).thenReturn(fechaInicio5);
 		when(periPrecio3.getHasta()).thenReturn(fechaFin6);
-		when(periPrecio1.getPrecio()).thenReturn((float) 300);
+		when(periPrecio3.getPrecio()).thenReturn((float) 300);
 		
 		diasReservados.add(periodo1);
 		diasReservados.add(periodo2);
 		diasReservados.add(periodo3);
+		
+		
 		
 		habitacion.setDiasOcupados(diasReservados);
 		//habitacion.setPrecioPorNoche(120);
@@ -146,7 +149,7 @@ public class HabitacionTest extends TestCase {
 		Assert.assertTrue(habitacion.lePuedeInteresarAlUsuario(user));
 	}
 	
-	public void testLePuedeInteresarAlUsuarioPorLaUbicacionMasDeUnaPreferencia() throws ExcepcionNoHayPrecioEstablecidoParaTalFecha{
+	public void testLePuedeInteresarAlUsuarioConVariosCriteriosDePreferenciaTrue() throws ExcepcionNoHayPrecioEstablecidoParaTalFecha{
 
 		when(preferencia1.lePuedeInteresarHabitacion(habitacion)).thenReturn(true);
 		when(preferencia2.lePuedeInteresarHabitacion(habitacion)).thenReturn(true);
@@ -157,6 +160,92 @@ public class HabitacionTest extends TestCase {
 		preferencias.add(preferencia3);
 		when(user.getPreferencias()).thenReturn(preferencias);
 		Assert.assertTrue(habitacion.lePuedeInteresarAlUsuario(user));
+	}
+	
+	public void testLePuedeInteresarAlUsuarioConAlgunCriterioQueNoCoincide() throws ExcepcionNoHayPrecioEstablecidoParaTalFecha{
+
+		when(preferencia1.lePuedeInteresarHabitacion(habitacion)).thenReturn(true);
+		when(preferencia2.lePuedeInteresarHabitacion(habitacion)).thenReturn(false);
+		when(preferencia3.lePuedeInteresarHabitacion(habitacion)).thenReturn(true);
+		
+		preferencias.add(preferencia1);
+		preferencias.add(preferencia2);
+		preferencias.add(preferencia3);
+		when(user.getPreferencias()).thenReturn(preferencias);
+		Assert.assertFalse(habitacion.lePuedeInteresarAlUsuario(user));
+	}
+	
+	public void testHayPrecioParaLaFechaTrue(){
+		
+		List<PeriodoConPrecio> periPrecios = new ArrayList<PeriodoConPrecio>();
+		periPrecios.add(periPrecio1);
+		periPrecios.add(periPrecio2);
+		periPrecios.add(periPrecio3);
+		when(periPrecio1.fechaEstaEnElPeriodo(fechaInicio1)).thenReturn(false);
+		when(periPrecio2.fechaEstaEnElPeriodo(fechaInicio1)).thenReturn(true);
+		when(periPrecio3.fechaEstaEnElPeriodo(fechaInicio1)).thenReturn(false);
+		habitacion.setPreciosPorFecha(periPrecios);
+		Assert.assertTrue(habitacion.hayPrecioParaFecha(fechaInicio1));
+	}
+	
+	public void testHayPrecioParaLaFechaFalse(){
+		
+		List<PeriodoConPrecio> periPrecios = new ArrayList<PeriodoConPrecio>();
+		periPrecios.add(periPrecio1);
+		periPrecios.add(periPrecio2);
+		periPrecios.add(periPrecio3);
+		when(periPrecio1.fechaEstaEnElPeriodo(fechaInicio1)).thenReturn(false);
+		when(periPrecio2.fechaEstaEnElPeriodo(fechaInicio1)).thenReturn(false);
+		when(periPrecio3.fechaEstaEnElPeriodo(fechaInicio1)).thenReturn(false);
+		habitacion.setPreciosPorFecha(periPrecios);
+		Assert.assertFalse(habitacion.hayPrecioParaFecha(fechaInicio1));
+	}
+	
+	public void testPrecioParaLaFechaConPrecioEstablecido() throws ExcepcionNoHayPrecioEstablecidoParaTalFecha{
+		
+		List<PeriodoConPrecio> periPrecios = new ArrayList<PeriodoConPrecio>();
+		periPrecios.add(periPrecio1);
+		periPrecios.add(periPrecio2);
+		periPrecios.add(periPrecio3);
+		when(periPrecio1.fechaEstaEnElPeriodo(fechaInicio1)).thenReturn(false);
+		when(periPrecio2.fechaEstaEnElPeriodo(fechaInicio1)).thenReturn(true);
+		when(periPrecio3.fechaEstaEnElPeriodo(fechaInicio1)).thenReturn(false);
+		habitacion.setPreciosPorFecha(periPrecios);
+		
+		Assert.assertEquals(habitacion.precioDeLaFecha(fechaInicio1), (float) 200);
+		
+	}
+	
+	public void testPrecioParaLaFechaConPrecioNOEstablecido(){
+		
+		List<PeriodoConPrecio> periPrecios = new ArrayList<PeriodoConPrecio>();
+		periPrecios.add(periPrecio1);
+		periPrecios.add(periPrecio2);
+		periPrecios.add(periPrecio3);
+		when(periPrecio1.fechaEstaEnElPeriodo(fechaInicio1)).thenReturn(false);
+		when(periPrecio2.fechaEstaEnElPeriodo(fechaInicio1)).thenReturn(false);
+		when(periPrecio3.fechaEstaEnElPeriodo(fechaInicio1)).thenReturn(false);
+		habitacion.setPreciosPorFecha(periPrecios);
+		
+		try{
+			habitacion.precioDeLaFecha(fechaInicio1);
+			fail();
+		} catch (ExcepcionNoHayPrecioEstablecidoParaTalFecha e){
+			
+		}
+	}
+	
+	public void testPrecioPorNochePromedio(){
+		
+		List<PeriodoConPrecio> periPrecios = new ArrayList<PeriodoConPrecio>();
+		periPrecios.add(periPrecio1);
+		periPrecios.add(periPrecio2);
+		periPrecios.add(periPrecio3);
+		
+		habitacion.setPreciosPorFecha(periPrecios);
+		
+		Assert.assertEquals(habitacion.precioPorNochePromedio(), (float) 200);
+		
 	}
 	
 	public void testEliminarHorario(){

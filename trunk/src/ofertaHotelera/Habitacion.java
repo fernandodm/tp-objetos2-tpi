@@ -123,9 +123,9 @@ public class Habitacion {
 		
 		float promedio = 0;
 		for(PeriodoConPrecio each : getPreciosPorFecha()){
-			promedio = each.getPrecio();
+			promedio = promedio + each.getPrecio();
 		}
-		return promedio;
+		return promedio / getPreciosPorFecha().size();
 	}
 	
 	public boolean lePuedeInteresarAlUsuario(Usuario user) throws ExcepcionNoHayPrecioEstablecidoParaTalFecha{
@@ -133,9 +133,10 @@ public class Habitacion {
 		boolean ok = false;
 		if(user.getPreferencias().size() == 1){
 			ok = user.getPreferencias().get(0).lePuedeInteresarHabitacion(this);
-		}
-		for(int i = 0 ; i < user.getPreferencias().size() - 1 ; i++){
-			ok = user.getPreferencias().get(i).lePuedeInteresarHabitacion(this) && user.getPreferencias().get(i+1).lePuedeInteresarHabitacion(this);
+		} else {
+			for(int i = 0 ; i < user.getPreferencias().size() - 1 ; i++){
+				ok = user.getPreferencias().get(i).lePuedeInteresarHabitacion(this) && user.getPreferencias().get(i+1).lePuedeInteresarHabitacion(this);
+			}
 		}
 		return ok;
 	}
