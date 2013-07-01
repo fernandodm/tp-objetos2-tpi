@@ -8,6 +8,9 @@ import ofertaHotelera.Habitacion;
 import ofertaHotelera.Hotel;
 import ofertaHotelera.Hotelero;
 import ofertaHotelera.PeriodoConPrecio;
+import ofertaHotelera.Reserva;
+import ofertaHotelera.SistemaDeBusqueda;
+import ofertaHotelera.Subasta;
 import junit.framework.Assert;
 import junit.framework.TestCase;
 import static org.mockito.Mockito.*;
@@ -43,6 +46,30 @@ public class HoteleroTest extends TestCase {
 		Assert.assertEquals("loquillo@gmail.com", hotelero.getMail());		
 	}
 	
+	/**
+	 * Testeo el método obtenerReservasActuales()
+	 */
+	public void testObtenerReservasActuales(){
+		hotelero.obtenerReservasActuales();
+		verify(hotel).reservasActuales();
+	}
+	
+	/**
+	 * Testeo el método obtenerReservasFuturas()
+	 */
+	public void testObtenerReservasFuturas(){
+		hotelero.obtenerReservasFuturas();
+		verify(hotel).reservasFuturas();
+	}
+
+	/**
+	 * Testeo el método obtenerReservasEnLosProximosNDias(unN)
+	 */
+	public void testObtenerReservasEnLosProximosNDias(){
+		hotelero.obtenerReservasEnNDias(10);
+		verify(hotel).reservasEnLosSiguientesNDias(10);
+	}
+
 	/**
 	 * Testeo el método agregarDescuento()
 	 */
@@ -91,6 +118,18 @@ public class HoteleroTest extends TestCase {
 		}catch(Excepcion1OMasDiasYaTenianPrecioSetteado e){
 				
 		}
+	}
+	
+	/**
+	 * Testeo el método subastarHabitacion()
+	 */
+	public void testSubastarHabitacion(){
+		Subasta sub= mock(Subasta.class);
+		SistemaDeBusqueda sistema= mock(SistemaDeBusqueda.class);
+		
+		hotelero.subastarHabitacion(sub, sistema);
+		
+		verify(sistema).agregarSubasta(sub);
 	}
 	
 	}
