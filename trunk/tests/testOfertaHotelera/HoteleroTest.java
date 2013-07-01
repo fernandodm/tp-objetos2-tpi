@@ -1,13 +1,12 @@
 package testOfertaHotelera;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.List;
 import descuentos.Descuento;
 import ofertaHotelera.Habitacion;
 import ofertaHotelera.Hotel;
 import ofertaHotelera.Hotelero;
+import ofertaHotelera.PeriodoConPrecio;
 import junit.framework.Assert;
 import junit.framework.TestCase;
 import static org.mockito.Mockito.*;
@@ -18,23 +17,22 @@ public class HoteleroTest extends TestCase {
 	private Hotelero hotelero;
 	private Habitacion habitacion1;
 	private Habitacion habitacion2;
-	private Calendar inicio;
-	private Calendar fin;
 	private List<Habitacion> habitaciones = new ArrayList<Habitacion>();
-	private List<Calendar> dias = new ArrayList<Calendar>();
-
+	private List<Hotel> hoteles= new ArrayList<Hotel>();
+	private List<PeriodoConPrecio> periodos= new ArrayList<PeriodoConPrecio>();
+	
 	public void setUp(){
-		
-		hotelero = new Hotelero("Steve", new ArrayList<Hotel>(), "loquillo@gmail.com");
 		hotel = mock(Hotel.class);
-		// LA HABITACION TIENE Q SER UN MOCK
-		habitacion1 = new Habitacion(hotel, 5, true, 100, 1);
-		habitacion2 = new Habitacion(hotel, 4, false, 200, 2);
-		inicio = Calendar.getInstance();
-		fin= (GregorianCalendar) inicio;
-		fin.add(Calendar.DATE, 1); 
-		dias.add(inicio);
-		dias.add((Calendar)fin);
+		hoteles.add(hotel);
+		hotelero = new Hotelero("Steve", hoteles, "loquillo@gmail.com");
+		habitacion1 = mock(Habitacion.class);
+		habitacion2 = mock(Habitacion.class);
+	}
+	
+	public void testConstructorHotelero(){
+		Assert.assertEquals("Steve", hotelero.getNombre());
+		Assert.assertEquals(hotel, hotelero.getMisHoteles().get(0));
+		Assert.assertEquals("loquillo@gmail.com", hotelero.getMail());		
 	}
 	
 	public void testAgregarDescuento(){
@@ -51,10 +49,12 @@ public class HoteleroTest extends TestCase {
 	}
 	
 	public void testPonerPrecioHabRangoDiasSinDiasRepetidos(){
-		Integer resultadoEsperado = 100;
-		hotelero.ponerPrecioHabRangoDias(dias, resultadoEsperado, habitacion1);
-		Integer precio =  habitacion1.getPreciosPorFecha().get(dias);
-		Assert.assertEquals(resultadoEsperado , precio);
+		PeriodoConPrecio per= mock(PeriodoConPrecio.class); 
+		when(habitacion1.getPreciosPorFecha()).thenReturn(periodos);
+		hotelero.ponerPrecioHabRangoDias(per, habitacion1);
+		PeriodoConPrecio resultadoEsperado= periodos.get(0);
+		
+		Assert.assertEquals(resultadoEsperado , per);
 	}
 	
 	public void testPonerPrecioHabRangoDiasConDiasRepetidos(){
