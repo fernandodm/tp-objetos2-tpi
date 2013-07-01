@@ -8,7 +8,6 @@ import ofertaHotelera.Habitacion;
 import ofertaHotelera.Hotel;
 import ofertaHotelera.Hotelero;
 import ofertaHotelera.PeriodoConPrecio;
-import ofertaHotelera.Reserva;
 import ofertaHotelera.SistemaDeBusqueda;
 import ofertaHotelera.Subasta;
 import junit.framework.Assert;
