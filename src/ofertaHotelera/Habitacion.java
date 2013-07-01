@@ -6,8 +6,6 @@ import java.util.List;
 import descuentos.Descuento;
 import excepciones.ExcepcionNoHayPrecioEstablecidoParaTalFecha;
 
-
-
 public class Habitacion {
 	private Hotel hotel;
 	private int capacidadMaxima;
@@ -160,7 +158,7 @@ public class Habitacion {
 	}
 	
 	public float precioTotal(Calendar fechaInicio, Calendar fechaFin) throws ExcepcionNoHayPrecioEstablecidoParaTalFecha{
-		//TODO hacer el test de este metodo (fer)
+		
 		float precio = 0;
 		int cantidad = Auxiliar.cantidadDeDias(fechaInicio, fechaFin);
 		List<Calendar> fechas = GeneradorDeCalendar.generarDiasEntre(fechaInicio, fechaFin);
@@ -202,6 +200,12 @@ public class Habitacion {
 		return descuentos;
 	}
 	
+	public void agregarDiaReservado(Periodo periodo) {
+		
+		diasOcupados.add(periodo);
+		
+	}
+	
 	public static void main(String[] args) {
 		
 		Calendar c = Calendar.getInstance();
@@ -209,6 +213,8 @@ public class Habitacion {
 		c.set(2013,06,3);
 		System.out.println(c.getTime());
 		//System.out.println(cantidadDeDias(c1,c));
+		
+		System.out.println(1f + 12f == 13f);
 		
 	}
 }

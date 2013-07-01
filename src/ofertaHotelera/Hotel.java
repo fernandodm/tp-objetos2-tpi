@@ -230,6 +230,15 @@ public class Hotel {
 		return false;
 	}
 
+	/**
+	 * Agrega una reserva
+	 * @param reserva
+	 */
+	public void agregarReserva(Reserva reserva) {
+		
+		reservas.add(reserva);
+		
+	}
 	
 	/**
 	 * @param args
@@ -238,5 +247,4 @@ public class Hotel {
 		// TODO Auto-generated method stub
 
 	}
-
 }

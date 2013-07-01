@@ -1,6 +1,8 @@
 package testOfertaHotelera;
 
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -9,7 +11,10 @@ import descuentos.Descuento;
 import descuentos.DescuentoPorCantidadDeNoches;
 import descuentos.DescuentoPorFecha;
 import descuentos.DescuentoPorRangoDeFechas;
+import excepciones.ExcepcionNoHayPrecioEstablecidoParaTalFecha;
 
+import ofertaHotelera.Auxiliar;
+import ofertaHotelera.GeneradorDeCalendar;
 import ofertaHotelera.Habitacion;
 import ofertaHotelera.Hotel;
 import ofertaHotelera.Periodo;
@@ -18,6 +23,7 @@ import ofertaHotelera.PorPrecioPorEstadia;
 import ofertaHotelera.PorPrecioPorNoche;
 import ofertaHotelera.Preferencia;
 import ofertaHotelera.PreferenciaPorLugar;
+import ofertaHotelera.Reserva;
 import ofertaHotelera.Usuario;
 
 import junit.framework.Assert;
@@ -182,15 +188,51 @@ public class HabitacionTest extends TestCase {
 		Assert.assertTrue("FALLA testEstaDisponibleFalse()",estaDisponible);
 	}
 	
-	/*public void testPrecioTotal(){
+	public void testPrecioTotal() throws ExcepcionNoHayPrecioEstablecidoParaTalFecha{
 		
 		Calendar fechaInicio7 = Calendar.getInstance();
-		fechaInicio7.set(fechaInicio7.get(fechaInicio7.YEAR),fechaInicio7.get(fechaInicio7.MONTH),fechaInicio7.get(fechaInicio7.DATE) + 1,0,0,0);
-		Calendar fechaFin8 = Calendar.getInstance();
-		fechaFin8.set(2013,06,fechaInicio7.get(fechaInicio7.DATE) + 4,0,0,0);
+		fechaInicio7.set(2013,01,03,0,0,0);
+		fechaInicio7.clear(Calendar.MILLISECOND);
 		
-		PeriodoConPrecio periodo = mock(PeriodoConPrecio.class);
-	}**/
+		Calendar fechaFin8 = Calendar.getInstance();
+		fechaFin8.set(2013,01,9,0,0,0);
+		fechaFin8.clear(Calendar.MILLISECOND);
+		
+		Calendar fechaInicio9 = Calendar.getInstance();
+		fechaInicio9.set(2013,01,8,0,0,0);
+		fechaInicio9.clear(Calendar.MILLISECOND);
+		
+		Calendar fechaFin10 = Calendar.getInstance();
+		fechaFin10.set(2013,01,10,0,0,0);
+		fechaFin10.clear(Calendar.MILLISECOND);
+		
+		PeriodoConPrecio periodoConPrecio1 = mock(PeriodoConPrecio.class);
+		PeriodoConPrecio periodoConPrecio2 = mock(PeriodoConPrecio.class);
+			
+		List<PeriodoConPrecio> preciosPorFecha = new ArrayList<PeriodoConPrecio>();
+		
+		preciosPorFecha.add(periodoConPrecio1);
+		preciosPorFecha.add(periodoConPrecio2);
+		
+		when(periodoConPrecio1.getDesde()).thenReturn(fechaInicio1);
+		when(periodoConPrecio1.getHasta()).thenReturn(fechaFin2);
+		when(periodoConPrecio2.getDesde()).thenReturn(fechaInicio9);
+		when(periodoConPrecio2.getHasta()).thenReturn(fechaFin10);
+		when(periodoConPrecio1.getPrecio()).thenReturn(120f);
+		when(periodoConPrecio2.getPrecio()).thenReturn(115.5f);
+		
+		when(periodoConPrecio1.fechaEstaEnElPeriodo(any(Calendar.class))).thenReturn(true);
+		when(periodoConPrecio1.fechaEstaEnElPeriodo(fechaFin8)).thenReturn(false);
+		when(periodoConPrecio1.fechaEstaEnElPeriodo(fechaInicio9)).thenReturn(false);
+		when(periodoConPrecio2.fechaEstaEnElPeriodo(any(Calendar.class))).thenReturn(true);
+		
+		habitacion.setPreciosPorFecha(preciosPorFecha);
+		
+		float precio = habitacion.precioTotal(fechaInicio7, fechaFin8);
+		System.out.println(precio);
+		Assert.assertTrue(precio == 715.5f);
+		
+	}
 		
 	public void testTieneDescuentoConDescuento(){
 		
@@ -231,5 +273,18 @@ public class HabitacionTest extends TestCase {
 		String desc = habitacion.obtenerDescuento();
 		
 		Assert.assertEquals(desc, "Hola a todos.");
+	}
+	
+	public void testAgregarReserva(){
+		
+		Periodo periodo = mock(Periodo.class);
+		
+		habitacion.agregarDiaReservado(periodo);
+		
+		int cantidad = habitacion.getDiasOcupados().size();
+		Periodo peri = habitacion.getDiasOcupados().get(3);
+		
+		Assert.assertTrue(cantidad == 4);
+		Assert.assertTrue(periodo == peri);
 	}
 }

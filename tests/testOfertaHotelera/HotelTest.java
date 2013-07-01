@@ -287,4 +287,17 @@ public class HotelTest extends TestCase{
 		verify(sistema).actualizarOfertaDelHotel(hotel);
 
 	}	
+	
+	public void testAgregarReserva(){
+		
+		Reserva reserva = mock(Reserva.class);
+		
+		hotel.agregarReserva(reserva);
+		
+		int cantidad = hotel.getReservas().size();
+		Reserva res = hotel.getReservas().get(3);
+		
+		Assert.assertTrue(cantidad == 4);
+		Assert.assertTrue(reserva == res);
+	}
 }

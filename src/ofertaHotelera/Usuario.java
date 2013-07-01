@@ -248,4 +248,14 @@ public class Usuario implements Observer{
 		}
 		
 	}
+
+	/**
+	 * Agrega una reserva
+	 * @param reserva
+	 */
+	public void agregarReserva(Reserva reserva) {
+		
+		reservas.add(reserva);
+		
+	}
 }
