@@ -6,22 +6,33 @@ import java.util.List;
 
 public class GeneradorDeCalendar {
 	
-
+	/**
+	 * Retorna teniendo en cuenta la fecha actual los n Calendar seguientes
+	 * @param n
+	 * @return
+	 */
 	public static List<Calendar> generar(int n) {
 		
 		List<Calendar> calendarios = new ArrayList<Calendar>();
 		
-		for(int i = 1; i < n + 1; i++){
+		for(int i = 1; i < n + 1 ; i++){
 			Calendar fecha = Calendar.getInstance();
 			fecha.set(fecha.get(fecha.YEAR),fecha.get(fecha.MONTH),
 					fecha.get(fecha.DATE) + i,0,0,0);
 			fecha.clear(Calendar.MILLISECOND);
 			calendarios.add(fecha);
+	
 		}
 		
 		return calendarios;
 	}
 
+	/**
+	 * Retorna todas las fechas que hay entre los parametros incluyendolos
+	 * @param fechaInicio
+	 * @param fechaFin
+	 * @return
+	 */
 	public static List<Calendar> generarDiasEntre(Calendar fechaInicio, Calendar fechaFin) {
 		
 		List<Calendar> calendarios = new ArrayList<Calendar>();

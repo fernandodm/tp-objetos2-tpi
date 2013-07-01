@@ -5,6 +5,9 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Observable;
 
+import descuentos.Descuento;
+import descuentos.DescuentoPorFecha;
+
 //TODO import testOfertaHotelera.SistemaDeBusquedaTest;
 
 import excepciones.ExcepcionNoSeEncontroHabitacion;
@@ -277,32 +280,57 @@ public class SistemaDeBusqueda extends Observable{
 	
 	/**
 	 * @param args
+	 * @throws ExcepcionNoHayPrecioEstablecidoParaTalFecha 
 	 * @throws ExcepcionHotelNoEncontrado 
 	 */
-	public static void main(String[] args){
+	public static void main(String[] args) throws ExcepcionNoHayPrecioEstablecidoParaTalFecha, ExcepcionHotelNoEncontrado{
 		// TODO Auto-generated method stub
+		Calendar fecha1 = Calendar.getInstance();
+		fecha1.set(2013,03,01,0,0,0);
+		fecha1.clear(Calendar.MILLISECOND);
+		Calendar fecha2 = Calendar.getInstance();
+		fecha2.set(2013,03,07,0,0,0);
+		fecha2.clear(Calendar.MILLISECOND);
+		
 		SistemaDeBusqueda sist = new SistemaDeBusqueda();
+		
 		Hotel hot = new Hotel();
 		Hotel hot1 = new Hotel();
 		hot1.setNombre("Luna");
 		hot.setNombre("Dallas");
+		
 		Habitacion h1 = new Habitacion();
 		Habitacion h2 = new Habitacion();
 		Servicio s1 = new Servicio("wifi", 78, "lala");
 		Servicio s2 = new Servicio("TV cable", 100, "dsfclala");
 		Servicio s3 = new Servicio("wifi", 90, "laldfda");
+		
+		Descuento desc = new DescuentoPorFecha(fecha1, 25);
+		List<Descuento> d = new ArrayList<Descuento>();
+		d.add(desc);
+		
+		List<PeriodoConPrecio> listP1 = new ArrayList<PeriodoConPrecio>();
+		List<PeriodoConPrecio> listP2 = new ArrayList<PeriodoConPrecio>();
+		PeriodoConPrecio per1 = new PeriodoConPrecio(fecha1,fecha2, 122);
+		PeriodoConPrecio per2 = new PeriodoConPrecio(fecha1,fecha2, 142);
+		listP1.add(per1);
+		listP1.add(per2);
+		listP2.add(per1);
+		
+		
 		List<Servicio> list = new ArrayList<Servicio>();
 		list.add(s1);
 		list.add(s2);
+		h1.setDescuentos(d);
 		h1.setServicios(list);
 		h1.setNumero(1);
-	//	h1.setPrecioPorNoche(133);
+		h1.setPreciosPorFecha(listP1);
 		h1.setCapacidadMaxima(2);
 		List<Servicio> list1 = new ArrayList<Servicio>();
 		list1.add(s3);
 		h2.setServicios(list1);
 		h2.setNumero(2);
-	//	h2.setPrecioPorNoche(100);
+		h2.setPreciosPorFecha(listP2);
 		h2.setCapacidadMaxima(2);
 		List<Habitacion> habitaciones = new ArrayList<Habitacion>();
 		habitaciones.add(h1);
@@ -313,6 +341,6 @@ public class SistemaDeBusqueda extends Observable{
 		hot1.setCiudad("Quilmes");
 		sist.hoteles.add(hot);
 		sist.hoteles.add(hot1);
-	//	sist.buscarHoteles("Quilmes", Calendar.getInstance(), Calendar.getInstance(), 2);
+		sist.buscarHoteles("Quilmes", fecha1,fecha2, 2);
 	}
 }

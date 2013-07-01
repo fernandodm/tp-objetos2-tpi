@@ -91,6 +91,11 @@ public class Usuario implements Observer{
 		this.preferencias = preferencias;
 	}
 
+	/**
+	 * Retorna todas la reservas realizadas
+	 * @return
+	 * @throws ExcepcionNoEstaOnline
+	 */
 	public List<Reserva> todasLasReservas()throws ExcepcionNoEstaOnline{
 		
 		if(isOnline()){
@@ -101,7 +106,12 @@ public class Usuario implements Observer{
 			throw new ExcepcionNoEstaOnline();
 		}
 	}
-	
+	/**
+	 * Retorna todas las reservas que se realizo en una determinada ciudad
+	 * @param unaCiudad
+	 * @return
+	 * @throws ExcepcionNoEstaOnline
+	 */
 	public List<Reserva> reservaPorCiudad(String unaCiudad) throws ExcepcionNoEstaOnline{
 		
 		if(isOnline()){
@@ -116,6 +126,12 @@ public class Usuario implements Observer{
 			throw new ExcepcionNoEstaOnline();
 		}
 	}
+	
+	/**
+	 * Retorna las ciudades donde relizo una reserva
+	 * @return
+	 * @throws ExcepcionNoEstaOnline
+	 */
 	public List<String> ciudadesConReservas()throws ExcepcionNoEstaOnline{
 		
 		if(isOnline()){
@@ -130,7 +146,11 @@ public class Usuario implements Observer{
 			throw new ExcepcionNoEstaOnline();
 		}
 	}
-	
+	/**
+	 * Retorna todas las reservas futuras
+	 * @return
+	 * @throws ExcepcionNoEstaOnline
+	 */
 	public List<Reserva> reservasFuturas() throws ExcepcionNoEstaOnline{
 		
 		if(isOnline()){
@@ -147,6 +167,11 @@ public class Usuario implements Observer{
 		}
 	}
 	
+	/**
+	 * Elimina la reserva que se pasa por parametro
+	 * @param unaReserva
+	 * @throws ExcepcionNoSeEncontroReserva
+	 */
 	public void eliminarLaReserva(Reserva unaReserva) throws ExcepcionNoSeEncontroReserva{
 		
 		if(getReservas().contains(unaReserva)){
@@ -162,7 +187,12 @@ public class Usuario implements Observer{
 			throw new ExcepcionNoSeEncontroReserva();
 			}
 	}
-	
+	/**
+	 * Cancela una reserva
+	 * @param unaReserva
+	 * @throws ExcepcionNoEstaOnline
+	 * @throws ExcepcionNoSeEncontroReserva
+	 */
 	public void cancelarReserva(Reserva unaReserva) throws ExcepcionNoEstaOnline, ExcepcionNoSeEncontroReserva{
 		
 		if(isOnline()){
@@ -227,8 +257,6 @@ public class Usuario implements Observer{
 	}
 	
 	public boolean puedeEstarInteresadoEnHotel(Hotel h) throws ExcepcionNoHayPrecioEstablecidoParaTalFecha{
-		
-
 		
 		return (h.lePuedeInteresarAlUsuario(this));
 	}
