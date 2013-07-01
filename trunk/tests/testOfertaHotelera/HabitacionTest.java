@@ -45,10 +45,13 @@ public class HabitacionTest extends TestCase {
 	private PorPrecioPorNoche preferencia1;
 	private PorPrecioPorEstadia preferencia2;
 	private PreferenciaPorLugar preferencia3;
+	private PreferenciaPorLugar preferencia4;
 	private Hotel hotel;
 	private List<Preferencia> preferencias = new ArrayList<Preferencia>();
-
-	
+	private List<Preferencia> unaPreferencia = new ArrayList<Preferencia>();
+	private PeriodoConPrecio periPrecio1;
+	private PeriodoConPrecio periPrecio2;
+	private PeriodoConPrecio periPrecio3;
 	
 	public void setUp(){
 		
@@ -58,6 +61,10 @@ public class HabitacionTest extends TestCase {
 		periodo2 = mock(Periodo.class);
 		periodo3 = mock(Periodo.class);
 		
+		periPrecio1 = mock(PeriodoConPrecio.class);
+		periPrecio2 = mock(PeriodoConPrecio.class);
+		periPrecio3 = mock(PeriodoConPrecio.class);
+		
 		fechaInicio1 = Calendar.getInstance();
 		fechaInicio1.set(2013,01,1,0,0,0);
 		fechaInicio1.clear(Calendar.MILLISECOND);
@@ -66,6 +73,9 @@ public class HabitacionTest extends TestCase {
 		fechaFin2.clear(Calendar.MILLISECOND);
 		when(periodo1.getDesde()).thenReturn(fechaInicio1);
 		when(periodo1.getHasta()).thenReturn(fechaFin2);
+		when(periPrecio1.getDesde()).thenReturn(fechaInicio1);
+		when(periPrecio1.getHasta()).thenReturn(fechaFin2);
+		when(periPrecio1.getPrecio()).thenReturn((float) 100);
 		
 		fechaInicio3 = Calendar.getInstance();
 		fechaInicio3.set(2013,01,10,0,0,0);		
@@ -75,6 +85,9 @@ public class HabitacionTest extends TestCase {
 		fechaFin4.clear(Calendar.MILLISECOND);
 		when(periodo2.getDesde()).thenReturn(fechaInicio3);
 		when(periodo2.getHasta()).thenReturn(fechaFin4);
+		when(periPrecio2.getDesde()).thenReturn(fechaInicio3);
+		when(periPrecio2.getHasta()).thenReturn(fechaFin4);
+		when(periPrecio1.getPrecio()).thenReturn((float) 200);
 		
 		fechaInicio5 = Calendar.getInstance();
 		fechaInicio5.set(2013,01,20,0,0,0);
@@ -84,6 +97,9 @@ public class HabitacionTest extends TestCase {
 		fechaFin6.clear(Calendar.MILLISECOND);
 		when(periodo3.getDesde()).thenReturn(fechaInicio5);
 		when(periodo3.getHasta()).thenReturn(fechaFin6);
+		when(periPrecio3.getDesde()).thenReturn(fechaInicio5);
+		when(periPrecio3.getHasta()).thenReturn(fechaFin6);
+		when(periPrecio1.getPrecio()).thenReturn((float) 300);
 		
 		diasReservados.add(periodo1);
 		diasReservados.add(periodo2);
@@ -97,52 +113,50 @@ public class HabitacionTest extends TestCase {
 		preferencia1 = mock(PorPrecioPorNoche.class);
 		preferencia2 = mock(PorPrecioPorEstadia.class);
 		preferencia3 = mock(PreferenciaPorLugar.class);
+		preferencia4 = mock(PreferenciaPorLugar.class);
+		
+		
+		
+		hotel = mock(Hotel.class);
+	}
+	
+	public void testLePuedeInteresarAlUsuarioPorLaUbicacionUnaSolaPreferencia() throws ExcepcionNoHayPrecioEstablecidoParaTalFecha{
+
+		
+		when(preferencia3.lePuedeInteresarHabitacion(habitacion)).thenReturn(true);
+		unaPreferencia.add(preferencia3);
+		when(user.getPreferencias()).thenReturn(unaPreferencia);
+		
+		Assert.assertTrue(habitacion.lePuedeInteresarAlUsuario(user));
+	}
+	
+	public void testLePuedeInteresarAlUsuarioPorElPrecioPorFecha() throws ExcepcionNoHayPrecioEstablecidoParaTalFecha{
+		
+		when(preferencia1.lePuedeInteresarHabitacion(habitacion)).thenReturn(true);
+		preferencias.add(preferencia1);
+		when(user.getPreferencias()).thenReturn(preferencias);
+		Assert.assertTrue(habitacion.lePuedeInteresarAlUsuario(user));
+	}
+	
+	public void testLePuedeInteresarAlUsuarioPorElPrecioPorEstadia() throws ExcepcionNoHayPrecioEstablecidoParaTalFecha{
+		
+		when(preferencia2.lePuedeInteresarHabitacion(habitacion)).thenReturn(true);
+		preferencias.add(preferencia2);
+		when(user.getPreferencias()).thenReturn(preferencias);
+		Assert.assertTrue(habitacion.lePuedeInteresarAlUsuario(user));
+	}
+	
+	public void testLePuedeInteresarAlUsuarioPorLaUbicacionMasDeUnaPreferencia() throws ExcepcionNoHayPrecioEstablecidoParaTalFecha{
+
+		when(preferencia1.lePuedeInteresarHabitacion(habitacion)).thenReturn(true);
+		when(preferencia2.lePuedeInteresarHabitacion(habitacion)).thenReturn(true);
+		when(preferencia3.lePuedeInteresarHabitacion(habitacion)).thenReturn(true);
+		
 		preferencias.add(preferencia1);
 		preferencias.add(preferencia2);
 		preferencias.add(preferencia3);
 		when(user.getPreferencias()).thenReturn(preferencias);
-		
-		hotel = mock(Hotel.class);
-		
-		
-	}
-	
-	public void testLePuedeInteresarAlUsuarioPorElPrecioPorNoche(){
-		
-		habitacion.lePuedeInteresarAlUsuario(user);
-		
-		//verify(user).getPreferencia();
-		//verify(preferencia).le
-	}
-	
-	public void testLePuedeInteresarAlUsuarioPorLaUbicacion(){
-
-		when(hotel.getPais()).thenReturn("España");
-		when(hotel.getCiudad()).thenReturn("Madrid");
-		habitacion.setHotel(hotel);
-		when(preferencia3.getPaisDelHotel()).thenReturn("España");
-		when(preferencia3.getCiudadDelHotel()).thenReturn("Madrid");
-		when(preferencia3.lasFechasEstanBien(habitacion)).thenReturn(true);
-		when(user.getPreferencia()).thenReturn(preferencia3);
-		boolean b = habitacion.lePuedeInteresarAlUsuario(user);
-		Assert.assertTrue(b);
-		
-	}
-	
-	public void testLePuedeInteresarAlUsuarioPorElPrecioPorEstadia(){
-		
-		
-		fechaInicio1 = Calendar.getInstance();
-		fechaInicio1.set(2013,01,1,0,0,0);
-		fechaFin2 = Calendar.getInstance();
-		fechaFin2.set(2013,10,1,0,0,0);
-		when(preferencia2.getPrecioMinimo()).thenReturn(1000);
-		when(preferencia2.getPrecioMaximo()).thenReturn(1500);
-		when(preferencia2.getFechaInicialDeInteres()).thenReturn(fechaInicio1);
-		when(preferencia2.getFechaFinalDeInteres()).thenReturn(fechaFin2);
-		boolean b= habitacion.lePuedeInteresarAlUsuario(user);
-		Assert.assertTrue(b);
-		
+		Assert.assertTrue(habitacion.lePuedeInteresarAlUsuario(user));
 	}
 	
 	public void testEliminarHorario(){
