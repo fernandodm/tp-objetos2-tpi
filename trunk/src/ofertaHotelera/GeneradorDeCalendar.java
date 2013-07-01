@@ -25,7 +25,7 @@ public class GeneradorDeCalendar {
 		
 		List<Calendar> calendarios = new ArrayList<Calendar>();
 		
-		int cantidad = Comparador.cantidadDeDias(fechaInicio, fechaFin);
+		int cantidad = Auxiliar.cantidadDeDias(fechaInicio, fechaFin);
 	
 		for(int i = 0; i < cantidad; i++){
 	
