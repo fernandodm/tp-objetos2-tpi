@@ -77,17 +77,6 @@ public class Auxiliar {
 		return val;
 	}
 	
-	public static boolean algunDiaIncluidoEnColeccion(List<Calendar> fechas, List<List<Calendar>> colFechas){
-		boolean val= false;
-		for(List<Calendar> each: colFechas){
-			val= algunDiaIncluido(fechas, each);
-			if(val)
-			{
-				break;
-			}
-		}
-		return val;
-	}
 	/**
 	 * @param args
 	 */
