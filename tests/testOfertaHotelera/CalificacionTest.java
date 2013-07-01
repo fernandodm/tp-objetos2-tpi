@@ -14,8 +14,8 @@ public class CalificacionTest extends TestCase {
 	
 	public void setUp(){
 		user= mock(Usuario.class);
-		puntaje= mock(int.class);
-		comentario= mock(String.class);
+		puntaje= 7;
+		comentario= "buena";
 	}
 	
 	public void testConstructorCalificacion(){
