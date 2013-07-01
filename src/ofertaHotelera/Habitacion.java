@@ -161,8 +161,8 @@ public class Habitacion {
 	public float precioTotal(Calendar fechaInicio, Calendar fechaFin) throws ExcepcionNoHayPrecioEstablecidoParaTalFecha{
 		//TODO hacer el test de este metodo (fer)
 		float precio = 0;
-		int cantidad = cantidadDeDias(fechaInicio, fechaFin);
-		List<Calendar> fechas = GeneradorDeCalendar.generar(cantidad);
+		int cantidad = Comparador.cantidadDeDias(fechaInicio, fechaFin);
+		List<Calendar> fechas = GeneradorDeCalendar.generarDiasEntre(fechaInicio, fechaFin);
 		
 		for(Calendar each: fechas){
 			
@@ -183,26 +183,7 @@ public class Habitacion {
 		
 		return getDescuentos().size() > 0;
 	}
-	
-	/**
-	 * Dada dos fecha devuelve la cantidad de dias que hay desde
-	 * "desde" hasta "hasta"
-	 * @param desde
-	 * @param hasta
-	 * @return
-	 */
-	public int cantidadDeDias(Calendar desde, Calendar hasta) {
 		
-		Calendar inicio = desde;
-		int cant = 0;
-		while(!Comparador.sonIguales(inicio, hasta)){
-			cant = cant + 1;
-			inicio.set(inicio.get(inicio.YEAR),inicio.get(inicio.MONTH),inicio.get(inicio.DATE)+1);
-		}
-		cant = cant + 1;
-		return cant;
-	}
-	
 	/**
 	 * Devuelve todos los descuentos de la habitacion como string
 	 */

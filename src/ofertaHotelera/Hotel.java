@@ -141,13 +141,14 @@ public class Hotel {
 		Calendar diaActual = Calendar.getInstance();
 		diaActual.set(diaActual.get(diaActual.YEAR),diaActual.get(diaActual.MONTH),
 				diaActual.get(diaActual.DATE),0,0,0);
+		diaActual.clear(Calendar.MILLISECOND);
 					
 		for(Reserva each: getReservas()){
 			Calendar desde = each.getPeriodo().getDesde();
 			Calendar hasta = each.getPeriodo().getHasta();
 			if((diaActual.after(desde) && diaActual.before(hasta)) 
-				|| Comparador.sonIguales(diaActual, desde) 
-				|| Comparador.sonIguales(diaActual, hasta)){
+				|| diaActual.equals(desde) 
+				|| diaActual.equals(hasta)){
 				
 				actuales.add(each);
 			}
