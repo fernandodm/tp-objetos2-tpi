@@ -60,15 +60,14 @@ public class Hotelero {
 		return res;
 	}
 	
-	public void ponerPrecioHabRangoDias(List<Calendar> dias, Integer precio, Habitacion hab){
-		List<List<Calendar>> diasConPrecio = OperadorDeColecciones.mapAList(hab.getPreciosPorFecha());
-		boolean superponeDias= Auxiliar.algunDiaIncluidoEnColeccion(dias, diasConPrecio);
-		if(! superponeDias){
-			hab.getPreciosPorFecha().put(dias, precio);
+	public void ponerPrecioHabRangoDias(PeriodoConPrecio periodo, Habitacion hab){
+		if(periodo.algunDiaCoincide(hab.getPreciosPorFecha())){
+			hab.getPreciosPorFecha().add(periodo);
 		}
 		else{
 			//TODO deberiamos arrojar una excepcion que diga que uno de los dias 
 			// ya tenia un precio fijado. 
+			System.out.println("Uno o mas de los dias del periodo ya tiene un precio fijado");
 		}
 	}
 	
