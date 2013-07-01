@@ -11,8 +11,8 @@ public class Periodo {
 	
 	public Periodo(Calendar desde, Calendar hasta) {
 
-		this.desde = desde;
-		this.hasta = hasta;
+		this.setDesde(desde);
+		this.setHasta(hasta);
 	}
 
 
