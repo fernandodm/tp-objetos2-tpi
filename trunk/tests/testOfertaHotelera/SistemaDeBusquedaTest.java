@@ -132,7 +132,7 @@ public class SistemaDeBusquedaTest extends TestCase {
 		}
 	}
 	
-	public void testBuscarHotelesTrue() throws ExcepcionNoHayPrecioEstablecidoParaTalFecha, ExcepcionHotelNoEncontrado{
+	public void testBuscarHoteles() throws ExcepcionNoHayPrecioEstablecidoParaTalFecha{
 	
 		Calendar desde = Calendar.getInstance();
 		desde.set(2013, 03, 01, 0,0,0);
@@ -153,29 +153,6 @@ public class SistemaDeBusquedaTest extends TestCase {
 		
 		Assert.assertEquals(hoteles.size(), 1);
 		Assert.assertTrue(hotel == hotel1);
-	}
-	
-	public void testBuscarHotelesFalse() throws ExcepcionNoHayPrecioEstablecidoParaTalFecha, ExcepcionHotelNoEncontrado{
-		
-		Calendar desde = Calendar.getInstance();
-		desde.set(2013, 03, 01, 0,0,0);
-		
-		Calendar hasta = Calendar.getInstance();
-		hasta.set(2013, 03, 07, 0,0,0);
-		
-		when(hotel1.tieneHabitacionesCon(desde, hasta, 2)).thenReturn(true);	
-		when(hotel2.tieneHabitacionesCon(desde, hasta, 2)).thenReturn(false);
-		when(hotel1.getCiudad()).thenReturn("quilmes");	
-		when(hotel2.getCiudad()).thenReturn("quilmes");
-		when(hotel1.getNombre()).thenReturn("Dallas");	
-		when(hotel2.getNombre()).thenReturn("Luna");
-		try{
-			sistema.buscarHoteles("bernal", desde, hasta, 2);
-			fail();
-		}catch(ExcepcionHotelNoEncontrado e){
-			
-		}
-		
 	}
 	
 	public void testHotelesDe(){

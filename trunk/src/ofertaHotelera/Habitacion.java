@@ -227,6 +227,20 @@ public class Habitacion {
 		
 	}
 	
+	/**
+	 * Retorna un string, "Si" si tiene camaTwin "No" en caso contrario
+	 * @return
+	 */
+	public String tieneCamaTwin() {
+		
+		if(isCamaTwin()){
+			
+			return "Si";
+		}
+		
+		return "No";
+	}
+	
 	public static void main(String[] args) {
 		
 		Calendar c = Calendar.getInstance();
