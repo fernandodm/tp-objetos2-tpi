@@ -354,6 +354,18 @@ public class UsuarioTest extends TestCase {
 			
 		}
 	}
+	
+	public void testAgregarReserva(){
+		
+		Reserva reserva = mock(Reserva.class);
+		
+		usuario.agregarReserva(reserva);
+		
+		int cantidad = usuario.getReservas().size();
+		
+		Assert.assertTrue(cantidad == 4);
+		
+	}
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub

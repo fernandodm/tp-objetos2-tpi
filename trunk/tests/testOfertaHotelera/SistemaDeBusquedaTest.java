@@ -7,6 +7,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import excepciones.ExcepcionElNombreDeUsuarioYaExiste;
+import excepciones.ExcepcionHotelNoEncontrado;
 import excepciones.ExcepcionNoEstaOnline;
 import excepciones.ExcepcionNoHayPrecioEstablecidoParaTalFecha;
 import excepciones.ExcepcionPasswordIncorrecto;
@@ -131,7 +132,7 @@ public class SistemaDeBusquedaTest extends TestCase {
 		}
 	}
 	
-	public void testBuscarHoteles() throws ExcepcionNoHayPrecioEstablecidoParaTalFecha{
+	public void testBuscarHotelesTrue() throws ExcepcionNoHayPrecioEstablecidoParaTalFecha, ExcepcionHotelNoEncontrado{
 	
 		Calendar desde = Calendar.getInstance();
 		desde.set(2013, 03, 01, 0,0,0);
@@ -154,6 +155,29 @@ public class SistemaDeBusquedaTest extends TestCase {
 		Assert.assertTrue(hotel == hotel1);
 	}
 	
+	public void testBuscarHotelesFalse() throws ExcepcionNoHayPrecioEstablecidoParaTalFecha, ExcepcionHotelNoEncontrado{
+		
+		Calendar desde = Calendar.getInstance();
+		desde.set(2013, 03, 01, 0,0,0);
+		
+		Calendar hasta = Calendar.getInstance();
+		hasta.set(2013, 03, 07, 0,0,0);
+		
+		when(hotel1.tieneHabitacionesCon(desde, hasta, 2)).thenReturn(true);	
+		when(hotel2.tieneHabitacionesCon(desde, hasta, 2)).thenReturn(false);
+		when(hotel1.getCiudad()).thenReturn("quilmes");	
+		when(hotel2.getCiudad()).thenReturn("quilmes");
+		when(hotel1.getNombre()).thenReturn("Dallas");	
+		when(hotel2.getNombre()).thenReturn("Luna");
+		try{
+			sistema.buscarHoteles("bernal", desde, hasta, 2);
+			fail();
+		}catch(ExcepcionHotelNoEncontrado e){
+			
+		}
+		
+	}
+	
 	public void testHotelesDe(){
 		
 		Hotel hotel3 = mock(Hotel.class);
@@ -173,7 +197,7 @@ public class SistemaDeBusquedaTest extends TestCase {
 		Assert.assertTrue(h2 == hotel3);
 	}
 	
-	public void testBuscarHotel(){
+	public void testBuscarHotel() throws ExcepcionHotelNoEncontrado{
 				
 		when(hotel1.getNombre()).thenReturn("Luna");
 		when(hotel2.getNombre()).thenReturn("Sol");
@@ -190,7 +214,7 @@ public class SistemaDeBusquedaTest extends TestCase {
 		
 	}
 	
-	public void testBuscarHabitaion() throws ExcepcionNoHayPrecioEstablecidoParaTalFecha{
+	public void testBuscarHabitacion() throws ExcepcionNoHayPrecioEstablecidoParaTalFecha, ExcepcionHotelNoEncontrado{
 		
 		List<Habitacion> habitaciones = new ArrayList<Habitacion>();
 		
