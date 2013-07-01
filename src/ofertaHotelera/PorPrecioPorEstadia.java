@@ -11,6 +11,12 @@ public class PorPrecioPorEstadia extends Preferencia {
 	private float precioMinimo;
 	private float precioMaximo;
 	
+	public PorPrecioPorEstadia(float minimo, float maximo) {
+		
+		setPrecioMinimo(minimo);
+		setPrecioMaximo(maximo);
+		
+	}
 	public float getPrecioMinimo() {
 		return precioMinimo;
 	}
@@ -37,6 +43,10 @@ public class PorPrecioPorEstadia extends Preferencia {
 		this.fechaFinalDeInteres = fechaFinalDeInteres;
 	}
 	@Override
+	
+	
+	
+	
 	public boolean lePuedeInteresarHabitacion(Habitacion h) throws ExcepcionNoHayPrecioEstablecidoParaTalFecha {
 
 		return (h.precioTotal(getFechaInicialDeInteres(), getFechaFinalDeInteres()) >= getPrecioMinimo() && h.precioTotal(getFechaInicialDeInteres(), getFechaFinalDeInteres()) <= getPrecioMaximo());

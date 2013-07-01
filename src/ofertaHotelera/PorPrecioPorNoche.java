@@ -18,8 +18,8 @@ public class PorPrecioPorNoche extends Preferencia{
 		this.precioMaximo = precioMaximo;
 	}
 	
-	public PorPrecioPorNoche(float maximo){
-		setPrecioMinimo(0);
+	public PorPrecioPorNoche(float minimo, float maximo){
+		setPrecioMinimo(minimo);
 		setPrecioMaximo(maximo);
 	}
 	

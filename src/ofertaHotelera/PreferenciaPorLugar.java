@@ -36,7 +36,7 @@ public class PreferenciaPorLugar extends Preferencia {
 		if(h.getHotel().getPais() == getPaisDelHotel() && getCiudadDelHotel() == null){
 			b = true;
 		} 
-		if(h.getHotel().getPais() == null && getCiudadDelHotel() == h.getHotel().getCiudad()){
+		if(getCiudadDelHotel() == h.getHotel().getCiudad() && getPaisDelHotel() == null){
 			b = true;
 		} 
 		if(h.getHotel().getPais() == getPaisDelHotel() && h.getHotel().getCiudad() == getCiudadDelHotel() ){
