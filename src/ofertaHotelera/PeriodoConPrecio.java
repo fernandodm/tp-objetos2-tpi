@@ -1,6 +1,7 @@
 package ofertaHotelera;
 
 import java.util.Calendar;
+import java.util.List;
 
 public class PeriodoConPrecio extends Periodo {
 
@@ -19,6 +20,20 @@ public class PeriodoConPrecio extends Periodo {
 		this.precio = precio;
 	}
 
+	public boolean algunDiaCoincide(List<PeriodoConPrecio> periodo){
+		boolean res= false;
+		List<Calendar> dias =GeneradorDeCalendar.generarDiasEntre(this.desde, this.hasta);
+		for(Calendar each : dias){
+			for(PeriodoConPrecio per : periodo){
+				if(per.fechaEstaEnElPeriodo(each)){
+				res = true;
+				break;
+			}
+			}
+		}
+		return res;
+	}
+	
 	/**
 	 * @param args
 	 */
