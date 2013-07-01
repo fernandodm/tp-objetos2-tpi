@@ -1,6 +1,7 @@
 package ofertaHotelera;
 
 import java.util.Calendar;
+import java.util.List;
 
 public class Periodo {
 	
@@ -12,6 +13,11 @@ public class Periodo {
 
 		this.desde = desde;
 		this.hasta = hasta;
+	}
+
+
+	public Periodo() {
+		// TODO Auto-generated constructor stub
 	}
 
 
@@ -36,6 +42,17 @@ public class Periodo {
 	
 	public boolean fechaEstaEnElPeriodo(Calendar fecha){
 		return((fecha.equals(getDesde()) || fecha.equals(getHasta())) || (fecha.after(getDesde())) && fecha.before(getHasta()));
+	}
+	
+	public Periodo periodoDeLaFecha(Calendar fecha, List<Periodo> periodos){
+		
+		Periodo p = new Periodo();
+		for(Periodo each : periodos){
+			if(each.fechaEstaEnElPeriodo(fecha)){
+				p = each;
+			}
+		}
+		return p;
 	}
 
 	public boolean estaEntre(Calendar desde2, Calendar hasta2) {
