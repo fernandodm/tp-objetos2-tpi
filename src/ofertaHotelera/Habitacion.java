@@ -104,13 +104,14 @@ public class Habitacion {
 	public float precioDeLaFecha(Calendar fecha) throws ExcepcionNoHayPrecioEstablecidoParaTalFecha{
 		
 		float precio = 0;
-		for(PeriodoConPrecio each : getPreciosPorFecha()){
-			if(each.fechaEstaEnElPeriodo(fecha)){
-				precio = each.getPrecio();
-				break;
-			} else{
-				throw new ExcepcionNoHayPrecioEstablecidoParaTalFecha();
+		if(hayPrecioParaFecha(fecha)){
+			for(PeriodoConPrecio each : getPreciosPorFecha()){
+				if(each.fechaEstaEnElPeriodo(fecha)){
+					precio = each.getPrecio();
+				}
 			}
+		} else {
+			throw new ExcepcionNoHayPrecioEstablecidoParaTalFecha();
 		}
 		return precio;
 		
