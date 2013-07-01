@@ -29,15 +29,7 @@ public class Auxiliar {
 		cant = cant + 1;
 		return cant;
 	}	
-	
-	/*public static boolean sonIguales(Calendar c1, Calendar c2){
 		
-		String f1 = "" + c1.get(c1.YEAR) + c1.get(c1.MONTH) + c1.get(c1.DATE);
-		String f2 = "" + c2.get(c2.YEAR) + c2.get(c2.MONTH) + c2.get(c2.DATE);
-		
-		return f1.equals(f2);
-	}*/
-	
 	public static boolean listaContieneFecha(List<Calendar> siguientesDias,
 			Calendar fechaDeIngreso) {
 		

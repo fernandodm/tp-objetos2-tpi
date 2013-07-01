@@ -14,8 +14,8 @@ public class DescuentoPorFecha extends Descuento {
 	}
 	
 	public DescuentoPorFecha(Calendar limite, int porcentaje){
-		this.setFechaLimite(limite);
-		this.setPorcentajeDescontado(porcentaje);
+		this.fechaLimite = limite;
+		this.porcentajeDescontado = porcentaje;
 	}
 	
 	public String descuento() {

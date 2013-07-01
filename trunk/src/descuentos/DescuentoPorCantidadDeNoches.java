@@ -12,8 +12,8 @@ public class DescuentoPorCantidadDeNoches extends Descuento {
 	}
 
 	public DescuentoPorCantidadDeNoches(int noches, int porcentaje){
-		this.setCantidadDeNochesParaDescuento(noches);
-		this.setPorcentajeDescontado(porcentaje);
+		this.cantidadDeNochesParaDescuento = noches;
+		this.porcentajeDescontado = porcentaje;
 	}
 	
 	public String descuento() {
