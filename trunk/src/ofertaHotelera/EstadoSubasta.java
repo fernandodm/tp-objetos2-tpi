@@ -20,7 +20,7 @@ public abstract class EstadoSubasta {
 		this.subasta = subasta;
 	}
 
-
-
+	
+	
 	public abstract void agregarApuesta(Usuario user, float oferta) throws ExcepcionLaSubastaAunNoHaIniciado, ExcepcionLaSubastaYaHaFinalizado, ExcepcionOfertaInferior;
 }

@@ -63,7 +63,12 @@ public class Subasta {
 		this.formaDePago = formaDePago;
 	}
 
-
+	/**
+	 * Constructor de una subasta, se asume que la fecha inicial será anterior o posterior a la actual, y que la fecha de finalizacion no será anterior a la actual.
+	 * @param h, valorInicial, ini, fin
+	 * @return 
+	 * @throws 
+	 */
 
 	public Subasta(Habitacion h, int valorInicial, Calendar ini, Calendar fin){
 		
@@ -79,12 +84,24 @@ public class Subasta {
 	}
 	
 	
+	/**
+	 * Se agrega una oferta a la subasta, se delega esta responsabilidad al estado de la subasta
+	 * @param user, oferta
+	 * @return boolean
+	 * @throws ExcepcionNoHayPrecioEstablecidoParaTalFecha.
+	 */
+	
 	public void agragarOferta(Usuario user, float oferta) throws ExcepcionLaSubastaAunNoHaIniciado, ExcepcionLaSubastaYaHaFinalizado, ExcepcionOfertaInferior{
 		
 		getEstado().agregarApuesta(user,oferta);
-		
-		
 	}
+	
+	/**
+	 * Retorna true si la subasta ya finalizó
+	 * @param 
+	 * @return termino
+	 * @throws 
+	 */
 	
 	public boolean terminoLaSubasta(){
 		boolean termino = false;

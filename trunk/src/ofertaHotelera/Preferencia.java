@@ -8,7 +8,7 @@ public abstract class Preferencia {
 	
 
 
-
+	
 	
 	public abstract boolean lePuedeInteresarHabitacion(Habitacion h) throws ExcepcionNoHayPrecioEstablecidoParaTalFecha;
 		

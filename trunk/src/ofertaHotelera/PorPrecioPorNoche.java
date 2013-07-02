@@ -23,6 +23,13 @@ public class PorPrecioPorNoche extends Preferencia{
 		setPrecioMaximo(maximo);
 	}
 	
+	/**
+	 * Retorna true si los datos de la preferencia coinciden con los requeridos de la habitación.
+	 * @param h
+	 * @return boolean
+	 * @throws ExcepcionNoHayPrecioEstablecidoParaTalFecha.
+	 */
+	
 	@Override
 	public boolean lePuedeInteresarHabitacion(Habitacion h) {
 

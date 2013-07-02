@@ -129,6 +129,13 @@ public class SistemaDeBusqueda extends Observable{
 		throw new ExcepcionUsuarioIncorrecto();
 	}
 	
+	/**
+	 * Agrega un suscripto a los avisos de ofertas hoteleras.
+	 * @param user
+	 * @return 
+	 * @throws 
+	 */
+	
 	public void agregarSuscripto(Usuario user){
 		
 		this.addObserver(user);
@@ -136,16 +143,37 @@ public class SistemaDeBusqueda extends Observable{
 	}
 
 
+	/**
+	 * Remueve un hotel de la lista de hoteles
+	 * @param h
+	 * @return 
+	 * @throws 
+	 */
+	
 	public void quitarHotel(Hotel h){
 		
 		//PRECONDICION: EL HOTEL ESTA EN LA LISTA DE HOTELES.
 		getHoteles().remove(h);
 	}
+	
+	/**
+	 * Actualiza los datos de la oferta de un hotel, agregando el hotel nuevamente.
+	 * @param h
+	 * @return 
+	 * @throws 
+	 */
 
 	public void actualizarOfertaDelHotel(Hotel h){
 		quitarHotel(h);
 		agregarHotel(h);
 	}
+	
+	/**
+	 * Agrega un hotel a la lista de hoteles y notifica a los usuarios suscriptos interesados.
+	 * @param h
+	 * @return 
+	 * @throws 
+	 */
 	
 	public void agregarHotel(Hotel h){
 		
