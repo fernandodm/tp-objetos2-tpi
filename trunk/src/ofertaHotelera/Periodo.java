@@ -48,6 +48,7 @@ public class Periodo {
 	 */
 	
 	public boolean fechaEstaEnElPeriodo(Calendar fecha){
+		
 		return((fecha.equals(getDesde()) || fecha.equals(getHasta())) || (fecha.after(getDesde())) && fecha.before(getHasta()));
 	}
 	
