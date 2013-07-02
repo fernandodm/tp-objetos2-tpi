@@ -7,6 +7,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import excepciones.ExcepcionElNombreDeUsuarioYaExiste;
+import excepciones.ExcepcionHabitacionNoDisponible;
 import excepciones.ExcepcionHotelNoEncontrado;
 import excepciones.ExcepcionNoEstaOnline;
 import excepciones.ExcepcionNoHayPrecioEstablecidoParaTalFecha;
@@ -16,6 +17,8 @@ import excepciones.ExcepcionUsuarioIncorrecto;
 
 import ofertaHotelera.Habitacion;
 import ofertaHotelera.Hotel;
+import ofertaHotelera.Periodo;
+import ofertaHotelera.Reserva;
 import ofertaHotelera.SistemaDeBusqueda;
 import ofertaHotelera.Usuario;
 import junit.framework.Assert;
@@ -225,7 +228,18 @@ public class SistemaDeBusquedaTest extends TestCase {
 		Assert.assertTrue(habitacion == habitacion1);
 	}
 
-	
+	public void testRealizarReservaConHabitacionDisponible() throws ExcepcionHabitacionNoDisponible{
+		
+		when(habitacion1.getHotel()).thenReturn(hotel1);
+		when(habitacion1.estaDisponible(any(Calendar.class), any(Calendar.class))).thenReturn(true);
+		
+		sistema.realizarReserva(usuario1, habitacion1, "efectivo", any(Calendar.class), any(Calendar.class));
+		
+		verify(usuario1).agregarReserva(any(Reserva.class));
+		verify(hotel1).agregarReserva(any(Reserva.class));
+		verify(habitacion1).agregarDiaReservado(any(Periodo.class));
+		
+	}
 	/**
 	 * @param args
 	 */
