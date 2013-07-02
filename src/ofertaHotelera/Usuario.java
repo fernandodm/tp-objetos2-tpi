@@ -15,7 +15,8 @@ import excepciones.ExcepcionNoHayPrecioEstablecidoParaTalFecha;
 import excepciones.ExcepcionNoSeEncontroReserva;
 import excepciones.ExcepcionOfertaInferior;
 import excepciones.ExcepcionSeDebeTenerAlMenosUnCriterioDePreferencia;
-import excepciones.ExcepcionTodaviaNoSeHospedoEnEsteHotelOSuReservaNoHaFinalizado;
+import excepciones.ExcepcionTodaviaNoSeHospedoEnEsteHotel;
+
 
 public class Usuario implements Observer{
 
@@ -203,33 +204,53 @@ public class Usuario implements Observer{
 		}
 	}	 
 		
-	public void calificarHotel(Hotel h, int puntaje, String comentario) throws ExcepcionTodaviaNoSeHospedoEnEsteHotelOSuReservaNoHaFinalizado, ExcepcionNoEstaOnline{
+	/**
+	 * Devuelve true si el usuario alguna vez se hospedo en tal hotel
+	 * @param h
+	 * */
+	
+	public boolean seHospedoEnElHotel(Hotel h){
 		
 		boolean seHospedo = false;
 		
-		if(isOnline()){
-			
 		for(Reserva each : getReservas()){
 			if(each.getHotel().equals(h) && Calendar.getInstance().after(each.getPeriodo().getHasta())){
 				seHospedo = true;
 				break;
-				} else {
-					throw new ExcepcionTodaviaNoSeHospedoEnEsteHotelOSuReservaNoHaFinalizado();
 				}
+			}
+		
+		return seHospedo;
+	}
+	
+	/**
+	 * Si esta onlina y alguna vez se hospedo en tal hotel, agrega una calificacion
+	 * @param h, puntaje, comentario
+	 * @throws ExcepcionNoEstaOnline
+	 * @throws ExcepcionTodaviaNoSeHospedoEnEsteHotel.
+	 */
+	
+	public void calificarHotel(Hotel h, int puntaje, String comentario) throws ExcepcionTodaviaNoSeHospedoEnEsteHotel, ExcepcionNoEstaOnline{
+		
+		
+		if(isOnline()){
+			if(seHospedoEnElHotel(h)){
+				Calificacion cal = new Calificacion(this,puntaje,comentario);
+				h.agregarCalificacion(cal);
+			} else {
+				throw new ExcepcionTodaviaNoSeHospedoEnEsteHotel();
 			}
 		} else {
 			throw new ExcepcionNoEstaOnline();
 		}
-		if(seHospedo){
-			Calificacion cal = new Calificacion(this,puntaje,comentario);
-			
-			h.agregarCalificacion(cal);
-		}else{
-			throw new ExcepcionTodaviaNoSeHospedoEnEsteHotelOSuReservaNoHaFinalizado();
-		}
-		
-		
 	}
+	
+	/**
+	 * Oferta en una subasta si está online, la subasta se comportará dependiendo de su estado
+	 * @param sub, unMonto
+	 * @return
+	 * @throws ExcepcionLaSubastaAunNoHaIniciado, ExcepcionLaSubastaYaHaFinalizado, ExcepcionOfertaInferior, ExcepcionNoEstaOnline.
+	 */
 	
 	public void ofertarEnSubasta(Subasta sub, float unMonto) throws ExcepcionLaSubastaAunNoHaIniciado, ExcepcionLaSubastaYaHaFinalizado, ExcepcionOfertaInferior, ExcepcionNoEstaOnline{
 		if(isOnline()){
@@ -238,6 +259,13 @@ public class Usuario implements Observer{
 			throw new ExcepcionNoEstaOnline();
 		}
 	}
+	
+	/**
+	 * Se suscribe al aviso de ofertas hoteleras de acuerdo a sus preferencias, si es que las tiene o esta online
+	 * @param s
+	 * @return
+	 * @throws ExcepcionSeDebeTenerAlMenosUnCriterioDePreferencia,ExcepcionNoEstaOnline.
+	 */
 	
 	public void suscribirseAlAvisoDeOfertasHoteleras(SistemaDeBusqueda s) throws ExcepcionSeDebeTenerAlMenosUnCriterioDePreferencia,ExcepcionNoEstaOnline{
 		

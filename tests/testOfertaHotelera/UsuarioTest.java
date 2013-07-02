@@ -17,7 +17,8 @@ import excepciones.ExcepcionNoEstaOnline;
 import excepciones.ExcepcionNoSeEncontroReserva;
 import excepciones.ExcepcionOfertaInferior;
 import excepciones.ExcepcionSeDebeTenerAlMenosUnCriterioDePreferencia;
-import excepciones.ExcepcionTodaviaNoSeHospedoEnEsteHotelOSuReservaNoHaFinalizado;
+import excepciones.ExcepcionTodaviaNoSeHospedoEnEsteHotel;
+
 
 import junit.framework.Assert;
 import junit.framework.TestCase;
@@ -282,7 +283,7 @@ public class UsuarioTest extends TestCase {
 		}
 	}
 	
-	public void testCalificarHotelEstandoLogueado() throws ExcepcionNoEstaOnline, ExcepcionTodaviaNoSeHospedoEnEsteHotelOSuReservaNoHaFinalizado{
+	public void testCalificarHotelEstandoLogueado() throws ExcepcionNoEstaOnline, ExcepcionTodaviaNoSeHospedoEnEsteHotel{
 		
 		List<Calificacion> calificaciones = new ArrayList<Calificacion>();
 
@@ -294,7 +295,7 @@ public class UsuarioTest extends TestCase {
 
 	}
 
-	public void testCalificarHotelSinEstarLogueado() throws ExcepcionTodaviaNoSeHospedoEnEsteHotelOSuReservaNoHaFinalizado, ExcepcionNoEstaOnline{
+	public void testCalificarHotelSinEstarLogueado() throws ExcepcionTodaviaNoSeHospedoEnEsteHotel, ExcepcionNoEstaOnline{
 		
 		try{
 			usuario2.calificarHotel(hotel1, 8,"Muy bien");
@@ -310,7 +311,7 @@ public class UsuarioTest extends TestCase {
 		try{
 			usuario.calificarHotel(hotelNoVisitado, 7, "Copado!");
 			fail();
-		} catch (ExcepcionTodaviaNoSeHospedoEnEsteHotelOSuReservaNoHaFinalizado e){
+		} catch (ExcepcionTodaviaNoSeHospedoEnEsteHotel e){
 			
 		}
 		

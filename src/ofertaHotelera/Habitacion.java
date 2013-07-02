@@ -92,6 +92,14 @@ public class Habitacion {
 		
 	}
 	
+	/**
+	 * Retorna true si la fecha pasada como parámetro está incluida en alguno de los preciosPorFecha.
+	 * @param fecha
+	 * @return hay
+	 * @throws 
+	 */
+	
+	
 	public boolean hayPrecioParaFecha(Calendar fecha){
 		boolean hay = false;
 		for(PeriodoConPrecio each : getPreciosPorFecha()){
@@ -102,6 +110,14 @@ public class Habitacion {
 		}
 		return hay;
 	}
+	
+	/**
+	 * Retorna el precio de una fecha si es que hay precio para ella, de lo contrario se lanza la excepción.
+	 * @param fecha
+	 * @return precio
+	 * @throws ExcepcionNoHayPrecioEstablecidoParaTalFecha.
+	 */
+	
 	
 	public float precioDeLaFecha(Calendar fecha) throws ExcepcionNoHayPrecioEstablecidoParaTalFecha{
 		
@@ -119,6 +135,13 @@ public class Habitacion {
 		
 	}
 	
+	/**
+	 * Retorna el precio por noche promedio de una habitación, tomando en cuenta todos sus precios posibles, que están en los preciosPorFecha.
+	 * @param 
+	 * @return promedio
+	 * @throws 
+	 */
+	
 	public float precioPorNochePromedio(){
 		
 		float promedio = 0;
@@ -127,6 +150,13 @@ public class Habitacion {
 		}
 		return promedio / getPreciosPorFecha().size();
 	}
+	
+	/**
+	 * Retorna true si al usuario le puede interesa la habitación, dependiendo de sus preferencias 
+	 * @param user
+	 * @return ok
+	 * @throws ExcepcionNoHayPrecioEstablecidoParaTalFecha.
+	 */
 	
 	public boolean lePuedeInteresarAlUsuario(Usuario user) throws ExcepcionNoHayPrecioEstablecidoParaTalFecha{
 		

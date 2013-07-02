@@ -5,7 +5,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import excepciones.ExcepcionNoHayPrecioEstablecidoParaTalFecha;
-import excepciones.ExcepcionTodaviaNoSeHospedoEnEsteHotelOSuReservaNoHaFinalizado;
+import excepciones.ExcepcionTodaviaNoSeHospedoEnEsteHotel;
 
 public class Hotel {
 	private String nombre;
@@ -199,11 +199,25 @@ public class Hotel {
 		return reservasFuturas;
 	}
 
+	/**
+	 * Agrega una calificiación a la lista de calificaciones, operación total
+	 * @param 
+	 * @return 
+	 * @throws 
+	 */
+	
 	public void agregarCalificacion(Calificacion cal){
 		
 		getCalificaciones().add(cal);
 		
 	}
+	
+	/**
+	 * Retorna el promedio de todos los puntajes dados en las calificaciones
+	 * @param 
+	 * @return 
+	 * @throws 
+	 */
 	
 	public int calificacionPromedio(){
 		Integer promedio = 0;
@@ -212,6 +226,13 @@ public class Hotel {
 		}
 		return(promedio / getCalificaciones().size());
 	}
+	
+	/**
+	 * Retorna true si al usuario le puede interesa alguna de las habitaciones que tiene el hotel.
+	 * @param user
+	 * @return lePuedeInteresar
+	 * @throws ExcepcionNoHayPrecioEstablecidoParaTalFecha.
+	 */
 	
 	public boolean lePuedeInteresarAlUsuario(Usuario user) throws ExcepcionNoHayPrecioEstablecidoParaTalFecha{
 		
@@ -226,6 +247,13 @@ public class Hotel {
 		return lePuedeInteresar;
 	}
 	
+	/**
+	 * Actualiza la información de un hotel, sacando el hotel del sistema en el que esta ingresado y agregándolo nuevamente, para que se le notifique a algún interesado algún cambio en el hotel.
+	 * Se tiene como precondición que el hotel ya estaba ingresado en el sistema.
+	 * @param 
+	 * @return 
+	 * @throws .
+	 */
 
 	public void actualizarInformacion(){
 		getSistemaEnElQueEstaCargado().actualizarOfertaDelHotel(this);

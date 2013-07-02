@@ -9,7 +9,8 @@ import java.util.List;
 import org.junit.Assert;
 
 import excepciones.ExcepcionNoHayPrecioEstablecidoParaTalFecha;
-import excepciones.ExcepcionTodaviaNoSeHospedoEnEsteHotelOSuReservaNoHaFinalizado;
+import excepciones.ExcepcionTodaviaNoSeHospedoEnEsteHotel;
+
 
 import ofertaHotelera.Calificacion;
 import ofertaHotelera.Habitacion;
@@ -237,7 +238,7 @@ public class HotelTest extends TestCase{
 		Assert.assertFalse(tieneHabitacion);
 	}
 	
-	public void testAgregarCalificacion() throws ExcepcionTodaviaNoSeHospedoEnEsteHotelOSuReservaNoHaFinalizado{
+	public void testAgregarCalificacion() throws ExcepcionTodaviaNoSeHospedoEnEsteHotel{
 		
 		hotel.agregarCalificacion(calificacion);
 		
@@ -246,7 +247,7 @@ public class HotelTest extends TestCase{
 		Assert.assertTrue((hotel.getCalificaciones()).get(0) == calificacion);
 	}
 	
-	public void testCalificacionPromedio() throws ExcepcionTodaviaNoSeHospedoEnEsteHotelOSuReservaNoHaFinalizado{
+	public void testCalificacionPromedio() throws ExcepcionTodaviaNoSeHospedoEnEsteHotel{
 
 		hotel.agregarCalificacion(calificacion);
 		hotel.agregarCalificacion(calificacion2);

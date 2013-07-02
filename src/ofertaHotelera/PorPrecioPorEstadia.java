@@ -45,7 +45,12 @@ public class PorPrecioPorEstadia extends Preferencia {
 	@Override
 	
 	
-	
+	/**
+	 * Retorna true si los datos de la preferencia coinciden con los requeridos de la habitación.
+	 * @param h
+	 * @return boolean
+	 * @throws ExcepcionNoHayPrecioEstablecidoParaTalFecha.
+	 */
 	
 	public boolean lePuedeInteresarHabitacion(Habitacion h) throws ExcepcionNoHayPrecioEstablecidoParaTalFecha {
 

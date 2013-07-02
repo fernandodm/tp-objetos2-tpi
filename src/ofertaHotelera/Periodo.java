@@ -40,9 +40,23 @@ public class Periodo {
 		this.hasta = hasta;
 	}
 	
+	/**
+	 * Retorna true si la fecha está dentro del período
+	 * @param fecha
+	 * @return boolean
+	 * @throws 
+	 */
+	
 	public boolean fechaEstaEnElPeriodo(Calendar fecha){
 		return((fecha.equals(getDesde()) || fecha.equals(getHasta())) || (fecha.after(getDesde())) && fecha.before(getHasta()));
 	}
+	
+	/**
+	 * Retorna el período al que pertenece una fecha de una lista de periodos.
+	 * @param fecha, periodos
+	 * @return p
+	 * @throws 
+	 */
 	
 	public Periodo periodoDeLaFecha(Calendar fecha, List<Periodo> periodos){
 		
