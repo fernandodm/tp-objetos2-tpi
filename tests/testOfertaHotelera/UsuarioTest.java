@@ -57,9 +57,13 @@ public class UsuarioTest extends TestCase {
 	private PorPrecioPorNoche preferenciaPorPrecioPorNoche;
 	private SistemaDeBusqueda sistema;
 	private Periodo periodo1;
+	private Habitacion habitacion;
+	
 	
 	public void setUp(){
 		
+		habitacion = mock(Habitacion.class);
+	
 		fecha1 = Calendar.getInstance();
 		fecha1.set(fecha1.get(fecha1.YEAR),fecha1.get(fecha1.MONTH), fecha1.get(fecha1.DATE) - 3,0,0,0);
 		
@@ -109,7 +113,7 @@ public class UsuarioTest extends TestCase {
 	public void testReservarHabitacionConUsuarioOffLine() throws ExcepcionHabitacionNoDisponible, ExcepcionNoEstaOnline{
 		
 		try{
-			usuario2.reservarHabitacion(any(Habitacion.class), any(String.class), any(Calendar.class), any(Calendar.class));
+			usuario2.reservarHabitacion(habitacion, "", fecha1, fecha1);
 			fail();
 		}catch(ExcepcionNoEstaOnline e){
 			
@@ -123,13 +127,10 @@ public class UsuarioTest extends TestCase {
 	 */
 	public void testReservarHabitacionConUsuarioOnline() throws ExcepcionHabitacionNoDisponible, ExcepcionNoEstaOnline{
 		
-		Habitacion habitacion = new Habitacion();
-		Calendar fecha = Calendar.getInstance();
-		
 		usuario.setSistema(sistema);
-		usuario.reservarHabitacion(habitacion, "", fecha, fecha);
+		usuario.reservarHabitacion(habitacion, "", fecha1, fecha1);
 		
-		verify(sistema).realizarReserva(usuario,habitacion, "", fecha, fecha);
+		verify(sistema).realizarReserva(usuario,habitacion, "", fecha1, fecha1);
 	}
 	
 	/**
