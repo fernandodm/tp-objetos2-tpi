@@ -4,9 +4,7 @@ import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.junit.Assert;
 
@@ -151,9 +149,7 @@ public class HotelTest extends TestCase{
 	}
 	
 	public void testReservasActuales(){
-		
-		////REVISAR
-		
+				
 		List<Reserva> actuales = hotel.reservasActuales();
 		Assert.assertEquals(actuales.size(), 2);
 		Assert.assertTrue(actuales.get(0) == reserva1);
@@ -161,8 +157,6 @@ public class HotelTest extends TestCase{
 	}
 	
 	public void testReservasEnLosSiguientesNDias(){
-		
-		// revisar no tiene mock del comparador
 		
 		Reserva reserva4 = mock(Reserva.class);
 		Reserva reserva5 = mock(Reserva.class);
@@ -195,6 +189,9 @@ public class HotelTest extends TestCase{
 		Assert.assertTrue(r2 == reserva5);
 	}
 	
+	/**
+	 * Se testea que devuelva todas las fechas futuras
+	 */
 	public void testReservasFuturas(){
 		
 		Reserva reserva4 = mock(Reserva.class);
