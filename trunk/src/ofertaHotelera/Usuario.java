@@ -287,6 +287,15 @@ public class Usuario implements Observer{
 		
 	}
 	
+	/**
+	 * Reserva una habitacion para el usuario
+	 * @param unaHabitacion
+	 * @param formaDePago
+	 * @param desde
+	 * @param hasta
+	 * @throws ExcepcionHabitacionNoDisponible
+	 * @throws ExcepcionNoEstaOnline
+	 */
 	public void reservarHabitacion(Habitacion unaHabitacion, String formaDePago,
 			Calendar desde, Calendar hasta) throws ExcepcionHabitacionNoDisponible, ExcepcionNoEstaOnline{
 		
