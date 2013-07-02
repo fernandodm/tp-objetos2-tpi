@@ -240,6 +240,19 @@ public class SistemaDeBusquedaTest extends TestCase {
 		verify(habitacion1).agregarDiaReservado(any(Periodo.class));
 		
 	}
+	
+	public void testRealizarReservaConHabitacionNoDisponible() throws ExcepcionHabitacionNoDisponible{
+		
+		when(habitacion1.estaDisponible(any(Calendar.class), any(Calendar.class))).thenReturn(false);
+		
+		try{
+			sistema.realizarReserva(usuario1, habitacion1, "efectivo", any(Calendar.class), any(Calendar.class));
+			fail();
+		}catch(ExcepcionHabitacionNoDisponible e){
+			
+		}
+		
+	}
 	/**
 	 * @param args
 	 */
