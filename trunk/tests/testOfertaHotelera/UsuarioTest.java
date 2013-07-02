@@ -10,6 +10,7 @@ import java.util.Map;
 
 import javax.xml.ws.Action;
 
+import excepciones.ExcepcionHabitacionNoDisponible;
 import excepciones.ExcepcionLaSubastaAunNoHaIniciado;
 import excepciones.ExcepcionLaSubastaYaHaFinalizado;
 import excepciones.ExcepcionNoEstaOnline;
@@ -24,6 +25,7 @@ import ofertaHotelera.Calificacion;
 import ofertaHotelera.EnCurso;
 import ofertaHotelera.EstadoSubasta;
 import ofertaHotelera.Finalizada;
+import ofertaHotelera.Habitacion;
 import ofertaHotelera.Hotel;
 import ofertaHotelera.Periodo;
 import ofertaHotelera.PorPrecioPorEstadia;
@@ -99,6 +101,40 @@ public class UsuarioTest extends TestCase {
 		preferenciaPorPrecioEstadia = mock(PorPrecioPorEstadia.class);
 	}
 	
+	/**
+	 * Testeo el caso en que el usuario quiere reservar y no esta online
+	 * @throws ExcepcionNoEstaOnline 
+	 * @throws ExcepcionHabitacionNoDisponible 
+	 */
+	public void testReservarHabitacionConUsuarioOffLine() throws ExcepcionHabitacionNoDisponible, ExcepcionNoEstaOnline{
+		
+		try{
+			usuario2.reservarHabitacion(any(Habitacion.class), any(String.class), any(Calendar.class), any(Calendar.class));
+			fail();
+		}catch(ExcepcionNoEstaOnline e){
+			
+		}
+	}
+	
+	/**
+	 * Testeo el caso que el usuario quiere reserva y esta online
+	 * @throws ExcepcionNoEstaOnline 
+	 * @throws ExcepcionHabitacionNoDisponible 
+	 */
+	public void testReservarHabitacionConUsuarioOnline() throws ExcepcionHabitacionNoDisponible, ExcepcionNoEstaOnline{
+		
+		Habitacion habitacion = new Habitacion();
+		Calendar fecha = Calendar.getInstance();
+		
+		usuario.setSistema(sistema);
+		usuario.reservarHabitacion(habitacion, "", fecha, fecha);
+		
+		verify(sistema).realizarReserva(usuario,habitacion, "", fecha, fecha);
+	}
+	
+	/**
+	 * Se testea todoasLasReservas() con usuario offline
+	 */
 	public void testTodasLasReservasConUsuarioOffLine(){
 		
 		try{
@@ -109,12 +145,19 @@ public class UsuarioTest extends TestCase {
 		}
 	}
 	
+	/**
+	 * Se testea todoasLasReservas() con usuario online
+	 * @throws ExcepcionNoEstaOnline
+	 */
 	public void testTodasLasReservasConUsuarioOnline() throws ExcepcionNoEstaOnline{
 		
 		List<Reserva> reservas = usuario.todasLasReservas();
 		Assert.assertEquals("NO HAY LAS RESERVAS ESPERADAS",reservas.size(), 3 );
 	}
 	
+	/**
+	 * Reserva por ciudad con usuario offline
+	 */
 	public void testReservaPorCiudadConUsuarioOffLine(){
 	
 		try{
@@ -125,6 +168,10 @@ public class UsuarioTest extends TestCase {
 		}
 	}
 	
+	/**
+	 * Reserva por ciudad con usuario online
+	 * @throws ExcepcionNoEstaOnline
+	 */
 	public void testReservaPorCiudadConUsuarioOnline() throws ExcepcionNoEstaOnline{
 		
 		List<Reserva> reservas = usuario.reservaPorCiudad("Sidney");
@@ -134,6 +181,9 @@ public class UsuarioTest extends TestCase {
 		Assert.assertTrue(reservas.get(1) == reserva3);
 	}
 
+	/**
+	 * Se testea CiudadesConReservas con un usuario offline
+	 */
 	public void testCiudadesConReservasConUsuarioOffLine(){
 		
 		try{
@@ -142,9 +192,12 @@ public class UsuarioTest extends TestCase {
 		}catch(ExcepcionNoEstaOnline e){
 	
 		}
-		
 	}
 	
+	/**
+	 * Se testea CiudadesConReservas con un usuario online
+	 * @throws ExcepcionNoEstaOnline
+	 */
 	public void testCiudadesConReservasConUsuarioOnline() throws ExcepcionNoEstaOnline{
 		
 		List<String> ciudades = usuario.ciudadesConReservas();
@@ -155,6 +208,9 @@ public class UsuarioTest extends TestCase {
 		Assert.assertTrue(ciudades.get(2).equals("Sidney"));
 	}
 	
+	/**
+	 * Se testea el caso en que el usuario pide las reservas futuras estando offline
+	 */
 	public void testReservasFuturasConUsuarioOffLine(){
 		
 		try{
@@ -165,6 +221,10 @@ public class UsuarioTest extends TestCase {
 		}
 	}
 	
+	/**
+	 * Se testea el caso en que el usuario pide las reservas futuras estando online
+	 * @throws ExcepcionNoEstaOnline
+	 */
 	public void testReservasFuturasConUsuarioOnline() throws ExcepcionNoEstaOnline{
 		
 		when(reserva1.estaReservadaDespuesDe(any(Calendar.class))).thenReturn(true);
@@ -175,6 +235,11 @@ public class UsuarioTest extends TestCase {
 		Assert.assertEquals(futuras.size(), 2);
 	}
 	
+	/**
+	 * Se testea el caso que queiere cancelar una reserva estando online
+	 * @throws ExcepcionNoEstaOnline
+	 * @throws ExcepcionNoSeEncontroReserva
+	 */
 	public void testCancelarReservaConUsuarioOnline() throws ExcepcionNoEstaOnline, ExcepcionNoSeEncontroReserva{
 		
 		usuario.cancelarReserva(reserva1);
@@ -186,6 +251,10 @@ public class UsuarioTest extends TestCase {
 		Assert.assertTrue(r2 == reserva3);
 	}
 	
+	/**
+	 * Se testea el caso que queiere cancelar una reserva estando offLine
+	 * @throws ExcepcionNoSeEncontroReserva
+	 */
 	public void testCancelarReservaConUsuarioOffline() throws ExcepcionNoSeEncontroReserva{
 		Reserva reserva4 = mock(Reserva.class);
 		try{
@@ -196,6 +265,10 @@ public class UsuarioTest extends TestCase {
 		}
 	}
 	
+	/**
+	 *Se testea el caso que se quiere cancelar una reserva y no se encontro la reserva 
+	 * @throws ExcepcionNoEstaOnline
+	 */
 	public void testCancelarReservaConReservaNoEncontrada() throws ExcepcionNoEstaOnline{
 		Reserva reserva4 = mock(Reserva.class);
 		try{
