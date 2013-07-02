@@ -64,11 +64,19 @@ public class Reserva {
 		return hotel.getCiudad();
 	}
 	
+	/**
+	 * devuelve true si la reserva esta reservada despues de una fecha
+	 * @param instance
+	 * @return
+	 */
 	public boolean estaReservadaDespuesDe(Calendar instance) {
 		
 		return getPeriodo().getDesde().after(instance);
 	}
 	
+	/**
+	 * elimina la reserva del hotel
+	 */
 	public void eliminarReservaDelHotel(){
 		
 		getHotel().eliminarReserva(this);
