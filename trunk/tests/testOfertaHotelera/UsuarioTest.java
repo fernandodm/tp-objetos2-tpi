@@ -28,6 +28,7 @@ import ofertaHotelera.Hotel;
 import ofertaHotelera.Periodo;
 import ofertaHotelera.PorPrecioPorEstadia;
 import ofertaHotelera.PorPrecioPorNoche;
+import ofertaHotelera.Preferencia;
 import ofertaHotelera.SistemaDeBusqueda;
 import ofertaHotelera.PreferenciaPorLugar;
 import ofertaHotelera.Subasta;
@@ -217,7 +218,7 @@ public class UsuarioTest extends TestCase {
 
 	}
 
-	public void testCalificarHotelSinEstarLogueado() throws ExcepcionTodaviaNoSeHospedoEnEsteHotelOSuReservaNoHaFinalizado{
+	public void testCalificarHotelSinEstarLogueado() throws ExcepcionTodaviaNoSeHospedoEnEsteHotelOSuReservaNoHaFinalizado, ExcepcionNoEstaOnline{
 		
 		try{
 			usuario2.calificarHotel(hotel1, 8,"Muy bien");
@@ -318,33 +319,34 @@ public class UsuarioTest extends TestCase {
 		
 	}
 	
-	public void testSuscribirseAlAvisoDeOfertasHotelerasSinEstarLogueado() throws ExcepcionSeDebeTenerAlMenosUnCriterioDePreferencia,ExcepcionNoEstaOnline{
+	public void testSuscribirseAlAvisoDeOfertasHotelerasOnlineConPreferencia() throws ExcepcionSeDebeTenerAlMenosUnCriterioDePreferencia, ExcepcionNoEstaOnline{
 		
-		usuario.setPreferencia(preferenciaPorLugar);
-		try{
-			usuario.suscribirseAlAvisoDeOfertasHoteleras(sistema);
-		
-		} catch (ExcepcionNoEstaOnline e) {
-			
-		}
-		
-	}
-	
-	public void testSuscribirseAlAvisoDeOfertasHotelerasEstandoLogueadoConPreferencia() throws ExcepcionSeDebeTenerAlMenosUnCriterioDePreferencia,ExcepcionNoEstaOnline{
-		
-		usuario.setPreferencia(preferenciaPorLugar);
+		List<Preferencia> prefs = new ArrayList<Preferencia>();
+		prefs.add(preferenciaPorLugar);
+		usuario.setPreferencias(prefs);
 		usuario.suscribirseAlAvisoDeOfertasHoteleras(sistema);
+		
 		verify(sistema).agregarSuscripto(usuario);
 		
+		
 	}
 	
-	public void testSuscribirseAlAvisoDeOfertasHotelerasEstandoLogueadoSinPreferencia() throws ExcepcionSeDebeTenerAlMenosUnCriterioDePreferencia,ExcepcionNoEstaOnline{
+	public void testSuscribirseAlAvisoDeOfertasHotelerasOnlineSinPreferencia() throws ExcepcionNoEstaOnline{
 		
-		usuario.setPreferencia(null);
+		List<Preferencia> prefs = new ArrayList<Preferencia>();
+		usuario.setPreferencias(prefs);
 		try{
 			usuario.suscribirseAlAvisoDeOfertasHoteleras(sistema);
-			fail("NO SE LANZÓ LA EXsCEPCIÓN DE suscribirseAlAvisoDeOfertasHoteleras()");
-		} catch (ExcepcionSeDebeTenerAlMenosUnCriterioDePreferencia e) {
+		} catch (ExcepcionSeDebeTenerAlMenosUnCriterioDePreferencia e){
+			
+		}
+	}
+	
+	public void testSuscribirseAlAvisoDeOfertasHotelerasOffline() throws ExcepcionSeDebeTenerAlMenosUnCriterioDePreferencia{
+		
+		try{
+			usuario2.suscribirseAlAvisoDeOfertasHoteleras(sistema);
+		} catch (ExcepcionNoEstaOnline e){
 			
 		}
 	}
