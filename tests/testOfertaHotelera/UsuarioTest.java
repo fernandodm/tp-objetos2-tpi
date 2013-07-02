@@ -29,7 +29,7 @@ import ofertaHotelera.Periodo;
 import ofertaHotelera.PorPrecioPorEstadia;
 import ofertaHotelera.PorPrecioPorNoche;
 import ofertaHotelera.SistemaDeBusqueda;
-import ofertaHotelera.SoloImportaElLugar;
+import ofertaHotelera.PreferenciaPorLugar;
 import ofertaHotelera.Subasta;
 import ofertaHotelera.SubastaFutura;
 import ofertaHotelera.Usuario;
@@ -49,7 +49,7 @@ public class UsuarioTest extends TestCase {
 	private SubastaFutura subastaFutura;
 	private EnCurso subastaEnCurso;
 	private Finalizada subastaFinalizada;
-	private SoloImportaElLugar preferenciaPorLugar;
+	private PreferenciaPorLugar preferenciaPorLugar;
 	private PorPrecioPorEstadia preferenciaPorPrecioEstadia;
 	private PorPrecioPorNoche preferenciaPorPrecioPorNoche;
 	private SistemaDeBusqueda sistema;
@@ -93,7 +93,7 @@ public class UsuarioTest extends TestCase {
 		
 		sistema = mock(SistemaDeBusqueda.class);
 		
-		preferenciaPorLugar = mock(SoloImportaElLugar.class);
+		preferenciaPorLugar = mock(PreferenciaPorLugar.class);
 		preferenciaPorPrecioPorNoche = mock(PorPrecioPorNoche.class);
 		preferenciaPorPrecioEstadia = mock(PorPrecioPorEstadia.class);
 	}
@@ -217,39 +217,33 @@ public class UsuarioTest extends TestCase {
 
 	}
 
-	public void testCalificarHotelSinEstarLogueado() throws ExcepcionTodaviaNoSeHospedoEnEsteHotelOSuReservaNoHaFinalizado, ExcepcionNoEstaOnline  {
+	public void testCalificarHotelSinEstarLogueado() throws ExcepcionTodaviaNoSeHospedoEnEsteHotelOSuReservaNoHaFinalizado{
 		
 		try{
-
 			usuario2.calificarHotel(hotel1, 8,"Muy bien");
-			fail("NO SE LANZO LA EXCEPCION DE reservasFuturas()");
-
-
+			fail();
 		}catch(ExcepcionNoEstaOnline e){
 			
 		}
-
 	}
 	
-	public void testOfertarEnSubastaFuturaEstandoLogueado() throws ExcepcionLaSubastaAunNoHaIniciado, ExcepcionLaSubastaYaHaFinalizado, ExcepcionOfertaInferior, ExcepcionNoEstaOnline{
+	public void testCalificarHotelEnElQueTodaviaNoSeHospedo() throws ExcepcionNoEstaOnline{
 		
-		when(subasta.getEstado()).thenReturn(subastaFutura);
+		Hotel hotelNoVisitado = mock(Hotel.class);
 		try{
-			usuario.ofertarEnSubasta(subasta, 100);
-			fail();
-		} catch(ExcepcionLaSubastaAunNoHaIniciado e){
+			usuario.calificarHotel(hotelNoVisitado, 7, "Copado!");
+		} catch (ExcepcionTodaviaNoSeHospedoEnEsteHotelOSuReservaNoHaFinalizado e){
 			
 		}
-	}
 		
+	}
+	
 	public void testOfertarEnSubastaFuturaSinEstarLogueado() throws ExcepcionLaSubastaAunNoHaIniciado, ExcepcionLaSubastaYaHaFinalizado, ExcepcionOfertaInferior {
 		
-		
-
 		when(subasta.getEstado()).thenReturn(subastaFutura);
 		try{
 			usuario2.ofertarEnSubasta(subasta,120);
-			fail("NO SE LANZO LA EXCEPCION DE reservasFuturas()");
+			fail();
 		}catch(ExcepcionNoEstaOnline e){
 	
 		}
@@ -271,7 +265,7 @@ public class UsuarioTest extends TestCase {
 		when(subasta.getEstado()).thenReturn(subastaFinalizada);
 		try{
 			usuario2.ofertarEnSubasta(subasta,120);
-			fail("NO SE LANZO LA EXCEPCION DE reservasFuturas()");
+			fail();
 		}catch(ExcepcionNoEstaOnline e){
 	
 		}
