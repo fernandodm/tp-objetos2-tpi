@@ -76,6 +76,8 @@ public class UsuarioTest extends TestCase {
 		when(periodo1.getHasta()).thenReturn(fecha1);
 		
 		when(reserva1.getHotel()).thenReturn(hotel1);
+		when(reserva2.getHotel()).thenReturn(hotel1);
+		when(reserva3.getHotel()).thenReturn(hotel1);
 		when(reserva1.getPeriodo()).thenReturn(periodo1);
 		when(reserva1.ciudadDelHotel()).thenReturn("Sidney");
 		when(reserva2.ciudadDelHotel()).thenReturn("Moscu");
@@ -284,9 +286,9 @@ public class UsuarioTest extends TestCase {
 		
 		List<Calificacion> calificaciones = new ArrayList<Calificacion>();
 
-		usuario.calificarHotel(hotel1, 9, "Bien ahi");
-
 		when(hotel1.getCalificaciones()).thenReturn(calificaciones);
+		
+		usuario.calificarHotel(hotel1, 9, "Bien ahi");
 
 		verify(hotel1).equals(hotel1);
 
@@ -307,6 +309,7 @@ public class UsuarioTest extends TestCase {
 		Hotel hotelNoVisitado = mock(Hotel.class);
 		try{
 			usuario.calificarHotel(hotelNoVisitado, 7, "Copado!");
+			fail();
 		} catch (ExcepcionTodaviaNoSeHospedoEnEsteHotelOSuReservaNoHaFinalizado e){
 			
 		}
