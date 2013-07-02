@@ -206,7 +206,9 @@ public class Hotel {
 	 * @throws 
 	 */
 	
-	public void agregarCalificacion(Calificacion cal){
+	public void agregarCalificacion(Usuario user, int puntaje, String comentario){
+		
+		Calificacion cal = new Calificacion(user,puntaje,comentario);
 		
 		getCalificaciones().add(cal);
 		
