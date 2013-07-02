@@ -17,8 +17,13 @@ import excepciones.ExcepcionUsuarioIncorrecto;
 
 import ofertaHotelera.Habitacion;
 import ofertaHotelera.Hotel;
+
+import ofertaHotelera.Preferencia;
+import ofertaHotelera.PreferenciaPorLugar;
+
 import ofertaHotelera.Periodo;
 import ofertaHotelera.Reserva;
+
 import ofertaHotelera.SistemaDeBusqueda;
 import ofertaHotelera.Usuario;
 import junit.framework.Assert;
@@ -227,7 +232,6 @@ public class SistemaDeBusquedaTest extends TestCase {
 		verify(habitacion1).obtenerDescuento();
 		Assert.assertTrue(habitacion == habitacion1);
 	}
-
 	public void testRealizarReservaConHabitacionDisponible() throws ExcepcionHabitacionNoDisponible{
 		
 		when(habitacion1.getHotel()).thenReturn(hotel1);
@@ -241,6 +245,46 @@ public class SistemaDeBusquedaTest extends TestCase {
 		
 	}
 	
+	public void testQuitarHotel(){
+		
+		sistema.quitarHotel(hotel1);
+		Assert.assertTrue(sistema.getHoteles().size() == 1);
+		Assert.assertTrue(sistema.getHoteles().get(0).equals(hotel2));
+	}
+	
+
+	public void testAgregarSuscripto(){
+		
+		sistema.agregarSuscripto(usuario1);
+		sistema.agregarSuscripto(usuario2);
+		Assert.assertTrue(sistema.countObservers() == 2);
+	}
+	
+	public void testAgregarHotel() throws ExcepcionNoHayPrecioEstablecidoParaTalFecha{
+		
+		List<Hotel> hotels = new ArrayList<Hotel>();
+		sistema.setHoteles(hotels);
+		sistema.agregarHotel(hotel1);
+		sistema.agregarHotel(hotel2);
+		
+		Assert.assertTrue(sistema.getHoteles().size() == 2);
+	}
+	
+	public void testActualizarOfertaDeHotel(){
+		
+		List<Hotel> hotels = new ArrayList<Hotel>();
+		sistema.setHoteles(hotels);
+		sistema.agregarHotel(hotel1);
+		sistema.agregarHotel(hotel2);
+		
+		sistema.actualizarOfertaDelHotel(hotel1);
+		
+		Assert.assertTrue(sistema.getHoteles().size() == 2);
+		Assert.assertTrue(sistema.getHoteles().get(0).equals(hotel2));
+		
+	}
+	
+
 	public void testRealizarReservaConHabitacionNoDisponible() throws ExcepcionHabitacionNoDisponible{
 		
 		when(habitacion1.estaDisponible(any(Calendar.class), any(Calendar.class))).thenReturn(false);
@@ -253,6 +297,7 @@ public class SistemaDeBusquedaTest extends TestCase {
 		}
 		
 	}
+
 	/**
 	 * @param args
 	 */

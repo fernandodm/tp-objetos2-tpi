@@ -210,14 +210,13 @@ public class Usuario implements Observer{
 		if(isOnline()){
 			
 		for(Reserva each : getReservas()){
-			
-			//para la fecha de hoy setearle la hora en 0
 			if(each.getHotel().equals(h) && Calendar.getInstance().after(each.getPeriodo().getHasta())){
 				seHospedo = true;
 				break;
+				} else {
+					throw new ExcepcionTodaviaNoSeHospedoEnEsteHotelOSuReservaNoHaFinalizado();
 				}
 			}
-
 		} else {
 			throw new ExcepcionNoEstaOnline();
 		}
@@ -245,29 +244,24 @@ public class Usuario implements Observer{
 		if(isOnline()){
 
 			if(!(getPreferencias() == null)){
-
-			if(getPreferencias().size() > 0){
 				s.agregarSuscripto(this);
-			} else {
-				throw new ExcepcionSeDebeTenerAlMenosUnCriterioDePreferencia();
-			}
+				} else {
+					throw new ExcepcionSeDebeTenerAlMenosUnCriterioDePreferencia();
+				}
 		}else{
 			throw new ExcepcionNoEstaOnline();
 		}
 	}
-	}
 	
-	public boolean puedeEstarInteresadoEnHotel(Hotel h) throws ExcepcionNoHayPrecioEstablecidoParaTalFecha{
-		
-		return (h.lePuedeInteresarAlUsuario(this));
-	}
+	
+
 	
 	
 	@Override
 	public void update(Observable arg0, Object arg1) {
 		// TODO Auto-generated method stub
 		try {
-			if(puedeEstarInteresadoEnHotel((Hotel) arg1)){
+			if(((Hotel) arg1).lePuedeInteresarAlUsuario(this)){
 				
 				
 			}
