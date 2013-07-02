@@ -29,6 +29,6 @@ public class DescuentoPorRangoDeFechasTest extends TestCase {
 		
 		String desc = descuento.descuento();
 		
-		Assert.assertEquals(desc, "Si venis entre el 1/6/2013 y el 30/6/2013 te hacemos un 30% de descuento. ");
+		Assert.assertEquals(desc, "Si venis entre el 2/6/2013 y el 30/6/2013 te hacemos un 30% de descuento. ");
 	}
 }
