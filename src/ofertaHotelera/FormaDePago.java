@@ -1,16 +1,15 @@
 package ofertaHotelera;
 
-public abstract class FormaDePago {
+public class FormaDePago {
 	
-	private float monto;
-	
-	public float getMonto() {
+	private int monto;
+
+	public int getMonto() {
 		return monto;
 	}
-	public void setMonto(float monto) {
+
+	public void setMonto(int monto) {
 		this.monto = monto;
 	}
-
-	abstract void documentarPago();
-
+	
 }
