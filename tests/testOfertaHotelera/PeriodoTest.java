@@ -15,11 +15,11 @@ public class PeriodoTest extends TestCase {
 	
 	public void setUp(){
 		
-		Calendar desde= Calendar.getInstance();
+		desde= Calendar.getInstance();
 		desde.set(2013,01,01,0,0,0);
 		desde.clear(Calendar.MILLISECOND);
 		
-		Calendar hasta= Calendar.getInstance();
+		hasta= Calendar.getInstance();
 		hasta.set(2013,01,07);
 		hasta.clear(Calendar.MILLISECOND);
 		
@@ -33,7 +33,7 @@ public class PeriodoTest extends TestCase {
 	}
 	
 	public void testFechaEstaEnElPeriodoTest(){
-		
+	
 		Assert.assertTrue(periodo.fechaEstaEnElPeriodo(desde));
 		
 	}
