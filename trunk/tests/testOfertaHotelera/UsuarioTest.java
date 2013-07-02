@@ -283,7 +283,7 @@ public class UsuarioTest extends TestCase {
 		}
 	}
 	
-	public void testCalificarHotelEstandoLogueado() throws ExcepcionNoEstaOnline, ExcepcionTodaviaNoSeHospedoEnEsteHotel{
+	public void testCalificarHotelEnElQueSiSeHospedoEstandoLogueado() throws ExcepcionNoEstaOnline, ExcepcionTodaviaNoSeHospedoEnEsteHotel{
 		
 		List<Calificacion> calificaciones = new ArrayList<Calificacion>();
 
@@ -291,16 +291,19 @@ public class UsuarioTest extends TestCase {
 		
 		usuario.calificarHotel(hotel1, 9, "Bien ahi");
 
-		verify(hotel1).equals(hotel1);
+		verify(hotel1).agregarCalificacion(usuario,9,"Bien ahi");
 
 	}
+	
+	public void testCalificarHotelEnElQueSiSeHospedoNOEstandoLogueado() throws ExcepcionTodaviaNoSeHospedoEnEsteHotel{
+		
+		List<Calificacion> calificaciones = new ArrayList<Calificacion>();
 
-	public void testCalificarHotelSinEstarLogueado() throws ExcepcionTodaviaNoSeHospedoEnEsteHotel, ExcepcionNoEstaOnline{
+		when(hotel1.getCalificaciones()).thenReturn(calificaciones);
 		
 		try{
-			usuario2.calificarHotel(hotel1, 8,"Muy bien");
-			fail();
-		}catch(ExcepcionNoEstaOnline e){
+			usuario2.calificarHotel(hotel1, 9, "Bien ahi");
+		} catch (ExcepcionNoEstaOnline e){
 			
 		}
 	}

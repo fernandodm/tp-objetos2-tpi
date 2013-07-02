@@ -240,17 +240,17 @@ public class HotelTest extends TestCase{
 	
 	public void testAgregarCalificacion() throws ExcepcionTodaviaNoSeHospedoEnEsteHotel{
 		
-		hotel.agregarCalificacion(calificacion);
+		hotel.agregarCalificacion(usuario,8,"Bien");
 		
 		Assert.assertEquals(hotel.getCalificaciones().size(), 1);
 
-		Assert.assertTrue((hotel.getCalificaciones()).get(0) == calificacion);
+		Assert.assertTrue((hotel.getCalificaciones()).get(0).getComentario() == "Bien");
 	}
 	
 	public void testCalificacionPromedio() throws ExcepcionTodaviaNoSeHospedoEnEsteHotel{
 
-		hotel.agregarCalificacion(calificacion);
-		hotel.agregarCalificacion(calificacion2);
+		hotel.agregarCalificacion(usuario,10,"Lo mejor de lo mejor");
+		hotel.agregarCalificacion(usuario,4,"Podría mejorar");
 
 		Integer prom = hotel.calificacionPromedio();
 		Assert.assertTrue(prom.equals(7));

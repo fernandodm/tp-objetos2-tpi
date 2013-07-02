@@ -235,8 +235,7 @@ public class Usuario implements Observer{
 		
 		if(isOnline()){
 			if(seHospedoEnElHotel(h)){
-				Calificacion cal = new Calificacion(this,puntaje,comentario);
-				h.agregarCalificacion(cal);
+				h.agregarCalificacion(this,puntaje,comentario);
 			} else {
 				throw new ExcepcionTodaviaNoSeHospedoEnEsteHotel();
 			}
