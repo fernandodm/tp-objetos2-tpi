@@ -10,6 +10,7 @@ import java.util.Map;
 
 import org.junit.Assert;
 
+import excepciones.ExcepcionNoHayPrecioEstablecidoParaTalFecha;
 import excepciones.ExcepcionTodaviaNoSeHospedoEnEsteHotelOSuReservaNoHaFinalizado;
 
 import ofertaHotelera.Calificacion;
@@ -245,9 +246,7 @@ public class HotelTest extends TestCase{
 		
 		Assert.assertEquals(hotel.getCalificaciones().size(), 1);
 
-		Assert.assertTrue((hotel.getCalificaciones()).get(0)== calificacion);
-
-		Assert.assertTrue((hotel.getCalificaciones()).get(0)== calificacion);
+		Assert.assertTrue((hotel.getCalificaciones()).get(0) == calificacion);
 	}
 	
 	public void testCalificacionPromedio() throws ExcepcionTodaviaNoSeHospedoEnEsteHotelOSuReservaNoHaFinalizado{
@@ -259,26 +258,25 @@ public class HotelTest extends TestCase{
 		Assert.assertTrue(prom.equals(7));
 	}
 	
-	public void testLePuedeInteresarAlUsuarioPorUbicacion(){
+	public void testLePuedeInteresarAlUsuarioTrue() throws ExcepcionNoHayPrecioEstablecidoParaTalFecha{
 		
-		when(habitacion2.lePuedeInteresarAlUsuario(usuario)).thenReturn(true);
+		when(habitacion1.lePuedeInteresarAlUsuario(usuario)).thenReturn(false);
+		when(habitacion2.lePuedeInteresarAlUsuario(usuario)).thenReturn(false);
+		when(habitacion3.lePuedeInteresarAlUsuario(usuario)).thenReturn(true);
 				
 		Assert.assertTrue(hotel.lePuedeInteresarAlUsuario(usuario));
 		
 	}
 
 	
-	public void testNoLePuedeInteresarAlUsuarioPorUbicacion(){
+	public void testLePuedeInteresarAlUsuarioFalse() throws ExcepcionNoHayPrecioEstablecidoParaTalFecha{
 		
-		hotel.agregarCalificacion(calificacion);
-		hotel.agregarCalificacion(calificacion2);		
-
-		Integer prom = hotel.calificacionPromedio();
-		Assert.assertTrue(prom.equals(7));
-
-		hotel.setPais("China");
-		hotel.setCiudad("Chinchon");
+		when(habitacion1.lePuedeInteresarAlUsuario(usuario)).thenReturn(false);
+		when(habitacion2.lePuedeInteresarAlUsuario(usuario)).thenReturn(false);
+		when(habitacion3.lePuedeInteresarAlUsuario(usuario)).thenReturn(false);
+				
 		Assert.assertFalse(hotel.lePuedeInteresarAlUsuario(usuario));
+		
 		
 	}
 	
