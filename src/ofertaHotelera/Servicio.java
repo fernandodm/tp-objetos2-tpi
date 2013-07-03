@@ -2,10 +2,10 @@ package ofertaHotelera;
 
 public class Servicio {
 	private String nombre;
-	private int precio;
+	private float precio;
 	private String descripcion;
 	
-	public Servicio(String nombre, int precio, String descripcion) {
+	public Servicio(String nombre, float precio, String descripcion) {
 
 		this.nombre = nombre;
 		this.precio = precio;
@@ -18,7 +18,7 @@ public class Servicio {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public int getPrecio() {
+	public float getPrecio() {
 		return precio;
 	}
 	public void setPrecio(int precio) {
