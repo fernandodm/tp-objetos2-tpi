@@ -9,7 +9,7 @@ import ofertaHotelera.Habitacion;
 import ofertaHotelera.Hotel;
 import ofertaHotelera.Hotelero;
 import ofertaHotelera.PeriodoConPrecio;
-import ofertaHotelera.SistemaDeBusqueda;
+import ofertaHotelera.Sistema;
 import ofertaHotelera.Subasta;
 import junit.framework.Assert;
 import junit.framework.TestCase;
@@ -25,10 +25,10 @@ public class HoteleroTest extends TestCase {
 	private List<Hotel> hoteles= new ArrayList<Hotel>();
 	private List<PeriodoConPrecio> periodos= new ArrayList<PeriodoConPrecio>();
 	private PeriodoConPrecio per;
-	private SistemaDeBusqueda sistema;
+	private Sistema sistema;
 	
 	public void setUp(){
-		sistema = mock(SistemaDeBusqueda.class);
+		sistema = mock(Sistema.class);
 		hotel = mock(Hotel.class);
 		hoteles.add(hotel);
 		hotelero = new Hotelero("Steve", hoteles, "loquillo@gmail.com");
@@ -140,7 +140,7 @@ public class HoteleroTest extends TestCase {
 	 */
 	public void testSubastarHabitacion(){
 		
-		SistemaDeBusqueda sistema= mock(SistemaDeBusqueda.class);
+		Sistema sistema= mock(Sistema.class);
 		
 		Calendar ini = Calendar.getInstance();
 		Calendar fin = Calendar.getInstance();

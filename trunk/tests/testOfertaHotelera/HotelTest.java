@@ -17,7 +17,7 @@ import ofertaHotelera.Habitacion;
 import ofertaHotelera.Hotel;
 import ofertaHotelera.Periodo;
 import ofertaHotelera.Reserva;
-import ofertaHotelera.SistemaDeBusqueda;
+import ofertaHotelera.Sistema;
 import ofertaHotelera.PreferenciaPorLugar;
 import ofertaHotelera.Usuario;
 import junit.framework.TestCase;
@@ -45,7 +45,7 @@ public class HotelTest extends TestCase{
 	private Calendar fecha6;
 	private Usuario usuario;
 	private PreferenciaPorLugar preferenciaPorLugar;
-	private SistemaDeBusqueda sistema;
+	private Sistema sistema;
 	
 	public void setUp(){
 		
@@ -110,7 +110,7 @@ public class HotelTest extends TestCase{
 		habitaciones.add(habitacion2);
 		habitaciones.add(habitacion3);
 		
-		sistema = mock(SistemaDeBusqueda.class);
+		sistema = mock(Sistema.class);
 		
 		hotel.setReservas(reservas);
 		hotel.setCalificaciones(calificaciones);

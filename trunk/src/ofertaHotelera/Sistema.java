@@ -20,7 +20,7 @@ import excepciones.ExcepcionNoSeEncontroHoteles;
 import excepciones.ExcepcionPasswordIncorrecto;
 import excepciones.ExcepcionUsuarioIncorrecto;
 
-public class SistemaDeBusqueda extends Observable{
+public class Sistema extends Observable{
 	
 	
 	private List<Hotel> hoteles = new ArrayList<Hotel>();
@@ -301,13 +301,14 @@ public class SistemaDeBusqueda extends Observable{
 			Calendar desde, Calendar hasta) throws ExcepcionHabitacionNoDisponible{
 		
 		if(unaHabitacion.estaDisponible(desde, hasta)){
-				
+			
 			Periodo periodo = new Periodo(desde, hasta);
 			Reserva reserva = new Reserva(unUsuario, unaHabitacion.getHotel(), unaHabitacion, periodo);
+			reserva.enviarMail();
 			unUsuario.agregarReserva(reserva);
 			unaHabitacion.getHotel().agregarReserva(reserva);
 			unaHabitacion.agregarDiaReservado(periodo);
-			//enviar mail al usuario 
+			
 		}else{
 			throw new ExcepcionHabitacionNoDisponible();
 		}
@@ -329,7 +330,7 @@ public class SistemaDeBusqueda extends Observable{
 		fecha2.set(2013,03,07,0,0,0);
 		fecha2.clear(Calendar.MILLISECOND);
 		
-		SistemaDeBusqueda sist = new SistemaDeBusqueda();
+		Sistema sist = new Sistema();
 		
 		Hotel hot = new Hotel();
 		Hotel hot1 = new Hotel();

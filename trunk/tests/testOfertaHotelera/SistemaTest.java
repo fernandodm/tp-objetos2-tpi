@@ -21,12 +21,12 @@ import ofertaHotelera.Hotel;
 import ofertaHotelera.Periodo;
 import ofertaHotelera.Reserva;
 
-import ofertaHotelera.SistemaDeBusqueda;
+import ofertaHotelera.Sistema;
 import ofertaHotelera.Usuario;
 import junit.framework.Assert;
 import junit.framework.TestCase;
 
-public class SistemaDeBusquedaTest extends TestCase {
+public class SistemaTest extends TestCase {
 	private Usuario usuario1;
 	private Usuario usuario2;
 	private Hotel hotel1;
@@ -34,14 +34,14 @@ public class SistemaDeBusquedaTest extends TestCase {
 	private Habitacion habitacion1;
 	private Habitacion habitacion2;
 	private Habitacion habitacion3;
-	private SistemaDeBusqueda sistema;
+	private Sistema sistema;
 	
 	public void setUp(){
 		
 		List<Usuario> usuarios = new ArrayList<Usuario>();
 		List<Hotel> hoteles = new ArrayList<Hotel>();
 		
-		sistema = new SistemaDeBusqueda();
+		sistema = new Sistema();
 		
 		habitacion1 = mock(Habitacion.class);
 		habitacion2 = mock(Habitacion.class);
@@ -289,9 +289,13 @@ public class SistemaDeBusquedaTest extends TestCase {
 		
 		when(habitacion1.getHotel()).thenReturn(hotel1);
 		when(habitacion1.estaDisponible(any(Calendar.class), any(Calendar.class))).thenReturn(true);
+		when(hotel1.getNombre()).thenReturn("Luna");
+		when(habitacion1.getNumero()).thenReturn(1);
+		when(usuario1.getNombre()).thenReturn("Pepe");
 		
-		sistema.realizarReserva(usuario1, habitacion1, "efectivo", any(Calendar.class), any(Calendar.class));
+		sistema.realizarReserva(usuario1, habitacion1, "efectivo", Calendar.getInstance(), Calendar.getInstance());
 		
+		// enviar mail?
 		verify(usuario1).agregarReserva(any(Reserva.class));
 		verify(hotel1).agregarReserva(any(Reserva.class));
 		verify(habitacion1).agregarDiaReservado(any(Periodo.class));
