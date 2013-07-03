@@ -7,12 +7,12 @@ import junit.framework.Assert;
 public class ServicioTest extends TestCase {
 
 	private String nombre;
-	private int precio;
+	private float precio;
 	private String descripcion;
 
 	public void setUp(){
 		nombre= "wi-fi";
-		precio= 100;
+		precio= 100f;
 		descripcion= "conexion wi-fi";
 	}
 	
