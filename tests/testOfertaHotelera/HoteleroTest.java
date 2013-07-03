@@ -1,6 +1,7 @@
 package testOfertaHotelera;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import descuentos.Descuento;
 import excepciones.Excepcion1OMasDiasYaTenianPrecioSetteado;
@@ -123,12 +124,14 @@ public class HoteleroTest extends TestCase {
 	 * Testeo el método subastarHabitacion()
 	 */
 	public void testSubastarHabitacion(){
-		Subasta sub= mock(Subasta.class);
+		
 		SistemaDeBusqueda sistema= mock(SistemaDeBusqueda.class);
 		
-		hotelero.subastarHabitacion(sub, sistema);
+		Calendar ini = Calendar.getInstance();
+		Calendar fin = Calendar.getInstance();
+		hotelero.subastarHabitacion(habitacion1,(float) 50,ini,fin,sistema);
 		
-		verify(sistema).agregarSubasta(sub);
+		verify(sistema).agregarSubasta(habitacion1,(float) 50,ini,fin);
 	}
 	
 	}
