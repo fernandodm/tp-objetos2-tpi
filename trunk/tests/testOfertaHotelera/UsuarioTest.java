@@ -4,11 +4,7 @@ import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import javax.xml.ws.Action;
 
 import excepciones.ExcepcionHabitacionNoDisponible;
 import excepciones.ExcepcionLaSubastaAunNoHaIniciado;

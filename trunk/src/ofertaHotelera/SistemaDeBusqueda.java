@@ -11,10 +11,12 @@ import descuentos.DescuentoPorFecha;
 //TODO import testOfertaHotelera.SistemaDeBusquedaTest;
 
 import excepciones.ExcepcionHabitacionNoDisponible;
+import excepciones.ExcepcionNoHayHotelesParaEsaCiudad;
 import excepciones.ExcepcionNoSeEncontroHabitacion;
 import excepciones.ExcepcionElNombreDeUsuarioYaExiste;
 import excepciones.ExcepcionHotelNoEncontrado;
 import excepciones.ExcepcionNoHayPrecioEstablecidoParaTalFecha;
+import excepciones.ExcepcionNoSeEncontroHoteles;
 import excepciones.ExcepcionPasswordIncorrecto;
 import excepciones.ExcepcionUsuarioIncorrecto;
 
@@ -192,9 +194,11 @@ public class SistemaDeBusqueda extends Observable{
 	 * @param huespedes
 	 * @return
 	 * @throws ExcepcionNoHayPrecioEstablecidoParaTalFecha
+	 * @throws ExcepcionNoHayHotelesParaEsaCiudad 
+	 * @throws ExcepcionNoSeEncontroHoteles 
 	 * @throws ExcepcionHotelNoEncontrado
 	 */
-	public List<Hotel> buscarHoteles(String ciudad, Calendar desde, Calendar hasta, int huespedes) throws ExcepcionNoHayPrecioEstablecidoParaTalFecha{
+	public List<Hotel> buscarHoteles(String ciudad, Calendar desde, Calendar hasta, int huespedes) throws ExcepcionNoHayPrecioEstablecidoParaTalFecha, ExcepcionNoHayHotelesParaEsaCiudad, ExcepcionNoSeEncontroHoteles{
 		
 		List<Hotel> hoteles = hotelesDe(ciudad);
 		List<Hotel> retornarHoteles = new ArrayList<Hotel>();
@@ -203,6 +207,9 @@ public class SistemaDeBusqueda extends Observable{
 				retornarHoteles.add(each);
 				buscarHabitacion(each.getNombre(), desde, hasta, huespedes);
 			}
+		}
+		if(retornarHoteles.isEmpty()){
+			throw new ExcepcionNoSeEncontroHoteles();
 		}
 		return retornarHoteles;
 	}
@@ -256,8 +263,9 @@ public class SistemaDeBusqueda extends Observable{
 	 * Devuelve lod hoteles de la ciudad pasada por el parametro
 	 * @param ciudad
 	 * @return
+	 * @throws ExcepcionNoHayHotelesParaEsaCiudad 
 	 */
-	public List<Hotel> hotelesDe(String ciudad) {
+	public List<Hotel> hotelesDe(String ciudad) throws ExcepcionNoHayHotelesParaEsaCiudad {
 		
 		List<Hotel> hoteles = new ArrayList<Hotel>();
 		
@@ -266,7 +274,9 @@ public class SistemaDeBusqueda extends Observable{
 				hoteles.add(each);
 			}
 		}
-		
+		if(hoteles.isEmpty()){
+			throw new ExcepcionNoHayHotelesParaEsaCiudad();
+		}
 		return hoteles;
 	}
 
@@ -307,8 +317,10 @@ public class SistemaDeBusqueda extends Observable{
 	 * @param args
 	 * @throws ExcepcionNoHayPrecioEstablecidoParaTalFecha 
 	 * @throws ExcepcionHotelNoEncontrado 
+	 * @throws ExcepcionNoHayHotelesParaEsaCiudad 
+	 * @throws ExcepcionNoSeEncontroHoteles 
 	 */
-	public static void main(String[] args) throws ExcepcionNoHayPrecioEstablecidoParaTalFecha, ExcepcionHotelNoEncontrado{
+	public static void main(String[] args) throws ExcepcionNoHayPrecioEstablecidoParaTalFecha, ExcepcionHotelNoEncontrado, ExcepcionNoHayHotelesParaEsaCiudad, ExcepcionNoSeEncontroHoteles{
 		// TODO Auto-generated method stub
 		Calendar fecha1 = Calendar.getInstance();
 		fecha1.set(2013,03,01,0,0,0);
