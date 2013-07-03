@@ -20,7 +20,8 @@ public class Hotel {
 	private List<FormaDePago> tarjetasAceptadas = new ArrayList<FormaDePago>();
 	private List<Reserva> reservas = new ArrayList<Reserva>();
 	private List<Calificacion> calificaciones = new ArrayList<Calificacion>();
-	private SistemaDeBusqueda sistemaEnElQueEstaCargado;
+	private Sistema sistemaEnElQueEstaCargado;
+	private List<String> mail = new ArrayList<String>();
 	
 	public String getNombre() {
 		return nombre;
@@ -98,20 +99,26 @@ public class Hotel {
 	}
 
 
-	public SistemaDeBusqueda getSistemaEnElQueEstaCargado() {
+	public Sistema getSistemaEnElQueEstaCargado() {
 		return sistemaEnElQueEstaCargado;
 	}
 	public void setSistemaEnElQueEstaCargado(
-			SistemaDeBusqueda sistemaEnElQueEstaCargado) {
+			Sistema sistemaEnElQueEstaCargado) {
 		this.sistemaEnElQueEstaCargado = sistemaEnElQueEstaCargado;
 	}
 	
+	public List<String> getMail() {
+		return mail;
+	}
+	public void setMail(List<String> mail) {
+		this.mail = mail;
+	}
 	public Hotel(){
 		
 	}
 
 	public Hotel(String nombre, String pais, String direccion, int tel, int categoria, String checkIn,
-			String checkOut, String ciudad, SistemaDeBusqueda sistema){
+			String checkOut, String ciudad, Sistema sistema){
 		this.setNombre(nombre);
 		this.setPais(pais);
 		this.setDireccion(direccion);

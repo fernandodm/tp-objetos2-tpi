@@ -130,7 +130,7 @@ public class Hotelero {
 	 * @param valorInicial
 	 * @param sistem
 	 */
-	public void subastarHabitacion(Habitacion hab, float valorInicial, Calendar desde, Calendar hasta, SistemaDeBusqueda sistema){
+	public void subastarHabitacion(Habitacion hab, float valorInicial, Calendar desde, Calendar hasta, Sistema sistema){
 		sistema.agregarSubasta(hab,valorInicial,desde,hasta);
 	}
 	

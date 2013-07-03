@@ -23,6 +23,22 @@ public class Reserva {
 		this.periodo = periodo;
 	}
 	
+	public void enviarMail(){
+		String mail= this.generarMail();
+		this.getHotel().getMail().add(mail);
+		this.getUsuario().getCasillaMail().add(mail);
+	}
+	
+	public String generarMail(){
+		String mail;
+		mail= "Datos de la reserva. Usuario: "+this.getUsuario().getNombre()+
+		".  Hotel: "+this.getHotel().getNombre()+".  Habitacion: "+
+		this.getHabitacion().getNumero()+". Desde: "+this.getPeriodo().getDesde().getTime()+
+		". Hasta: "+this.getPeriodo().getHasta().getTime();
+		return mail;
+	}
+	
+	
 	public Periodo getPeriodo() {
 		return periodo;
 	}

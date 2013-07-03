@@ -20,18 +20,19 @@ import excepciones.ExcepcionTodaviaNoSeHospedoEnEsteHotel;
 
 public class Usuario implements Observer{
 
-	private SistemaDeBusqueda sistema;
+	private Sistema sistema;
 	private List<Reserva> reservas = new ArrayList<Reserva>();
 	private String nombreUsuario;
 	private String contrasenha;
 	private String nombre;
 	private String mail;
+	private List<String> casillaMail;
 	private boolean online;
 	private List<Preferencia> preferencias = new ArrayList<Preferencia>();
 	
 	public Usuario(){};
 	
-	public Usuario(SistemaDeBusqueda sistema, String nombreUsuario, String contrasenha, String nombre,
+	public Usuario(Sistema sistema, String nombreUsuario, String contrasenha, String nombre,
 			boolean online, String mail) {
 	
 		this.sistema = sistema;
@@ -42,16 +43,24 @@ public class Usuario implements Observer{
 		this.mail= mail;
 	}
 	
+	public List<String> getCasillaMail() {
+		return casillaMail;
+	}
+
+	public void setCasillaMail(List<String> casillaMail) {
+		this.casillaMail = casillaMail;
+	}
+
 	public String getMail() {
 		return mail;
 	}
 	public void setMail(String mail) {
 		this.mail = mail;
 	}
-	public SistemaDeBusqueda getSistema() {
+	public Sistema getSistema() {
 		return sistema;
 	}
-	public void setSistema(SistemaDeBusqueda sistema) {
+	public void setSistema(Sistema sistema) {
 		this.sistema = sistema;
 	}
 	public List<Reserva> getReservas() {
@@ -266,7 +275,7 @@ public class Usuario implements Observer{
 	 * @throws ExcepcionSeDebeTenerAlMenosUnCriterioDePreferencia,ExcepcionNoEstaOnline.
 	 */
 	
-	public void suscribirseAlAvisoDeOfertasHoteleras(SistemaDeBusqueda s) throws ExcepcionSeDebeTenerAlMenosUnCriterioDePreferencia,ExcepcionNoEstaOnline{
+	public void suscribirseAlAvisoDeOfertasHoteleras(Sistema s) throws ExcepcionSeDebeTenerAlMenosUnCriterioDePreferencia,ExcepcionNoEstaOnline{
 		
 		if(isOnline()){
 
@@ -281,16 +290,13 @@ public class Usuario implements Observer{
 	}
 	
 	
-
-	
-	
 	@Override
 	public void update(Observable arg0, Object arg1) {
 		// TODO Auto-generated method stub
 		try {
 			if(((Hotel) arg1).lePuedeInteresarAlUsuario(this)){
 				
-				
+				getCasillaMail().add("El hotel " + ((Hotel) arg1).getNombre() + " tiene ofertas que te pueden interesar");
 			}
 		} catch (ExcepcionNoHayPrecioEstablecidoParaTalFecha e) {
 			// TODO Auto-generated catch block

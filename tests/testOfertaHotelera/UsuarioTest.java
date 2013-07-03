@@ -28,7 +28,7 @@ import ofertaHotelera.Periodo;
 import ofertaHotelera.PorPrecioPorEstadia;
 import ofertaHotelera.PorPrecioPorNoche;
 import ofertaHotelera.Preferencia;
-import ofertaHotelera.SistemaDeBusqueda;
+import ofertaHotelera.Sistema;
 import ofertaHotelera.PreferenciaPorLugar;
 import ofertaHotelera.Subasta;
 import ofertaHotelera.SubastaFutura;
@@ -52,7 +52,7 @@ public class UsuarioTest extends TestCase {
 	private PreferenciaPorLugar preferenciaPorLugar;
 	private PorPrecioPorEstadia preferenciaPorPrecioEstadia;
 	private PorPrecioPorNoche preferenciaPorPrecioPorNoche;
-	private SistemaDeBusqueda sistema;
+	private Sistema sistema;
 	private Periodo periodo1;
 	private Habitacion habitacion;
 	
@@ -97,7 +97,7 @@ public class UsuarioTest extends TestCase {
 		subastaFutura = mock(SubastaFutura.class);
 		subastaEnCurso = mock(EnCurso.class);
 		
-		sistema = mock(SistemaDeBusqueda.class);
+		sistema = mock(Sistema.class);
 		
 		preferenciaPorLugar = mock(PreferenciaPorLugar.class);
 		preferenciaPorPrecioPorNoche = mock(PorPrecioPorNoche.class);
