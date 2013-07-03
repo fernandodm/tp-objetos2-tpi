@@ -77,7 +77,7 @@ public class Hotelero {
 	}
 	
 	/**
-	 * Agrega a una habitación un periodo con precio, solo si los días a los que se quiere
+	 * Agrega a una habitación un período con precio, solo si los días a los que se quiere
 	 * settear un precio, no estaban previamente setteados. Si algún día ya había sido
 	 * setteado previamente, se lanza la excepción.
 	 * Precondición: la habitación debe pertenecer a uno de los hoteles del hotelero.
@@ -92,7 +92,21 @@ public class Hotelero {
 		else{
 			hab.getPreciosPorFecha().add(periodo);
 		}
-		//hab.getHotel().getSistemaEnElQueEstaCargado().actualizarOfertaDelHotel(hab.getHotel());
+	}
+	
+	/**
+	 * Saca de una habitación un período con precio (el hotelero lo utilizaría si 
+	 * por ejemplo quiere cambiar sus precios).
+	 * Precondición: la habitación debe pertenecer a uno de los hoteles del hotelero.
+	 * Precondición: el período con precio a quitar debe estar incluido en la colección
+	 * de períodos con precio de la habitación pasada como parámetro (el hotelero 
+	 * debería sacar un precio solo si sabe que existe).
+	 * @param periodo
+	 * @param hab
+	 */
+	public void sacarPrecioHabRangoDias(PeriodoConPrecio periodo, Habitacion hab){
+		hab.getPreciosPorFecha().remove(periodo);
+		hab.getHotel().getSistemaEnElQueEstaCargado().actualizarOfertaDelHotel(hab.getHotel());
 	}
 	
 	/**
