@@ -20,7 +20,7 @@ public class PeriodoTest extends TestCase {
 		desde.clear(Calendar.MILLISECOND);
 		
 		hasta= Calendar.getInstance();
-		hasta.set(2013,01,07);
+		hasta.set(2013,01,07,0,0,0);
 		hasta.clear(Calendar.MILLISECOND);
 		
 		periodo = new Periodo(desde,hasta);
@@ -41,11 +41,11 @@ public class PeriodoTest extends TestCase {
 	public void testEstaEntre(){
 		
 		Calendar fecha1 = Calendar.getInstance();
-		fecha1.set(2013,01, 04);
+		fecha1.set(2013,01, 04,0,0,0);
 		fecha1.clear(Calendar.MILLISECOND);
 		
 		Calendar fecha2 = Calendar.getInstance();
-		fecha2.set(2013,01, 06);
+		fecha2.set(2013,01, 06,0,0,0);
 		fecha2.clear(Calendar.MILLISECOND);
 		
 		
@@ -59,11 +59,11 @@ public class PeriodoTest extends TestCase {
 	public void testSeSuperPonePrimerParametro(){
 		
 		Calendar fecha1 = Calendar.getInstance();
-		fecha1.set(2013,01, 01);
+		fecha1.set(2013,01, 01,0,0,0);
 		fecha1.clear(Calendar.MILLISECOND);
 		
 		Calendar fecha2 = Calendar.getInstance();
-		fecha2.set(2013,01, 06);
+		fecha2.set(2013,01, 06,0,0,0);
 		fecha2.clear(Calendar.MILLISECOND);
 		
 		boolean seSuperPone = periodo.seSuperPone(fecha1, fecha2);
@@ -78,11 +78,11 @@ public class PeriodoTest extends TestCase {
 	public void testSeSuperPoneSegundoParametro(){
 		
 		Calendar fecha1 = Calendar.getInstance();
-		fecha1.set(2013,01, 04);
+		fecha1.set(2013,01,04,0,0,0);
 		fecha1.clear(Calendar.MILLISECOND);
 		
 		Calendar fecha2 = Calendar.getInstance();
-		fecha2.set(2013,01, 07);
+		fecha2.set(2013,01,07,0,0,0);
 		fecha2.clear(Calendar.MILLISECOND);
 		
 		boolean seSuperPone = periodo.seSuperPone(fecha1, fecha2);
@@ -97,11 +97,11 @@ public class PeriodoTest extends TestCase {
 	public void testSeSuperPoneFalse(){
 		
 		Calendar fecha1 = Calendar.getInstance();
-		fecha1.set(2013,01, 04);
+		fecha1.set(2013,01, 04,0,0,0);
 		fecha1.clear(Calendar.MILLISECOND);
 		
 		Calendar fecha2 = Calendar.getInstance();
-		fecha2.set(2013,01, 06);
+		fecha2.set(2013,01, 06,0,0,0);
 		fecha2.clear(Calendar.MILLISECOND);
 		
 		boolean seSuperPone = periodo.seSuperPone(fecha1, fecha2);
