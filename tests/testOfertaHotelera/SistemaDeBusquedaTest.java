@@ -9,17 +9,14 @@ import java.util.List;
 import excepciones.ExcepcionElNombreDeUsuarioYaExiste;
 import excepciones.ExcepcionHabitacionNoDisponible;
 import excepciones.ExcepcionHotelNoEncontrado;
-import excepciones.ExcepcionNoEstaOnline;
+import excepciones.ExcepcionNoHayHotelesParaEsaCiudad;
 import excepciones.ExcepcionNoHayPrecioEstablecidoParaTalFecha;
+import excepciones.ExcepcionNoSeEncontroHoteles;
 import excepciones.ExcepcionPasswordIncorrecto;
-import excepciones.ExcepcionSeDebeTenerAlMenosUnCriterioDePreferencia;
 import excepciones.ExcepcionUsuarioIncorrecto;
 
 import ofertaHotelera.Habitacion;
 import ofertaHotelera.Hotel;
-
-import ofertaHotelera.Preferencia;
-import ofertaHotelera.PreferenciaPorLugar;
 
 import ofertaHotelera.Periodo;
 import ofertaHotelera.Reserva;
@@ -140,14 +137,19 @@ public class SistemaDeBusquedaTest extends TestCase {
 		}
 	}
 	
-	public void testBuscarHoteles() throws ExcepcionNoHayPrecioEstablecidoParaTalFecha{
+	/**
+	 * Testeo el caso en el q se encontro algun hotel
+	 * @throws ExcepcionNoHayPrecioEstablecidoParaTalFecha
+	 * @throws ExcepcionNoHayHotelesParaEsaCiudad
+	 * @throws ExcepcionNoSeEncontroHoteles
+	 */
+	public void testBuscarHoteles() throws ExcepcionNoHayPrecioEstablecidoParaTalFecha, ExcepcionNoHayHotelesParaEsaCiudad, ExcepcionNoSeEncontroHoteles{
 	
 		Calendar desde = Calendar.getInstance();
 		desde.set(2013, 03, 01, 0,0,0);
 		
 		Calendar hasta = Calendar.getInstance();
 		hasta.set(2013, 03, 07, 0,0,0);
-		
 		
 		when(hotel1.tieneHabitacionesCon(desde, hasta, 2)).thenReturn(true);	
 		when(hotel2.tieneHabitacionesCon(desde, hasta, 2)).thenReturn(false);
@@ -163,7 +165,39 @@ public class SistemaDeBusquedaTest extends TestCase {
 		Assert.assertTrue(hotel == hotel1);
 	}
 	
-	public void testHotelesDe(){
+	/**
+	 * Testeo el caso en que deberia lanzar la excepcion de que
+	 * no hay hoteles q satisfacen con la condicion
+	 * @throws ExcepcionNoHayPrecioEstablecidoParaTalFecha
+	 * @throws ExcepcionNoHayHotelesParaEsaCiudad
+	 * @throws ExcepcionNoSeEncontroHoteles
+	 */
+	public void testBuscarHotelesExcepcion() throws ExcepcionNoHayPrecioEstablecidoParaTalFecha, ExcepcionNoHayHotelesParaEsaCiudad, ExcepcionNoSeEncontroHoteles{
+		
+		Calendar desde = Calendar.getInstance();
+		desde.set(2013, 03, 01, 0,0,0);
+		
+		Calendar hasta = Calendar.getInstance();
+		hasta.set(2013, 03, 07, 0,0,0);
+		
+		when(hotel1.tieneHabitacionesCon(desde, hasta, 2)).thenReturn(false);	
+		when(hotel2.tieneHabitacionesCon(desde, hasta, 2)).thenReturn(false);
+		when(hotel1.getCiudad()).thenReturn("quilmes");	
+		when(hotel2.getCiudad()).thenReturn("quilmes");
+		
+		try{
+			sistema.buscarHoteles("quilmes", desde, hasta, 2);
+			fail();
+		}catch(ExcepcionNoSeEncontroHoteles e){
+			
+		}
+	}
+	
+	/**
+	 * Se testea el caso en que hay algun hotel con la ciudad pedida
+	 * @throws ExcepcionNoHayHotelesParaEsaCiudad
+	 */
+	public void testHotelesDeConCiudad() throws ExcepcionNoHayHotelesParaEsaCiudad{
 		
 		Hotel hotel3 = mock(Hotel.class);
 		
@@ -180,6 +214,25 @@ public class SistemaDeBusquedaTest extends TestCase {
 		Assert.assertEquals(hoteles.size(), 2);
 		Assert.assertTrue(h1 == hotel1);
 		Assert.assertTrue(h2 == hotel3);
+	}
+	
+	public void testHotelesDeConCiudadNoEncontrada() throws ExcepcionNoHayHotelesParaEsaCiudad{
+		
+		Hotel hotel3 = mock(Hotel.class);
+		
+		sistema.getHoteles().add(hotel3);
+		
+		when(hotel1.getCiudad()).thenReturn("quilmes");	
+		when(hotel2.getCiudad()).thenReturn("la plata");
+		when(hotel3.getCiudad()).thenReturn("quilmes");	
+		
+		try{
+			sistema.hotelesDe("bernal");
+			fail();
+		}catch(ExcepcionNoHayHotelesParaEsaCiudad e){
+			
+		}
+	
 	}
 	
 	public void testBuscarHotel() throws ExcepcionHotelNoEncontrado{

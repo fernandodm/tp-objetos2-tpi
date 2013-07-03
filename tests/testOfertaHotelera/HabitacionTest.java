@@ -1,6 +1,6 @@
 package testOfertaHotelera;
 
-import static org.mockito.Matchers.any;
+
 import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
@@ -10,11 +10,8 @@ import java.util.List;
 import descuentos.Descuento;
 import descuentos.DescuentoPorCantidadDeNoches;
 import descuentos.DescuentoPorFecha;
-import descuentos.DescuentoPorRangoDeFechas;
 import excepciones.ExcepcionNoHayPrecioEstablecidoParaTalFecha;
 
-import ofertaHotelera.Auxiliar;
-import ofertaHotelera.GeneradorDeCalendar;
 import ofertaHotelera.Habitacion;
 import ofertaHotelera.Hotel;
 import ofertaHotelera.Periodo;
@@ -23,7 +20,6 @@ import ofertaHotelera.PorPrecioPorEstadia;
 import ofertaHotelera.PorPrecioPorNoche;
 import ofertaHotelera.Preferencia;
 import ofertaHotelera.PreferenciaPorLugar;
-import ofertaHotelera.Reserva;
 import ofertaHotelera.Usuario;
 
 import junit.framework.Assert;

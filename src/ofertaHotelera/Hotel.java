@@ -5,7 +5,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import excepciones.ExcepcionNoHayPrecioEstablecidoParaTalFecha;
-import excepciones.ExcepcionTodaviaNoSeHospedoEnEsteHotel;
+
 
 public class Hotel {
 	private String nombre;
