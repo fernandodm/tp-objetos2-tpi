@@ -92,6 +92,7 @@ public class Hotelero {
 		else{
 			hab.getPreciosPorFecha().add(periodo);
 		}
+		//hab.getHotel().getSistemaEnElQueEstaCargado().actualizarOfertaDelHotel(hab.getHotel());
 	}
 	
 	/**
@@ -115,8 +116,8 @@ public class Hotelero {
 	 * @param valorInicial
 	 * @param sistem
 	 */
-	public void subastarHabitacion(Subasta subasta, SistemaDeBusqueda sistema){
-		sistema.agregarSubasta(subasta);		
+	public void subastarHabitacion(Habitacion hab, float valorInicial, Calendar desde, Calendar hasta, SistemaDeBusqueda sistema){
+		sistema.agregarSubasta(hab,valorInicial,desde,hasta);
 	}
 	
 }

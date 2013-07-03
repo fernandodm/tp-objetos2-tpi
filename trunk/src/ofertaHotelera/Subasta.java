@@ -70,7 +70,7 @@ public class Subasta {
 	 * @throws 
 	 */
 
-	public Subasta(Habitacion h, int valorInicial, Calendar ini, Calendar fin){
+	public Subasta(Habitacion h, float valorInicial, Calendar ini, Calendar fin){
 		
 		setHabitacion(h);
 		setValor(valorInicial);

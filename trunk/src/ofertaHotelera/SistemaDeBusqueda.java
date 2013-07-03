@@ -270,7 +270,8 @@ public class SistemaDeBusqueda extends Observable{
 		return hoteles;
 	}
 
-	public void agregarSubasta(Subasta sub){
+	public void agregarSubasta(Habitacion hab, float valorInicial, Calendar desde, Calendar hasta){
+		Subasta sub = new Subasta(hab,valorInicial,desde,hasta);
 		getSubastas().add(sub);
 	}
 
