@@ -70,6 +70,12 @@ public class Periodo {
 		return p;
 	}
 
+	/**
+	 * Retorna true si las fecha q se paso como parametro esta entre el periodo
+	 * @param desde2
+	 * @param hasta2
+	 * @return
+	 */
 	public boolean estaEntre(Calendar desde2, Calendar hasta2) {
 
 		return (desde2.after(getDesde()) && desde2.before(getHasta())) || 
@@ -77,15 +83,17 @@ public class Periodo {
 			|| seSuperPone(desde2,hasta2);
 	}
 
+	/**
+	 * Retorna true si una de las fechas de parametro se superpone
+	 * con alguna del periodo
+	 * @param desde2
+	 * @param hasta2
+	 * @return
+	 */
 	public boolean seSuperPone(Calendar desde2, Calendar hasta2) {
 		
-		String fechaInicio = "" + desde2.get(desde2.YEAR) + desde2.get(desde2.MONTH) + desde2.get(desde2.DATE);
-		String fechaFin = "" + hasta2.get(hasta2.YEAR) + hasta2.get(hasta2.MONTH) + hasta2.get(hasta2.DATE);
-		String fechaPeriodoDesde = "" + getDesde().get(getDesde().YEAR) + getDesde().get(getDesde().MONTH) + getDesde().get(desde2.DATE);
-		String fechaPeriodoHasta = "" + getHasta().get(getHasta().YEAR) + getHasta().get(getHasta().MONTH) + getHasta().get(getHasta().DATE);
-		
-		return fechaInicio.equals(fechaPeriodoDesde) || fechaInicio.equals(fechaPeriodoHasta)
-			|| fechaFin.equals(fechaPeriodoDesde) || fechaFin.equals(fechaPeriodoHasta);
+		return desde2.equals(getDesde()) || desde2.equals(getHasta())
+			|| hasta2.equals(getDesde()) || hasta2.equals(getHasta());
 	}
 
 	/**
