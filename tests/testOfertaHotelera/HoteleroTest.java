@@ -25,8 +25,10 @@ public class HoteleroTest extends TestCase {
 	private List<Hotel> hoteles= new ArrayList<Hotel>();
 	private List<PeriodoConPrecio> periodos= new ArrayList<PeriodoConPrecio>();
 	private PeriodoConPrecio per;
+	private SistemaDeBusqueda sistema;
 	
 	public void setUp(){
+		sistema = mock(SistemaDeBusqueda.class);
 		hotel = mock(Hotel.class);
 		hoteles.add(hotel);
 		hotelero = new Hotelero("Steve", hoteles, "loquillo@gmail.com");
@@ -34,7 +36,8 @@ public class HoteleroTest extends TestCase {
 		habitacion2 = mock(Habitacion.class);
 		per= mock(PeriodoConPrecio.class); 
 		when(habitacion1.getPreciosPorFecha()).thenReturn(periodos);
-		
+		when(habitacion1.getHotel()).thenReturn(hotel);
+		when(hotel.getSistemaEnElQueEstaCargado()).thenReturn(sistema);		
 	}
 	
 	/**
@@ -114,10 +117,22 @@ public class HoteleroTest extends TestCase {
 		when(per.algunDiaCoincide(periodos)).thenReturn(true);
 		try{
 			hotelero.ponerPrecioHabRangoDias(per, habitacion1);	
-			fail("NO SE LANZO LA EXCEPCION DE DIASYASETTEADOS");
+			fail("NO SE LANZO LA EXCEPCION DE 1OMASDIASYATENIANPRECIOSETTEADO");
 		}catch(Excepcion1OMasDiasYaTenianPrecioSetteado e){
 				
 		}
+	}
+	
+	/**
+	 * Testeo el método sacarPrecioHabRangoDias
+	 * @throws Excepcion1OMasDiasYaTenianPrecioSetteado 
+	 */
+	public void testSacarPrecioHabRangoDias() throws Excepcion1OMasDiasYaTenianPrecioSetteado{
+		periodos.add(per);
+		hotelero.sacarPrecioHabRangoDias(per, habitacion1);
+		
+		verify(sistema).actualizarOfertaDelHotel(habitacion1.getHotel());
+		Assert.assertFalse(periodos.contains(per));
 	}
 	
 	/**
