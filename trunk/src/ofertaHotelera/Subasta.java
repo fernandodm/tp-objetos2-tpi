@@ -76,7 +76,11 @@ public class Subasta {
 		setValor(valorInicial);
 		setInicioSubasta(ini);
 		setFinSubasta(fin);
-		if(ini.after(Calendar.getInstance())){
+		
+		Calendar fechaActual = Calendar.getInstance();
+		fechaActual.clear(Calendar.MILLISECOND);
+		
+		if(ini.after(fechaActual)){
 			setEstado(new SubastaFutura());
 		} else {
 			setEstado(new EnCurso());
@@ -104,8 +108,13 @@ public class Subasta {
 	 */
 	
 	public boolean terminoLaSubasta(){
+		
 		boolean termino = false;
-		if(Calendar.getInstance().after(getFinSubasta())){
+		
+		Calendar fechaActual = Calendar.getInstance();
+		fechaActual.clear(Calendar.MILLISECOND);
+		
+		if(fechaActual.after(getFinSubasta())){
 			setEstado(new Finalizada());
 			termino = true;
 		}
