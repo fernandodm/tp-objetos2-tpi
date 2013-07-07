@@ -1,8 +1,9 @@
 package descuentos;
 
+import hotel.Periodo;
+
 import java.util.*;
 
-import ofertaHotelera.Periodo;
 
 public class DescuentoPorRangoDeFechas extends Descuento {
 
