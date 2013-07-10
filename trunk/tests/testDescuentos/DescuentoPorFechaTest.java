@@ -12,6 +12,8 @@ public class DescuentoPorFechaTest extends TestCase {
 	public void testDescuento(){
 		
 		Calendar fechaLimite = Calendar.getInstance();
+		fechaLimite.set(2013,06,10,0,0,0);
+		fechaLimite.clear(Calendar.MILLISECOND);
 		
 		DescuentoPorFecha descuento = new DescuentoPorFecha(fechaLimite, 10);
 		
