@@ -20,8 +20,12 @@ public class DescuentoPorRangoDeFechasTest extends TestCase {
 		Periodo rango = mock(Periodo.class);
 		
 		Calendar desde = Calendar.getInstance();
-		Calendar hasta = Calendar.getInstance();;
-		hasta.set(2013, 06, 30);
+		desde.set(2013,06,10);
+		desde.clear(Calendar.MILLISECOND);
+		
+		Calendar hasta = Calendar.getInstance();
+		hasta.set(2013,06,30,0,0,0);
+		hasta.clear(Calendar.MILLISECOND);
 		
 		when(rango.getDesde()).thenReturn(desde);
 		when(rango.getHasta()).thenReturn(hasta);
